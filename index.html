@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qiskit Fall Fest 2026 at MPSTME, Mumbai</title>
+<meta name="description" content="Qiskit Fall Fest 2026 comes to MPSTME, Mumbai, from 23 to 25 October. Keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon. Free, and open to students across India.">
+<meta name="theme-color" content="#0A1024">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Qiskit Fall Fest 2026 at MPSTME, Mumbai">
+<meta property="og:description" content="Qiskit Fall Fest 2026 comes to MPSTME, Mumbai, from 23 to 25 October. Keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon. Free, and open to students across India.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/logo-csi.png">
+<link rel="apple-touch-icon" href="assets/logo-csi.png">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   Qiskit Fall Fest 2026 — MPSTME
+   Flat colour blocks: navy, white, blue. No gradients.
+   ============================================================ */
+:root{
+  --navy:#0A1024;
+  --navy-2:#121A34;
+  --navy-3:#1A2447;
+  --navy-line:#212B4C;
+
+  --blue:#2558EE;
+  --blue-lite:#8AABFF;
+  --blue-deep:#1943C4;
+
+  --pink:#F9459B;
+  --pink-lite:#FF74B8;
+  --pink-deep:#E31C87;
+
+  --white:#FFFFFF;
+  --paper:#F3F6FD;
+
+  --pink:#F0A0C4;
+  --purple:#8A6BD1;
+
+  --display:'Archivo','IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;
+
+  --r-xl:34px;
+  --r-lg:26px;
+  --r-md:18px;
+  --pill:999px;
+}
+
+/* --- surface themes: every block sets its own local palette --- */
+.on-navy{
+  --surface:var(--navy); --on:#EFF2FA; --muted:#A4ADC8; --faint:#6D7799;
+  --card:var(--navy-2); --card-hover:var(--navy-3); --border:var(--navy-line);
+  --accent:var(--pink-lite); --chip-bg:rgba(255,116,184,.18); --chip-fg:var(--pink-lite);
+}
+.on-white{
+  --surface:var(--white); --on:#0A1024; --muted:#57608099; --muted:#576080; --faint:#8B94B2;
+  --card:var(--paper); --card-hover:#EAF0FC; --border:#E2E8F6;
+  --accent:var(--pink-deep); --chip-bg:#FDE3EF; --chip-fg:var(--pink-deep);
+}
+.on-pink{
+  --surface:var(--pink); --on:#0A1024; --muted:rgba(10,16,36,.78); --faint:rgba(10,16,36,.6);
+  --card:rgba(255,255,255,.22); --card-hover:rgba(255,255,255,.34); --border:rgba(10,16,36,.22);
+  --accent:#0A1024; --chip-bg:rgba(10,16,36,.14); --chip-fg:#0A1024;
+}
+.on-blue{
+  --surface:var(--blue); --on:#FFFFFF; --muted:rgba(255,255,255,.86); --faint:rgba(255,255,255,.7);
+  --card:rgba(255,255,255,.11); --card-hover:rgba(255,255,255,.17); --border:rgba(255,255,255,.28);
+  --accent:#FFFFFF; --chip-bg:rgba(255,255,255,.2); --chip-fg:#FFFFFF;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--navy);color:#EFF2FA;
+  font-family:'IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--accent,#8AABFF);outline-offset:3px;border-radius:6px;}
+section{scroll-margin-top:96px;}
+h1,h2,h3,h4{margin:0;text-wrap:balance;}
+h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.04em;}
+h3,h4{letter-spacing:-.02em;}
+p{margin:0;}
+ul{margin:0;padding:0;list-style:none;}
+img{max-width:100%;display:block;}
+
+.label{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+}
+.shell{max-width:1220px;margin:0 auto;padding:0 24px;width:100%;}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;border-radius:var(--pill);
+  border:1px solid transparent;font-size:15px;font-weight:600;letter-spacing:-.005em;
+  padding:15px 30px;cursor:pointer;
+  transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease;
+}
+.btn-primary{background:var(--pink);color:#0A1024;}
+.btn-primary:hover{background:var(--pink-lite);transform:translateY(-2px);}
+.on-blue .btn-primary,.on-pink .btn-primary{background:var(--navy);color:#fff;}
+.on-blue .btn-primary:hover,.on-pink .btn-primary:hover{background:#fff;color:var(--navy);}
+.btn-ghost{background:transparent;color:var(--on);border-color:var(--border);}
+.btn-ghost:hover{border-color:var(--accent);transform:translateY(-2px);}
+.btn-quiet{
+  display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:500;
+  color:var(--muted);padding:15px 6px;transition:color .3s,gap .3s;
+}
+.btn-quiet:hover{color:var(--accent);gap:14px;}
+
+/* ---------- progress + nav ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--pink);z-index:120;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background .4s ease,border-color .4s ease;}
+.nav.stuck{background:rgba(10,16,36,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--navy-line);}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0;}
+.brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16.5px;white-space:nowrap;color:#EFF2FA;}
+.brand img{width:34px;height:34px;border-radius:50%;flex:none;display:block;}
+.brand .sep{color:var(--pink-lite);font-weight:500;}
+.nav-links{display:flex;align-items:center;gap:30px;}
+.nav-links a{font-size:15px;font-weight:450;color:#A4ADC8;transition:color .25s;}
+.nav-links a:hover{color:#fff;}
+.nav .btn{padding:12px 24px;font-size:14.5px;}
+.menu-btn{display:none;background:transparent;border:1px solid var(--navy-line);border-radius:var(--pill);color:#EFF2FA;font:inherit;font-size:14.5px;font-weight:500;padding:11px 22px;cursor:pointer;transition:border-color .3s;}
+.menu-btn:hover{border-color:var(--pink-lite);}
+.menu{display:none;overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.3,.8,.3,1);}
+.menu-in{padding:6px 0 22px;display:flex;flex-direction:column;gap:2px;}
+.menu-in a{padding:14px 18px;border-radius:var(--r-md);font-size:16px;color:#A4ADC8;transition:background .25s,color .25s;}
+.menu-in a:hover{background:var(--navy-2);color:#fff;}
+.menu-in .btn{margin-top:10px;justify-content:center;}
+@media (max-width:920px){
+  .nav-links{display:none;}
+  .menu-btn{display:inline-block;}
+  .menu{display:block;}
+  .menu.open{max-height:420px;}
+}
+
+/* ---------- birds ---------- */
+.bird{position:absolute;pointer-events:none;z-index:1;}
+.bird img{width:100%;height:auto;}
+.bird-a{width:290px;top:78px;right:15%;animation:driftA 21s ease-in-out infinite;}
+.bird-c{width:240px;top:52px;right:3%;animation:driftB 24s ease-in-out infinite;}
+@keyframes driftA{0%,100%{transform:translate(0,0) rotate(-2deg);}50%{transform:translate(22px,-14px) rotate(2deg);}}
+@keyframes driftB{0%,100%{transform:translate(0,0) rotate(2deg);}50%{transform:translate(-18px,16px) rotate(-2deg);}}
+@media (max-width:1100px){.bird-a,.bird-c{display:none;}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding:172px 0 100px;background:var(--surface);color:var(--on);}
+.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;}
+.hero h1{font-size:clamp(50px,8.8vw,122px);line-height:.9;margin-bottom:32px;max-width:12ch;}
+.hero h1 .accent{color:var(--accent);}
+.hero-lede{font-size:18px;line-height:1.68;color:var(--muted);max-width:52ch;margin-bottom:36px;}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+
+.facts{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:76px;}
+.fact{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;}
+.fact b{display:block;font-family:var(--display);font-size:23px;font-weight:700;margin-bottom:6px;letter-spacing:-.025em;}
+.fact span{display:block;font-size:15px;color:var(--muted);}
+
+/* ---------- badge ---------- */
+.badge{width:100%;max-width:380px;justify-self:end;animation:float 9s ease-in-out infinite;}
+.badge svg{width:100%;height:auto;display:block;}
+@keyframes float{0%,100%{transform:translateY(-9px);}50%{transform:translateY(9px);}}
+.orbit-a{transform-origin:300px 300px;animation:spin 34s linear infinite;}
+.orbit-b{transform-origin:300px 300px;animation:spin-back 48s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes spin-back{to{transform:rotate(-360deg);}}
+@media (prefers-reduced-motion:reduce){
+  .badge,.orbit-a,.orbit-b,.bird{animation:none;}
+  html{scroll-behavior:auto;}
+}
+@media (max-width:960px){
+  .hero{padding:132px 0 76px;}
+  .hero-in{grid-template-columns:1fr;gap:40px;}
+  .badge{justify-self:start;max-width:230px;order:-1;}
+  .facts{grid-template-columns:1fr;margin-top:52px;}
+}
+
+/* ---------- sections ---------- */
+.sec{padding:112px 0;position:relative;background:var(--surface);color:var(--on);overflow:hidden;}
+.sec-head{margin-bottom:56px;max-width:74ch;position:relative;z-index:2;}
+.sec-head .label{display:block;margin-bottom:18px;}
+.sec-head h2{font-size:clamp(40px,7.2vw,98px);line-height:.9;max-width:13ch;}
+.sec-head h2 .accent{color:var(--accent);}
+.on-white .sec-head h2 .accent{color:var(--pink-deep);}
+.sec-head p{margin-top:24px;font-size:17px;color:var(--muted);line-height:1.7;max-width:52ch;}
+
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .85s cubic-bezier(.22,.7,.25,1) var(--d,0s),
+             transform .85s cubic-bezier(.22,.7,.25,1) var(--d,0s);
+}
+.reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start;position:relative;z-index:2;}
+.about p + p{margin-top:20px;}
+.about p{font-size:17px;line-height:1.75;color:var(--muted);}
+.about p strong{color:var(--on);font-weight:600;}
+.card-note{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 34px 12px;}
+.card-note h3{font-size:20px;font-weight:600;margin-bottom:6px;}
+.card-note li{padding:20px 0;border-bottom:1px solid var(--border);font-size:15.5px;line-height:1.66;color:var(--muted);}
+.card-note li:last-child{border-bottom:none;}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px;position:relative;z-index:2;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:30px 26px;transition:transform .4s ease,border-color .4s ease;}
+.stat:hover{transform:translateY(-4px);border-color:var(--accent);}
+.stat b{display:block;font-family:var(--display);font-size:clamp(52px,5vw,68px);font-weight:800;line-height:.9;letter-spacing:-.05em;margin-bottom:14px;font-variant-numeric:tabular-nums;color:var(--accent);}
+.on-white .stat b{color:var(--pink-deep);}
+.stat span{font-size:15px;color:var(--muted);}
+
+/* ---------- program ---------- */
+.switch{display:inline-flex;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:var(--pill);padding:6px;margin-bottom:34px;}
+.switch button{border:none;background:transparent;cursor:pointer;color:var(--muted);font:inherit;font-size:15px;font-weight:500;padding:11px 26px;border-radius:var(--pill);transition:background .3s,color .3s;}
+.switch button[aria-selected="true"]{background:var(--pink);color:#0A1024;}
+.on-blue .switch button[aria-selected="true"],.on-pink .switch button[aria-selected="true"]{background:var(--navy);color:#fff;}
+.switch button:hover:not([aria-selected="true"]){color:var(--on);}
+.day[hidden]{display:none;}
+.day-intro{font-size:18px;color:var(--muted);margin-bottom:30px;max-width:56ch;line-height:1.7;}
+.sessions{display:flex;flex-direction:column;gap:14px;}
+.session{
+  display:grid;grid-template-columns:112px 1fr auto;gap:26px;align-items:center;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 30px;
+  transition:transform .35s ease,border-color .35s ease,background .35s ease;
+}
+.session:hover{transform:translateX(6px);border-color:var(--accent);background:var(--card-hover);}
+.session .time{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--accent);font-variant-numeric:tabular-nums;}
+.on-white .session .time{color:var(--pink-deep);}
+.session h4{font-size:18px;font-weight:600;margin-bottom:5px;}
+.session p{font-size:15px;color:var(--muted);line-height:1.6;}
+.tag{font-size:12.5px;font-weight:500;color:var(--chip-fg);white-space:nowrap;background:var(--chip-bg);border-radius:var(--pill);padding:7px 16px;}
+
+/* ---------- tracks ---------- */
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;}
+.track{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 32px 36px;display:flex;flex-direction:column;transition:transform .4s ease,border-color .4s ease,background .4s ease;}
+.track:hover{transform:translateY(-6px);border-color:var(--accent);background:var(--card-hover);}
+.track .pill{align-self:flex-start;font-size:12.5px;font-weight:500;color:var(--chip-fg);background:var(--chip-bg);border-radius:var(--pill);padding:7px 16px;margin-bottom:26px;}
+.track h3{font-family:var(--display);font-weight:700;font-size:31px;line-height:1;letter-spacing:-.03em;margin-bottom:16px;}
+.track p{font-size:15.5px;line-height:1.68;color:var(--muted);margin-bottom:26px;}
+.track .meta{margin-top:auto;display:flex;justify-content:space-between;gap:14px;border-top:1px solid var(--border);padding-top:20px;font-size:14px;color:var(--faint);}
+
+/* ---------- speakers ---------- */
+.speakers{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;z-index:2;}
+.spk{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:30px 26px 32px;text-align:center;transition:transform .4s ease,border-color .4s ease;}
+.spk:hover{transform:translateY(-6px);border-color:var(--accent);}
+.spk .avatar{width:100px;height:100px;border-radius:50%;margin:0 auto 20px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.on-white .spk .avatar{background:#fff;}
+.spk .avatar img{width:76%;height:auto;}
+.spk h4{font-size:17px;font-weight:600;margin-bottom:6px;color:var(--on);}
+.spk span{font-size:14px;color:var(--faint);}
+
+/* ---------- venue ---------- */
+.venue-top{margin-bottom:38px;position:relative;z-index:2;}
+.venue-top p{font-size:17.5px;color:var(--muted);line-height:1.72;margin-bottom:30px;max-width:60ch;}
+.map{
+  position:relative;display:block;z-index:2;height:clamp(300px,44vh,440px);
+  border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border);background:var(--card);
+}
+.map img{width:100%;height:100%;object-fit:cover;display:block;}
+.map-card{
+  position:absolute;left:18px;top:18px;max-width:min(330px,64%);
+  background:#fff;color:#0A1024;border-radius:var(--r-md);padding:16px 18px;
+  box-shadow:0 14px 34px -16px rgba(0,0,0,.55);
+}
+.map-card b{display:block;font-size:14.5px;font-weight:600;line-height:1.3;margin-bottom:6px;}
+.map-card span{display:block;font-size:13px;line-height:1.5;color:#5B6480;}
+.map-open{
+  position:absolute;left:18px;bottom:18px;
+  background:#fff;color:#0A1024;border-radius:var(--pill);padding:12px 22px;
+  font-size:14px;font-weight:600;box-shadow:0 14px 34px -16px rgba(0,0,0,.55);
+  transition:background .3s ease,color .3s ease,transform .3s ease;
+}
+.map:hover .map-open{background:var(--pink);transform:translateY(-2px);}
+.map-credit{
+  position:absolute;right:12px;bottom:12px;font-size:11px;color:#4C5468;
+  background:rgba(255,255,255,.88);padding:4px 10px;border-radius:var(--pill);
+}
+@media (max-width:560px){
+  .map-card{max-width:none;left:12px;right:12px;top:12px;padding:13px 15px;}
+  .map-open{left:12px;bottom:12px;padding:11px 18px;font-size:13.5px;}
+}
+
+/* ---------- closing ---------- */
+.closing{position:relative;overflow:hidden;background:var(--surface);color:var(--on);padding:118px 0 126px;}
+.closing-in{position:relative;z-index:2;max-width:700px;}
+.closing .label{color:var(--accent);opacity:.75;display:block;margin-bottom:22px;}
+.closing h2{font-size:clamp(44px,8vw,112px);line-height:.88;margin-bottom:30px;}
+.closing p{font-size:18px;color:var(--muted);margin-bottom:38px;max-width:46ch;line-height:1.66;}
+.closing-bird{position:absolute;right:3%;bottom:0;width:min(36vw,420px);z-index:1;pointer-events:none;}
+@media (max-width:960px){
+  .closing{padding:84px 0 94px;}
+  .closing-bird{width:58vw;right:-10%;opacity:.55;}
+}
+
+/* ---------- footer ---------- */
+.foot{background:var(--navy);color:#EFF2FA;padding:66px 0 48px;}
+.built{display:flex;align-items:flex-end;justify-content:space-between;gap:36px;flex-wrap:wrap;padding-bottom:44px;margin-bottom:38px;border-bottom:1px solid var(--navy-line);}
+.built h3{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.6vw,62px);line-height:.94;letter-spacing:-.035em;margin-bottom:12px;}
+.built h3 .accent{color:var(--pink-lite);}
+.built .place{font-size:15.5px;color:#A4ADC8;}
+.built-links{display:flex;flex-wrap:wrap;gap:12px 28px;font-size:15px;}
+.built-links a{color:#A4ADC8;transition:color .25s;}
+.built-links a:hover{color:#fff;}
+.foot-cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px;}
+.foot-cols h4{font-size:17px;font-weight:600;margin-bottom:12px;}
+.foot-cols p{font-size:14.5px;color:#A4ADC8;line-height:1.72;max-width:36ch;}
+.foot-cols .col span{display:block;font-size:13px;color:#6D7799;margin-bottom:14px;text-transform:uppercase;letter-spacing:.1em;font-family:'IBM Plex Mono',monospace;}
+.foot-cols .col a{display:block;font-size:14.5px;color:#A4ADC8;padding:5px 0;transition:color .25s;}
+.foot-cols .col a:hover{color:#fff;}
+.legal{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;border-top:1px solid var(--navy-line);padding-top:26px;font-size:13.5px;color:#6D7799;}
+
+@media (max-width:960px){
+  .sec{padding:82px 0;}
+  .about{grid-template-columns:1fr;gap:32px;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .tracks,.speakers{grid-template-columns:1fr;}
+  .foot-cols{grid-template-columns:1fr 1fr;}
+  .session{grid-template-columns:1fr;gap:10px;padding:22px 24px;}
+  .session:hover{transform:none;}
+  .tag{justify-self:start;}
+}
+@media (max-width:560px){
+  .stats,.foot-cols{grid-template-columns:1fr;}
+  .switch{width:100%;}
+  .switch button{flex:1;padding:11px 10px;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="shell">
+    <div class="nav-in">
+      <a class="brand" href="#top">
+        <img src="assets/logo-csi.png" alt="CSI MPSTME" width="34" height="34">
+        Qiskit Fall Fest <span class="sep">×</span> MPSTME
+      </a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#program">Program</a>
+        <a href="#tracks">Tracks</a>
+        <a href="#venue">Location</a>
+      </nav>
+      <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+    <div class="menu" id="menu">
+      <div class="menu-in">
+        <a href="#about">About</a>
+        <a href="#program">Program</a>
+        <a href="#tracks">Tracks</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#venue">Location</a>
+        <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO — navy -->
+<section class="hero on-navy">
+  <div class="bird bird-a" aria-hidden="true"><img src="assets/bird-pink.png" alt=""></div>
+
+  <div class="shell">
+    <div class="hero-in">
+      <div>
+        <h1>Everything is possible <span class="accent">until you measure it.</span></h1>
+        <p class="hero-lede">Qiskit Fall Fest is coming to MPSTME for three days of keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon for beginners and experts. It is hosted by the Department of Information Technology together with CSI.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register now</a>
+          <a class="btn-quiet" href="#program">Explore the program <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 600 600" fill="none">
+          <defs>
+            <path id="arcTop" d="M300,300 m-232,0 a232,232 0 0,1 464,0"/>
+            <path id="arcBot" d="M300,300 m232,0 a232,232 0 0,1 -464,0"/>
+          </defs>
+          <circle cx="300" cy="300" r="285" fill="#F9459B"/>
+          <text fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="58" font-weight="600" letter-spacing="9">
+            <textPath href="#arcTop" startOffset="50%" text-anchor="middle">QISKIT</textPath>
+          </text>
+          <text fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="58" font-weight="600" letter-spacing="9">
+            <textPath href="#arcBot" startOffset="50%" text-anchor="middle">FALL FEST</textPath>
+          </text>
+          <text x="64" y="316" fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="36" font-weight="500" text-anchor="middle">2026</text>
+          <text x="536" y="316" fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="36" font-weight="500" text-anchor="middle">2026</text>
+          <g stroke="#0A1024" stroke-width="2.6" fill="none" stroke-linecap="round">
+            <circle cx="300" cy="300" r="118"/>
+            <ellipse cx="300" cy="300" rx="118" ry="34" opacity=".9"/>
+            <ellipse cx="300" cy="300" rx="102" ry="88" opacity=".5"/>
+            <g class="orbit-a" opacity=".85"><ellipse cx="300" cy="300" rx="118" ry="40"/></g>
+            <g class="orbit-b" opacity=".55"><ellipse cx="300" cy="300" rx="118" ry="40" transform="rotate(62 300 300)"/></g>
+            <line x1="238" y1="354" x2="362" y2="246"/>
+          </g>
+          <circle cx="238" cy="354" r="10" fill="#0A1024"/>
+          <circle cx="362" cy="246" r="10" fill="#0A1024"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div class="fact reveal"><b>23 – 25 October 2026</b><span>Friday to Sunday</span></div>
+      <div class="fact reveal" style="--d:.1s"><b>MPSTME, Mumbai</b><span>Vile Parle West</span></div>
+      <div class="fact reveal" style="--d:.2s"><b>Free to attend</b><span>Hybrid, open to students across India</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT — white -->
+<section class="sec on-white" id="about">
+  <div class="bird bird-c" aria-hidden="true"><img src="assets/bird-blue.png" alt=""></div>
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">About the event</span>
+      <h2>For three days in October, a lecture hall in Mumbai <span class="accent">becomes a quantum lab.</span></h2>
+    </div>
+    <div class="about">
+      <div class="reveal" style="--d:.1s">
+        <p>Qiskit Fall Fest is IBM Quantum's global season of student-run events, hosted each year by universities around the world. <strong>MPSTME is one of this year's hosts.</strong></p>
+        <p>Our edition is written for two people at the same time. The first has never opened Qiskit and is not sure quantum computing is for them. The second already has a circuit they want to push further. The keynotes and beginner tracks bring everybody to the same footing, while the hackathon runs across all three days.</p>
+        <p>You do not need any prior quantum coursework to take part. Bring a laptop and your curiosity, and we will supply the rest, including access to real IBM Quantum hardware over the cloud.</p>
+      </div>
+      <aside class="card-note reveal" style="--d:.2s">
+        <h3>Who this is for</h3>
+        <ul>
+          <li>Undergraduate and postgraduate students across computer science, information technology, electronics, physics and mathematics.</li>
+          <li>Students from any college in India are welcome to register and attend.</li>
+          <li>Hackathon teams are two to four people. If you register alone, we will help you find a team when the hackathon opens.</li>
+          <li>The hackathon is hybrid, so you can take part on campus at MPSTME or remotely from anywhere in India.</li>
+          <li>Every participant receives a certificate, and the top three teams in each bracket receive prizes.</li>
+        </ul>
+      </aside>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><b>3</b><span>Days of keynotes, tracks and hacking</span></div>
+      <div class="stat reveal" style="--d:.08s"><b>3</b><span>Tracks to choose from</span></div>
+      <div class="stat reveal" style="--d:.16s"><b>2–4</b><span>People per hackathon team</span></div>
+      <div class="stat reveal" style="--d:.24s"><b>0</b><span>Prerequisites to join</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM — navy -->
+<section class="sec on-navy" id="program">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">The program</span>
+      <h2>Three days, <span class="accent">planned end to end.</span></h2>
+      <p>The schedule below is provisional. Confirmed speakers and room numbers will be published in September.</p>
+    </div>
+    <div class="reveal" style="--d:.1s">
+      <div class="switch" role="tablist" aria-label="Program days">
+        <button role="tab" id="tab1" aria-controls="day1" aria-selected="true" type="button">Fri 23 Oct</button>
+        <button role="tab" id="tab2" aria-controls="day2" aria-selected="false" type="button">Sat 24 Oct</button>
+        <button role="tab" id="tab3" aria-controls="day3" aria-selected="false" type="button">Sun 25 Oct</button>
+      </div>
+
+      <div class="day" id="day1" role="tabpanel" aria-labelledby="tab1">
+        <p class="day-intro">The hybrid hackathon opens. Teams form, the problem statements go out, and building begins both on campus and online.</p>
+        <div class="sessions">
+          <article class="session"><span class="time">16:00</span><div><h4>Registration and setup</h4><p>We check that Python, Qiskit and your IBM Quantum account are working before anything else begins.</p></div><span class="tag">Help desk</span></article>
+          <article class="session"><span class="time">18:00</span><div><h4>Hackathon briefing</h4><p>We announce the problem statements, the brackets and the judging criteria.</p></div><span class="tag">Briefing</span></article>
+          <article class="session"><span class="time">19:00</span><div><h4>Team formation</h4><p>Teams of two to four lock in. Register alone and we will place you in one.</p></div><span class="tag">Teams</span></article>
+          <article class="session"><span class="time">20:00</span><div><h4>Building begins</h4><p>The hackathon runs continuously from here, on campus and remotely.</p></div><span class="tag">Hacking</span></article>
+        </div>
+      </div>
+
+      <div class="day" id="day2" role="tabpanel" aria-labelledby="tab2" hidden>
+        <p class="day-intro">The main day. Keynote addresses in the morning, beginner tracks led by Qiskit Advocates in the afternoon, and the hackathon running alongside.</p>
+        <div class="sessions">
+          <article class="session"><span class="time">10:00</span><div><h4>Keynote addresses</h4><p>Scientists and industry experts on where quantum computing actually stands in 2026.</p></div><span class="tag">Keynote</span></article>
+          <article class="session"><span class="time">12:00</span><div><h4>Beginner track I — quantum fundamentals</h4><p>Superposition, measurement and your first circuit, led by Qiskit Advocates.</p></div><span class="tag">Beginner</span></article>
+          <article class="session"><span class="time">14:30</span><div><h4>Beginner track II — Qiskit fundamentals</h4><p>Build, transpile and run a circuit on real IBM Quantum hardware.</p></div><span class="tag">Beginner</span></article>
+          <article class="session"><span class="time">17:00</span><div><h4>Mentor hours</h4><p>Faculty, Qiskit Advocates and student mentors move between teams to unblock problems.</p></div><span class="tag">Mentoring</span></article>
+        </div>
+      </div>
+
+      <div class="day" id="day3" role="tabpanel" aria-labelledby="tab3" hidden>
+        <p class="day-intro">The hackathon closes. Teams submit, demonstrate what they built, and the winners are announced.</p>
+        <div class="sessions">
+          <article class="session"><span class="time">11:00</span><div><h4>Final mentor round</h4><p>The last chance to narrow your scope before submissions freeze.</p></div><span class="tag">Mentoring</span></article>
+          <article class="session"><span class="time">14:00</span><div><h4>Submissions close</h4><p>Every team submits its project and a short write-up.</p></div><span class="tag">Deadline</span></article>
+          <article class="session"><span class="time">15:00</span><div><h4>Judging and demonstrations</h4><p>Each team presents in front of the panel, on campus or over the call.</p></div><span class="tag">Judging</span></article>
+          <article class="session"><span class="time">18:00</span><div><h4>Awards and closing</h4><p>We announce the winners and hand out prizes and certificates.</p></div><span class="tag">Ceremony</span></article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACKS — blue -->
+<section class="sec on-pink" id="tracks">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">Tracks</span>
+      <h2>Pick the track that fits where you are.</h2>
+    </div>
+    <div class="tracks">
+      <article class="track reveal">
+        <span class="pill">24 October</span>
+        <h3>Keynote addresses</h3>
+        <p>Scientists and industry experts explain where quantum computing stands today, what the hardware can and cannot do, and where the field is heading.</p>
+        <div class="meta"><span>On campus</span><span>Open to everyone</span></div>
+      </article>
+      <article class="track reveal" style="--d:.1s">
+        <span class="pill">24 October</span>
+        <h3>Beginner tracks</h3>
+        <p>Learn quantum and Qiskit fundamentals from a blank file, taught by Qiskit Advocates, ending with a circuit you have run on real IBM hardware.</p>
+        <div class="meta"><span>Bring a laptop</span><span>No experience needed</span></div>
+      </article>
+      <article class="track reveal" style="--d:.2s">
+        <span class="pill">23 – 25 October</span>
+        <h3>Hybrid hackathon</h3>
+        <p>Teams of two to four build a Qiskit project across three days, on campus or remotely, in separate brackets for beginners and experts.</p>
+        <div class="meta"><span>Teams of two to four</span><span>Prizes awarded</span></div>
+      </article>
+  </div>
+</section>
+
+<!-- SPEAKERS — white -->
+<section class="sec on-blue" id="speakers">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">Speakers and mentors</span>
+      <h2>The lineup is <span class="accent">being confirmed.</span></h2>
+      <p>We will publish speakers, workshop leads and the judging panel here in September, ahead of registration closing.</p>
+    </div>
+    <div class="speakers">
+      <div class="spk reveal"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Keynote</span></div>
+      <div class="spk reveal" style="--d:.08s"><div class="avatar"><img src="assets/bird-blue.png" alt=""></div><h4>To be announced</h4><span>Expert talk</span></div>
+      <div class="spk reveal" style="--d:.16s"><div class="avatar"><img src="assets/bird-falcon.png" alt=""></div><h4>To be announced</h4><span>Workshop lead</span></div>
+      <div class="spk reveal" style="--d:.24s"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Judging panel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUE — navy -->
+<section class="sec on-navy" id="venue">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">Location</span>
+      <h2>Find us at MPSTME, <span class="accent">Vile Parle West.</span></h2>
+    </div>
+
+    <div class="venue-top reveal">
+      <p>The Mukesh Patel School of Technology Management and Engineering sits on Bhakti Vedant Marg, opposite Cooper Hospital in Vile Parle West, a short walk from Vile Parle station. We will send the exact hall numbers and entry instructions to everyone who has registered, during the week before the event.</p>
+      <a class="btn btn-ghost" href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Open in maps</a>
+    </div>
+
+    <a class="map reveal" style="--d:.16s" href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener"
+       aria-label="Open MPSTME in Google Maps">
+      <img src="assets/venue-map.jpg" alt="Map of Vile Parle West, Mumbai, with MPSTME marked">
+      <span class="map-card">
+        <b>Mukesh Patel School of Technology Management and Engineering</b>
+        <span>Bhakti Vedant Marg, opposite Cooper Hospital, Vile Parle West, Mumbai 400056</span>
+      </span>
+      <span class="map-open">Open in Google Maps</span>
+      <span class="map-credit">© OpenStreetMap contributors</span>
+    </a>
+  </div>
+</section>
+
+<!-- CLOSING — blue -->
+<section class="closing on-pink" id="register">
+  <img class="closing-bird" src="assets/bird-falcon.png" alt="" aria-hidden="true">
+  <div class="shell">
+    <div class="closing-in reveal">
+      <span class="label">Your turn</span>
+      <h2>Come and write your first quantum program.</h2>
+      <p>Registration is open now and closes on 21 October 2026. Attendance is free, and you do not need any background in quantum computing to take part.</p>
+      <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register for Qiskit Fall Fest</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="built">
+      <div>
+        <h3>Built by <span class="accent">CSI at MPSTME</span></h3>
+        <span class="place">Mumbai, India · 2026</span>
+      </div>
+      <div class="built-links">
+        <a href="#top">Back to top</a>
+        <a href="https://discord.gg/E837uYskmU" target="_blank" rel="noopener">Join our Discord</a>
+        <a href="mailto:qiskitfallfest.mpstme@gmail.com">Contact CSI</a>
+        <a href="https://www.ibm.com/quantum/blog/qiskit-fall-fest-2026">Official Fall Fest page</a>
+      </div>
+    </div>
+    <div class="foot-cols">
+      <div>
+        <h4>Qiskit Fall Fest 2026 at MPSTME</h4>
+        <p>Organised by the Department of Information Technology in association with CSI@MPSTME, at SVKM's NMIMS Mukesh Patel School of Technology Management and Engineering.</p>
+      </div>
+      <div class="col"><span>Event</span><a href="#about">About</a><a href="#program">Program</a><a href="#tracks">Tracks</a><a href="#speakers">Speakers</a></div>
+      <div class="col"><span>Visit</span><a href="#venue">Location</a><a href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Directions</a><a href="#top">Code of conduct</a><a href="#top">Questions</a></div>
+      <div class="col"><span>Contact</span><a href="mailto:qiskitfallfest.mpstme@gmail.com">qiskitfallfest.mpstme@gmail.com</a><a href="tel:+919321694430">Aarush Mishra · +91 93216 94430</a><a href="tel:+919987827154">Ritesh Pandey · +91 99878 27154</a><a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener">Instagram</a><a href="https://discord.gg/E837uYskmU" target="_blank" rel="noopener">Discord</a></div>
+    </div>
+    <div class="legal">
+      <span>© 2026 CSI@MPSTME, Department of Information Technology.</span>
+      <span>Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by CSI at MPSTME.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var progress = document.getElementById('progress');
+  var nav = document.getElementById('nav');
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var max = document.documentElement.scrollHeight - innerHeight;
+      progress.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+      nav.classList.toggle('stuck', scrollY > 24);
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  var menuBtn = document.getElementById('menuBtn');
+  var menu = document.getElementById('menu');
+  function setMenu(open){
+    menu.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+  }
+  menuBtn.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
+  menu.addEventListener('click', function(e){ if(e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
+
+  var tabs = [].slice.call(document.querySelectorAll('.switch button'));
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        panel.hidden = !on;
+        if(on && !reduced){
+          panel.querySelectorAll('.session').forEach(function(s, i){
+            s.style.opacity = 0; s.style.transform = 'translateY(14px)';
+            setTimeout(function(){
+              s.style.transition = 'opacity .45s ease, transform .45s ease';
+              s.style.opacity = 1; s.style.transform = 'none';
+            }, 40 + i * 55);
+          });
+        }
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
