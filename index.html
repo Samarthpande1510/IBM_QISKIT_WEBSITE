@@ -120,13 +120,17 @@ img{max-width:100%;display:block;}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background .4s ease,border-color .4s ease;}
 .nav.stuck{background:rgba(10,16,36,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--navy-line);}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0;}
+.identity{display:flex;align-items:center;gap:12px;}
 .brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16.5px;white-space:nowrap;color:#EFF2FA;}
 .brand img{width:34px;height:34px;border-radius:50%;flex:none;display:block;}
 .brand .sep{color:var(--pink-lite);font-weight:500;}
+.brand .host{display:inline-flex;align-items:center;padding:4px 10px;border:1px solid rgba(255,255,255,.16);border-radius:var(--pill);background:rgba(255,255,255,.1);}
 .ibm-quantum{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid rgba(255,116,184,.55);border-radius:var(--pill);font-size:15px;font-weight:700;letter-spacing:.01em;color:#fff;background:rgba(255,116,184,.14);}
 .nav-links{display:flex;align-items:center;gap:30px;}
-.nav-links a{font-size:15px;font-weight:450;color:#A4ADC8;transition:color .25s;}
+.nav-links a{position:relative;font-size:15px;font-weight:450;color:#A4ADC8;transition:color .25s;}
 .nav-links a:hover{color:#fff;}
+.nav-links a[aria-current="page"]{color:#fff;}
+.nav-links a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--pink-lite);border-radius:var(--pill);}
 .nav .btn{padding:12px 24px;font-size:14.5px;}
 .menu-btn{display:none;background:transparent;border:1px solid var(--navy-line);border-radius:var(--pill);color:#EFF2FA;font:inherit;font-size:14.5px;font-weight:500;padding:11px 22px;cursor:pointer;transition:border-color .3s;}
 .menu-btn:hover{border-color:var(--pink-lite);}
@@ -137,40 +141,47 @@ img{max-width:100%;display:block;}
 .menu-in .btn{margin-top:10px;justify-content:center;}
 @media (max-width:920px){
   .nav-links{display:none;}
+  .nav-in>.btn{display:none;}
+  .nav-in{gap:12px;}
   .menu-btn{display:inline-block;}
   .menu{display:block;}
   .menu.open{max-height:420px;}
 }
 @media (max-width:600px){
-  .brand{gap:8px;font-size:14px;}
-  .brand img{width:30px;height:30px;}
-  .ibm-quantum{padding:5px 8px;font-size:12px;}
+  .brand{gap:6px;font-size:12.5px;}
+  .brand img{width:28px;height:28px;}
+  .brand .host{padding:4px 7px;}
+  .ibm-quantum{padding:5px 7px;font-size:11px;}
 }
 
 /* ---------- birds ---------- */
 .bird{position:absolute;pointer-events:none;z-index:1;}
 .bird img{width:100%;height:auto;}
-.bird-a{width:290px;top:78px;right:15%;animation:driftA 21s ease-in-out infinite;}
+.bird-a img{transform:rotate(30deg);}
+.bird-a{width:290px;top:126px;right:20%;z-index:1;animation:driftA 21s ease-in-out infinite;}
 .bird-c{width:240px;top:52px;right:3%;animation:driftB 24s ease-in-out infinite;}
 @keyframes driftA{0%,100%{transform:translate(0,0) rotate(-2deg);}50%{transform:translate(22px,-14px) rotate(2deg);}}
 @keyframes driftB{0%,100%{transform:translate(0,0) rotate(2deg);}50%{transform:translate(-18px,16px) rotate(-2deg);}}
 @media (max-width:1100px){.bird-a,.bird-c{display:none;}}
 
 /* ---------- hero ---------- */
-.hero{position:relative;overflow:hidden;padding:172px 0 100px;background:var(--surface);color:var(--on);}
+.hero{position:relative;overflow:hidden;padding:172px 0 100px;background:linear-gradient(rgba(10,16,36,.82),rgba(10,16,36,.88)),url("assets/quantum-computers-and-accelerated-discovery.jpg") center/cover no-repeat;color:var(--on);}
 .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;}
-.hero h1{font-size:clamp(50px,8.8vw,122px);line-height:.9;margin-bottom:32px;max-width:12ch;}
-.hero h1 .accent{color:var(--accent);}
-.hero-lede{font-size:18px;line-height:1.68;color:var(--muted);max-width:52ch;margin-bottom:36px;}
+.hero h1{font-size:clamp(50px,8.8vw,122px);line-height:.96;margin-bottom:32px;max-width:12ch;}
+.hero h1 .accent{color:#FF70A6;}
+.hero-lede{font-size:18px;line-height:1.68;color:rgba(255,255,255,.88);max-width:52ch;margin-bottom:36px;}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 
 .facts{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:76px;}
-.fact{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;}
+.fact{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;transition:transform .35s ease,border-color .35s ease,background .35s ease;}
+.fact:hover{transform:translateY(-4px);border-color:var(--accent);background:var(--card-hover);}
 .fact b{display:block;font-family:var(--display);font-size:23px;font-weight:700;margin-bottom:6px;letter-spacing:-.025em;}
+.fact.location-fact b a{color:var(--accent);transition:color .25s ease;}
+.fact.location-fact b a:hover{color:var(--pink-lite);}
 .fact span{display:block;font-size:15px;color:var(--muted);}
 
 /* ---------- badge ---------- */
-.badge{width:100%;max-width:380px;justify-self:end;animation:float 9s ease-in-out infinite;}
+.badge{width:100%;max-width:380px;justify-self:center;align-self:center;animation:float 9s ease-in-out infinite;}
 .badge svg{width:100%;height:auto;display:block;}
 @keyframes float{0%,100%{transform:translateY(-9px);}50%{transform:translateY(9px);}}
 .orbit-a{transform-origin:300px 300px;animation:spin 34s linear infinite;}
@@ -190,6 +201,9 @@ img{max-width:100%;display:block;}
 
 /* ---------- sections ---------- */
 .sec{padding:112px 0;position:relative;background:var(--surface);color:var(--on);overflow:hidden;}
+#tracks{--surface:#0B0F19;--on:#F3F6FD;--muted:#C0C8DA;--faint:#A4ADC8;--card:rgba(22,31,48,.84);--card-hover:rgba(29,42,64,.94);--border:rgba(255,255,255,.14);--accent:#FF74B8;--chip-bg:rgba(255,116,184,.16);--chip-fg:#FFD0E7;}
+#tracks::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(10,15,26,.85),rgba(10,15,26,.85)),url("assets/cryo-leadspace.webp") center/cover no-repeat;pointer-events:none;}
+#tracks > .shell{position:relative;z-index:1;}
 .sec-head{margin-bottom:56px;max-width:74ch;position:relative;z-index:2;}
 .sec-head .label{display:block;margin-bottom:18px;}
 .sec-head h2{font-size:clamp(40px,7.2vw,98px);line-height:.9;max-width:13ch;}
@@ -210,7 +224,7 @@ img{max-width:100%;display:block;}
 .about p + p{margin-top:20px;}
 .about p{font-size:17px;line-height:1.75;color:var(--muted);}
 .about p strong{color:var(--on);font-weight:600;}
-.card-note{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 34px 12px;}
+.card-note{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 34px 12px;margin-top:-92px;}
 .card-note h3{font-size:20px;font-weight:600;margin-bottom:6px;}
 .card-note li{padding:20px 0;border-bottom:1px solid var(--border);font-size:15.5px;line-height:1.66;color:var(--muted);}
 .card-note li:last-child{border-bottom:none;}
@@ -245,7 +259,7 @@ img{max-width:100%;display:block;}
 
 /* ---------- tracks ---------- */
 .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;}
-.track{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 32px 36px;display:flex;flex-direction:column;transition:transform .4s ease,border-color .4s ease,background .4s ease;}
+.track{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 32px 36px;display:flex;flex-direction:column;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .4s ease,border-color .4s ease,background .4s ease;}
 .track:hover{transform:translateY(-6px);border-color:var(--accent);background:var(--card-hover);}
 .track .pill{align-self:flex-start;font-size:12.5px;font-weight:500;color:var(--chip-fg);background:var(--chip-bg);border-radius:var(--pill);padding:7px 16px;margin-bottom:26px;}
 .track h3{font-family:var(--display);font-weight:700;font-size:31px;line-height:1;letter-spacing:-.03em;margin-bottom:16px;}
@@ -258,10 +272,17 @@ img{max-width:100%;display:block;}
 .spk:hover{transform:translateY(-6px);border-color:var(--accent);}
 .spk .avatar{width:100px;height:100px;border-radius:50%;margin:0 auto 20px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .on-white .spk .avatar{background:#fff;}
-.spk .avatar img{width:76%;height:auto;}
+.spk .avatar img{width:72%;height:72%;object-fit:contain;object-position:center;}
 .spk h4{font-size:17px;font-weight:600;margin-bottom:6px;color:var(--on);}
 .spk span{font-size:14px;color:var(--faint);}
 .spk p{margin-top:16px;font-size:14px;line-height:1.55;color:var(--muted);}
+#speakers{--surface:#0A0E1A;--on:#F3F6FD;--muted:#C7D0E2;--faint:#D3DBEC;--card:rgba(255,255,255,.06);--card-hover:rgba(255,255,255,.1);--border:rgba(255,255,255,.14);--accent:#FF70A6;}
+#speakers .sec-head .label{font-weight:600;letter-spacing:.1em;color:#FF70A6;opacity:.85;}
+#speakers .sec-head p{max-width:600px;color:rgba(255,255,255,.84);}
+#speakers .spk{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+#speakers .spk .avatar{background:#F3F6FD;border:1px solid rgba(255,255,255,.5);box-shadow:0 0 0 5px rgba(255,255,255,.06);}
+#speakers .spk.placeholder{opacity:.6;border-style:dashed;border-color:rgba(255,255,255,.25);}
+#speakers .spk.placeholder:hover{opacity:.78;}
 
 /* ---------- venue ---------- */
 .venue-top{margin-bottom:38px;position:relative;z-index:2;}
@@ -326,6 +347,7 @@ img{max-width:100%;display:block;}
 @media (max-width:960px){
   .sec{padding:82px 0;}
   .about{grid-template-columns:1fr;gap:32px;}
+  .card-note{margin-top:0;}
   .stats{grid-template-columns:repeat(2,1fr);}
   .tracks,.speakers{grid-template-columns:1fr;}
   .foot-cols{grid-template-columns:1fr 1fr;}
@@ -346,10 +368,13 @@ img{max-width:100%;display:block;}
 <header class="nav" id="nav">
   <div class="shell">
     <div class="nav-in">
-      <a class="brand" href="#top">
-        <img src="assets/logo-csi.png" alt="CSI MPSTME" width="34" height="34">
-        Qiskit Fall Fest <span class="sep">×</span> MPSTME <span class="ibm-quantum">IBM Quantum</span>
-      </a>
+      <div class="identity">
+        <a class="brand" href="#top">
+          <img src="assets/logo-csi.png" alt="CSI MPSTME" width="34" height="34">
+          Qiskit Fall Fest <span class="sep">×</span> <a class="host" href="https://engineering.nmims.edu/" target="_blank" rel="noopener">MPSTME</a>
+        </a>
+        <a class="ibm-quantum" href="https://www.ibm.com/quantum" target="_blank" rel="noopener">IBM Quantum</a>
+      </div>
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#program">Program</a>
@@ -375,7 +400,7 @@ img{max-width:100%;display:block;}
 <main id="top">
 <!-- HERO — navy -->
 <section class="hero on-navy">
-  <div class="bird bird-a" aria-hidden="true"><img src="assets/bird-pink.png" alt=""></div>
+  <div class="bird bird-a" aria-hidden="true"><img src="assets/bird-pink-clean.png" alt=""></div>
 
   <div class="shell">
     <div class="hero-in">
@@ -391,35 +416,35 @@ img{max-width:100%;display:block;}
       <div class="badge" aria-hidden="true">
         <svg viewBox="0 0 600 600" fill="none">
           <defs>
-            <path id="arcTop" d="M300,300 m-232,0 a232,232 0 0,1 464,0"/>
-            <path id="arcBot" d="M300,300 m232,0 a232,232 0 0,1 -464,0"/>
+            <path id="arcTop" d="M300,300 m-215,0 a215,215 0 0,1 430,0"/>
+            <path id="arcBot" d="M300,300 m215,0 a215,215 0 0,1 -430,0"/>
           </defs>
           <circle cx="300" cy="300" r="285" fill="#F9459B"/>
-          <text fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="58" font-weight="600" letter-spacing="9">
+          <text fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="54" font-weight="600" letter-spacing="8">
             <textPath href="#arcTop" startOffset="50%" text-anchor="middle">QISKIT</textPath>
           </text>
-          <text fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="58" font-weight="600" letter-spacing="9">
+          <text fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="54" font-weight="600" letter-spacing="8">
             <textPath href="#arcBot" startOffset="50%" text-anchor="middle">FALL FEST</textPath>
           </text>
           <text x="64" y="316" fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="36" font-weight="500" text-anchor="middle">2026</text>
           <text x="536" y="316" fill="#0A1024" font-family="IBM Plex Sans, sans-serif" font-size="36" font-weight="500" text-anchor="middle">2026</text>
           <g stroke="#0A1024" stroke-width="2.6" fill="none" stroke-linecap="round">
-            <circle cx="300" cy="300" r="118"/>
-            <ellipse cx="300" cy="300" rx="118" ry="34" opacity=".9"/>
-            <ellipse cx="300" cy="300" rx="102" ry="88" opacity=".5"/>
-            <g class="orbit-a" opacity=".85"><ellipse cx="300" cy="300" rx="118" ry="40"/></g>
-            <g class="orbit-b" opacity=".55"><ellipse cx="300" cy="300" rx="118" ry="40" transform="rotate(62 300 300)"/></g>
-            <line x1="238" y1="354" x2="362" y2="246"/>
+            <circle cx="300" cy="300" r="138"/>
+            <ellipse cx="300" cy="300" rx="138" ry="40" opacity=".9"/>
+            <ellipse cx="300" cy="300" rx="120" ry="102" opacity=".5"/>
+            <g class="orbit-a" opacity=".85"><ellipse cx="300" cy="300" rx="138" ry="46"/></g>
+            <g class="orbit-b" opacity=".55"><ellipse cx="300" cy="300" rx="138" ry="46" transform="rotate(62 300 300)"/></g>
+            <line x1="228" y1="364" x2="372" y2="236"/>
           </g>
-          <circle cx="238" cy="354" r="10" fill="#0A1024"/>
-          <circle cx="362" cy="246" r="10" fill="#0A1024"/>
+          <circle cx="228" cy="364" r="10" fill="#0A1024"/>
+          <circle cx="372" cy="236" r="10" fill="#0A1024"/>
         </svg>
       </div>
     </div>
 
     <div class="facts">
       <div class="fact reveal"><b>23 – 25 October 2026</b><span>Friday to Sunday</span></div>
-      <div class="fact reveal" style="--d:.1s"><b>MPSTME, Mumbai</b><span>Vile Parle West</span></div>
+      <div class="fact location-fact reveal" style="--d:.1s"><b><a href="https://engineering.nmims.edu/" target="_blank" rel="noopener">MPSTME, Mumbai</a></b><span>Vile Parle West</span></div>
       <div class="fact reveal" style="--d:.2s"><b>Free to attend</b><span>Hybrid, open to students across India</span></div>
     </div>
   </div>
@@ -475,32 +500,32 @@ img{max-width:100%;display:block;}
       </div>
 
       <div class="day" id="day1" role="tabpanel" aria-labelledby="tab1">
-        <p class="day-intro">The hybrid hackathon opens. Teams form, the problem statements go out, and building begins both on campus and online.</p>
+        <p class="day-intro">The online hackathon opens. Teams form, the problem statement goes out, and building begins remotely.</p>
         <div class="sessions">
-          <article class="session"><span class="time">16:00</span><div><h4>Registration and setup</h4><p>We check that Python, Qiskit and your IBM Quantum account are working before anything else begins.</p></div><span class="tag">Help desk</span></article>
-          <article class="session"><span class="time">18:00</span><div><h4>Hackathon briefing</h4><p>We announce the problem statements, the brackets and the judging criteria.</p></div><span class="tag">Briefing</span></article>
-          <article class="session"><span class="time">19:00</span><div><h4>Team formation</h4><p>Teams of two to four lock in. Register alone and we will place you in one.</p></div><span class="tag">Teams</span></article>
-          <article class="session"><span class="time">20:00</span><div><h4>Building begins</h4><p>The hackathon runs continuously from here, on campus and remotely.</p></div><span class="tag">Hacking</span></article>
+          <article class="session"><span class="time">16:00 IST</span><div><h4>Registration and setup</h4><p>We check that Python, Qiskit and your IBM Quantum account are working before anything else begins.</p></div><span class="tag">Help desk</span></article>
+          <article class="session"><span class="time">18:00 IST</span><div><h4>Hackathon problem statement revealed</h4><p>The hackathon problem statement will be revealed on 23 October 2026 at 6:00 PM IST, alongside the brackets and judging criteria.</p></div><span class="tag">Briefing</span></article>
+          <article class="session"><span class="time">19:00 IST</span><div><h4>Team formation</h4><p>Teams of two to four lock in. Register alone and we will place you in one.</p></div><span class="tag">Teams</span></article>
+          <article class="session"><span class="time">20:00 IST</span><div><h4>Building begins</h4><p>The hackathon runs continuously from here, on campus and remotely.</p></div><span class="tag">Hacking</span></article>
         </div>
       </div>
 
       <div class="day" id="day2" role="tabpanel" aria-labelledby="tab2" hidden>
-        <p class="day-intro">The main day. Keynote addresses in the morning, beginner tracks led by Qiskit Advocates in the afternoon, and the hackathon running alongside.</p>
+        <p class="day-intro">The main hybrid day. Keynote addresses in the morning, beginner tracks led by Qiskit Advocates in the afternoon, and the hackathon running alongside.</p>
         <div class="sessions">
-          <article class="session"><span class="time">10:00</span><div><h4>Keynote addresses</h4><p>Scientists and industry experts on where quantum computing actually stands in 2026.</p></div><span class="tag">Keynote</span></article>
-          <article class="session"><span class="time">12:00</span><div><h4>Beginner track I — quantum fundamentals</h4><p>Superposition, measurement and your first circuit, led by Qiskit Advocates.</p></div><span class="tag">Beginner</span></article>
-          <article class="session"><span class="time">14:30</span><div><h4>Beginner track II — Qiskit fundamentals</h4><p>Build, transpile and run a circuit on real IBM Quantum hardware.</p></div><span class="tag">Beginner</span></article>
-          <article class="session"><span class="time">17:00</span><div><h4>Mentor hours</h4><p>Faculty, Qiskit Advocates and student mentors move between teams to unblock problems.</p></div><span class="tag">Mentoring</span></article>
-          <article class="session"><span class="time">23:59</span><div><h4>Hackathon ends</h4><p>All teams submit their project and short write-up by the end of Saturday, 24 October.</p></div><span class="tag">Deadline</span></article>
+          <article class="session"><span class="time">10:00 IST</span><div><h4>Keynote addresses</h4><p>Scientists and industry experts on where quantum computing actually stands in 2026.</p></div><span class="tag">Keynote</span></article>
+          <article class="session"><span class="time">12:00 IST</span><div><h4>Beginner track I — quantum fundamentals</h4><p>Superposition, measurement and your first circuit, led by Qiskit Advocates.</p></div><span class="tag">Beginner</span></article>
+          <article class="session"><span class="time">14:30 IST</span><div><h4>Beginner track II — Qiskit fundamentals</h4><p>Build, transpile and run a circuit on real IBM Quantum hardware.</p></div><span class="tag">Beginner</span></article>
+          <article class="session"><span class="time">17:00 IST</span><div><h4>Mentor hours</h4><p>Faculty, Qiskit Advocates and student mentors move between teams to unblock problems.</p></div><span class="tag">Mentoring</span></article>
+          <article class="session"><span class="time">23:59 IST</span><div><h4>Hackathon ends</h4><p>All teams submit their project and short write-up by the end of Saturday, 24 October.</p></div><span class="tag">Deadline</span></article>
         </div>
       </div>
 
       <div class="day" id="day3" role="tabpanel" aria-labelledby="tab3" hidden>
         <p class="day-intro">The event closes. Teams demonstrate what they built, and the winners are announced.</p>
         <div class="sessions">
-          <article class="session"><span class="time">11:00</span><div><h4>Final mentor round</h4><p>The last chance to narrow your scope before submissions freeze.</p></div><span class="tag">Mentoring</span></article>
-          <article class="session"><span class="time">15:00</span><div><h4>Judging and demonstrations</h4><p>Each team presents in front of the panel, on campus or over the call.</p></div><span class="tag">Judging</span></article>
-          <article class="session"><span class="time">18:00</span><div><h4>Awards and closing</h4><p>We announce the winners and hand out prizes and certificates.</p></div><span class="tag">Ceremony</span></article>
+          <article class="session"><span class="time">11:00 IST</span><div><h4>Final mentor round</h4><p>The last chance to narrow your scope before submissions freeze.</p></div><span class="tag">Mentoring</span></article>
+          <article class="session"><span class="time">15:00 IST</span><div><h4>Judging and demonstrations</h4><p>Each team presents in front of the panel, on campus or over the call.</p></div><span class="tag">Judging</span></article>
+          <article class="session"><span class="time">18:00 IST</span><div><h4>Awards and closing</h4><p>We announce the winners and hand out prizes and certificates.</p></div><span class="tag">Ceremony</span></article>
         </div>
       </div>
     </div>
@@ -546,9 +571,9 @@ img{max-width:100%;display:block;}
     </div>
     <div class="speakers">
       <div class="spk reveal"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Keynote</span></div>
-      <div class="spk reveal" style="--d:.08s"><div class="avatar"><img src="assets/bird-blue.png" alt=""></div><h4>To be announced</h4><span>Expert talk</span></div>
-      <div class="spk reveal" style="--d:.16s"><div class="avatar"><img src="assets/bird-falcon.png" alt=""></div><h4>To be announced</h4><span>Workshop lead</span></div>
-      <div class="spk reveal" style="--d:.24s"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Judging panel</span></div>
+      <div class="spk placeholder reveal" style="--d:.08s"><div class="avatar"><img src="assets/bird-blue.png" alt=""></div><h4>To be announced</h4><span>Expert talk</span></div>
+      <div class="spk reveal" style="--d:.16s"><div class="avatar"><img src="assets/bird-falcon.png" alt=""></div><h4>Qiskit Advocates</h4><span>Workshop lead</span></div>
+      <div class="spk placeholder reveal" style="--d:.24s"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Judging panel</span></div>
     </div>
   </div>
 </section>
@@ -641,6 +666,17 @@ img{max-width:100%;display:block;}
   }
   addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+
+  var sectionLinks = [].slice.call(document.querySelectorAll('.nav-links a[href^="#"], .menu-in a[href^="#"]'));
+  var sectionObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      sectionLinks.forEach(function(link){
+        link.toggleAttribute('aria-current', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    });
+  }, {threshold:0, rootMargin:'-38% 0px -54% 0px'});
+  document.querySelectorAll('main > section[id]').forEach(function(section){ sectionObserver.observe(section); });
 
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
