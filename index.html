@@ -123,6 +123,7 @@ img{max-width:100%;display:block;}
 .brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16.5px;white-space:nowrap;color:#EFF2FA;}
 .brand img{width:34px;height:34px;border-radius:50%;flex:none;display:block;}
 .brand .sep{color:var(--pink-lite);font-weight:500;}
+.ibm-quantum{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid rgba(255,116,184,.55);border-radius:var(--pill);font-size:15px;font-weight:700;letter-spacing:.01em;color:#fff;background:rgba(255,116,184,.14);}
 .nav-links{display:flex;align-items:center;gap:30px;}
 .nav-links a{font-size:15px;font-weight:450;color:#A4ADC8;transition:color .25s;}
 .nav-links a:hover{color:#fff;}
@@ -139,6 +140,11 @@ img{max-width:100%;display:block;}
   .menu-btn{display:inline-block;}
   .menu{display:block;}
   .menu.open{max-height:420px;}
+}
+@media (max-width:600px){
+  .brand{gap:8px;font-size:14px;}
+  .brand img{width:30px;height:30px;}
+  .ibm-quantum{padding:5px 8px;font-size:12px;}
 }
 
 /* ---------- birds ---------- */
@@ -255,6 +261,7 @@ img{max-width:100%;display:block;}
 .spk .avatar img{width:76%;height:auto;}
 .spk h4{font-size:17px;font-weight:600;margin-bottom:6px;color:var(--on);}
 .spk span{font-size:14px;color:var(--faint);}
+.spk p{margin-top:16px;font-size:14px;line-height:1.55;color:var(--muted);}
 
 /* ---------- venue ---------- */
 .venue-top{margin-bottom:38px;position:relative;z-index:2;}
@@ -341,7 +348,7 @@ img{max-width:100%;display:block;}
     <div class="nav-in">
       <a class="brand" href="#top">
         <img src="assets/logo-csi.png" alt="CSI MPSTME" width="34" height="34">
-        Qiskit Fall Fest <span class="sep">×</span> MPSTME
+        Qiskit Fall Fest <span class="sep">×</span> MPSTME <span class="ibm-quantum">IBM Quantum</span>
       </a>
       <nav class="nav-links">
         <a href="#about">About</a>
@@ -484,14 +491,14 @@ img{max-width:100%;display:block;}
           <article class="session"><span class="time">12:00</span><div><h4>Beginner track I — quantum fundamentals</h4><p>Superposition, measurement and your first circuit, led by Qiskit Advocates.</p></div><span class="tag">Beginner</span></article>
           <article class="session"><span class="time">14:30</span><div><h4>Beginner track II — Qiskit fundamentals</h4><p>Build, transpile and run a circuit on real IBM Quantum hardware.</p></div><span class="tag">Beginner</span></article>
           <article class="session"><span class="time">17:00</span><div><h4>Mentor hours</h4><p>Faculty, Qiskit Advocates and student mentors move between teams to unblock problems.</p></div><span class="tag">Mentoring</span></article>
+          <article class="session"><span class="time">23:59</span><div><h4>Hackathon ends</h4><p>All teams submit their project and short write-up by the end of Saturday, 24 October.</p></div><span class="tag">Deadline</span></article>
         </div>
       </div>
 
       <div class="day" id="day3" role="tabpanel" aria-labelledby="tab3" hidden>
-        <p class="day-intro">The hackathon closes. Teams submit, demonstrate what they built, and the winners are announced.</p>
+        <p class="day-intro">The event closes. Teams demonstrate what they built, and the winners are announced.</p>
         <div class="sessions">
           <article class="session"><span class="time">11:00</span><div><h4>Final mentor round</h4><p>The last chance to narrow your scope before submissions freeze.</p></div><span class="tag">Mentoring</span></article>
-          <article class="session"><span class="time">14:00</span><div><h4>Submissions close</h4><p>Every team submits its project and a short write-up.</p></div><span class="tag">Deadline</span></article>
           <article class="session"><span class="time">15:00</span><div><h4>Judging and demonstrations</h4><p>Each team presents in front of the panel, on campus or over the call.</p></div><span class="tag">Judging</span></article>
           <article class="session"><span class="time">18:00</span><div><h4>Awards and closing</h4><p>We announce the winners and hand out prizes and certificates.</p></div><span class="tag">Ceremony</span></article>
         </div>
@@ -521,9 +528,9 @@ img{max-width:100%;display:block;}
         <div class="meta"><span>Bring a laptop</span><span>No experience needed</span></div>
       </article>
       <article class="track reveal" style="--d:.2s">
-        <span class="pill">23 – 25 October</span>
+        <span class="pill">23 – 24 October</span>
         <h3>Hybrid hackathon</h3>
-        <p>Teams of two to four build a Qiskit project across three days, on campus or remotely, in separate brackets for beginners and experts.</p>
+        <p>Teams of two to four build a Qiskit project across Friday and Saturday, on campus or remotely, in separate brackets for beginners and experts.</p>
         <div class="meta"><span>Teams of two to four</span><span>Prizes awarded</span></div>
       </article>
   </div>
@@ -534,8 +541,8 @@ img{max-width:100%;display:block;}
   <div class="shell">
     <div class="sec-head reveal">
       <span class="label">Speakers and mentors</span>
-      <h2>The lineup is <span class="accent">being confirmed.</span></h2>
-      <p>We will publish speakers, workshop leads and the judging panel here in September, ahead of registration closing.</p>
+      <h2>Learn from people <span class="accent">shaping quantum.</span></h2>
+      <p>Senior scientists and industry experts bring practical experience across algorithms, hardware and enterprise quantum computing.</p>
     </div>
     <div class="speakers">
       <div class="spk reveal"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Keynote</span></div>
