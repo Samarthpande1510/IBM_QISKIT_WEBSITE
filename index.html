@@ -106,6 +106,18 @@ img{max-width:100%;display:block;}
   display:block;
   background:transparent;
 }
+.quantum-interference {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:8;
+  pointer-events:none;
+  opacity:0.72;
+  display:block;
+  mix-blend-mode:screen;
+  background:transparent;
+}
 body.cursor-hidden {
   cursor:none;
 }
@@ -517,6 +529,31 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .hero h1 .accent{color:#FF70A6;}
 .hero-lede{font-size:18px;line-height:1.68;color:rgba(255,255,255,.88);max-width:52ch;margin-bottom:36px;}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.countdown-panel{
+  position:relative;z-index:2;margin-top:24px;padding:16px 18px 14px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(10,16,36,.48);box-shadow:0 18px 42px -22px rgba(15,20,36,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:520px;
+}
+.countdown-panel .countdown-label{display:block;margin-bottom:14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#FFB8D8;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.countdown-unit{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 8px 8px;border-radius:16px;background:rgba(17,25,42,.72);border:1px solid rgba(255,255,255,.08);}
+.countdown-digit{display:flex;align-items:center;justify-content:center;height:52px;min-width:3ch;padding:0 2px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:clamp(1.8rem,2.2vw,2.5rem);font-weight:700;letter-spacing:-.06em;line-height:1;color:#fff;text-shadow:0 0 14px rgba(255,116,184,.28);}
+.countdown-digit span{display:block;min-width:1ch;}
+.countdown-unit strong{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#A4ADC8;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;}
+.countdown-digit.is-flicker{animation:digitFlicker 170ms ease-in-out 1;}
+@keyframes digitFlicker{
+  0%{transform:translateY(0);filter:brightness(1);opacity:1;}
+  20%{transform:translateY(-2px);filter:brightness(1.8);}
+  45%{transform:translateY(3px);filter:brightness(1.25);}
+  70%{transform:translateY(-1px);filter:brightness(1.7);}
+  100%{transform:translateY(0);filter:brightness(1);opacity:1;}
+}
+@media (max-width:600px){
+  .countdown-grid{gap:8px;}
+  .countdown-unit{padding:8px 6px 6px;}
+  .countdown-digit{height:42px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .countdown-digit.is-flicker{animation:none;}
+}
 
 .facts{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:76px;}
 .fact{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px;transition:transform .35s ease,border-color .35s ease,background .35s ease;}
@@ -857,6 +894,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 </head>
 <body>
 <canvas id="particle-network-bg" aria-hidden="true"></canvas>
+<canvas id="quantum-interference" class="quantum-interference" aria-hidden="true"></canvas>
 <div class="quantum-cursor" id="quantum-cursor" aria-hidden="true">
   <span class="cursor-ring"></span>
   <span class="cursor-burst"></span>
@@ -946,6 +984,28 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register now</a>
           <a class="btn-quiet" href="#program">Explore the program <span aria-hidden="true">↓</span></a>
+        </div>
+
+        <div class="countdown-panel" id="countdown-timer" aria-live="polite">
+          <span class="countdown-label">Event starts in</span>
+          <div class="countdown-grid">
+            <div class="countdown-unit">
+              <div class="countdown-digit"><span data-unit="days">00</span></div>
+              <strong>Days</strong>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-digit"><span data-unit="hours">00</span></div>
+              <strong>Hours</strong>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-digit"><span data-unit="minutes">00</span></div>
+              <strong>Min</strong>
+            </div>
+            <div class="countdown-unit">
+              <div class="countdown-digit"><span data-unit="seconds">00</span></div>
+              <strong>Sec</strong>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1283,6 +1343,64 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 (function(){
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var countdownRoot = document.getElementById('countdown-timer');
+  if (countdownRoot) {
+    var targetDate = new Date('2026-10-23T00:00:00+05:30');
+    var units = {
+      days: countdownRoot.querySelector('[data-unit="days"]'),
+      hours: countdownRoot.querySelector('[data-unit="hours"]'),
+      minutes: countdownRoot.querySelector('[data-unit="minutes"]'),
+      seconds: countdownRoot.querySelector('[data-unit="seconds"]')
+    };
+
+    function updateDigits(el, nextValue) {
+      if (!el) return;
+      var nextText = String(nextValue).padStart(2, '0');
+      if (el.textContent.trim() === nextText) return;
+
+      if (reduced) {
+        el.textContent = nextText;
+        return;
+      }
+
+      var parent = el.closest('.countdown-digit');
+      if (parent) parent.classList.remove('is-flicker');
+      var flickerTicker = null;
+      var step = 0;
+      flickerTicker = setInterval(function () {
+        var randomValue = String(Math.floor(Math.random() * 10));
+        el.textContent = randomValue;
+        if (step >= 2) {
+          clearInterval(flickerTicker);
+          el.textContent = nextText;
+          if (parent) parent.classList.add('is-flicker');
+          setTimeout(function () {
+            if (parent) parent.classList.remove('is-flicker');
+          }, 170);
+        }
+        step += 1;
+      }, 34);
+    }
+
+    function refreshCountdown() {
+      var now = new Date();
+      var diff = Math.max(0, targetDate.getTime() - now.getTime());
+      var totalSeconds = Math.floor(diff / 1000);
+      var days = Math.floor(totalSeconds / 86400);
+      var hours = Math.floor((totalSeconds % 86400) / 3600);
+      var minutes = Math.floor((totalSeconds % 3600) / 60);
+      var seconds = totalSeconds % 60;
+
+      updateDigits(units.days, days);
+      updateDigits(units.hours, hours);
+      updateDigits(units.minutes, minutes);
+      updateDigits(units.seconds, seconds);
+    }
+
+    refreshCountdown();
+    setInterval(refreshCountdown, 1000);
+  }
+
   var pointerFine = window.matchMedia('(pointer: fine)').matches;
   if (pointerFine) {
     document.body.classList.add('cursor-hidden');
@@ -1304,17 +1422,29 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
       focusState = state;
     }
 
+    function closestElement(node, selector) {
+      var current = node;
+      while (current && current !== document) {
+        if (current.matches && current.matches(selector)) {
+          return current;
+        }
+        current = current.parentElement || null;
+      }
+      return null;
+    }
+
     function updateCursorState(target) {
-      if (!target) {
+      var element = target && target.nodeType === 1 ? target : (target && target.parentElement) || null;
+      if (!element) {
         setCursorState('default');
         return;
       }
-      var textField = target.closest('input, textarea, select, [contenteditable="true"]');
+      var textField = closestElement(element, 'input, textarea, select, [contenteditable="true"]');
       if (textField) {
         setCursorState('text');
         return;
       }
-      var clickable = target.closest('a, button, .btn, .btn-primary, .btn-ghost, .btn-quiet, .menu-btn, summary, input[type="checkbox"], input[type="radio"], .switch button, .code-tabs button, .fab-btn, .faq summary, .day button');
+      var clickable = closestElement(element, 'a, button, .btn, .btn-primary, .btn-ghost, .btn-quiet, .menu-btn, summary, input[type="checkbox"], input[type="radio"], .switch button, .code-tabs button, .fab-btn, .faq summary, .day button');
       if (clickable) {
         setCursorState('clickable');
         return;
@@ -1340,7 +1470,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
       setCursorState('burst');
       setTimeout(function () {
         if (focusState === 'burst') {
-          updateCursorState(event.target);
+          updateCursorState(event.target || null);
         }
       }, 340);
     });
@@ -1350,7 +1480,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     });
 
     document.addEventListener('pointerout', function (event) {
-      if (!event.relatedTarget || !event.relatedTarget.closest) {
+      if (!event.relatedTarget) {
         setCursorState('default');
       }
     });
@@ -1366,6 +1496,130 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     });
 
     animateCursor();
+  }
+
+  if (!reduced && pointerFine) {
+    var interferenceCanvas = document.getElementById('quantum-interference');
+    if (interferenceCanvas) {
+      var interferenceCtx = interferenceCanvas.getContext('2d');
+      var interferenceWaves = [];
+      var lastWaveEmit = 0;
+      var pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      var maxConcurrentWaves = 18;
+
+      function resizeInterferenceCanvas() {
+        var ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+        interferenceCanvas.width = Math.max(1, Math.round(window.innerWidth * ratio));
+        interferenceCanvas.height = Math.max(1, Math.round(window.innerHeight * ratio));
+        interferenceCanvas.style.width = window.innerWidth + 'px';
+        interferenceCanvas.style.height = window.innerHeight + 'px';
+        interferenceCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      }
+
+      function emitInterferenceWave(x, y, isDoubleSlit) {
+        if (interferenceWaves.length >= maxConcurrentWaves) {
+          interferenceWaves.shift();
+        }
+
+        var originX = x;
+        var originY = y;
+        var tone = (Math.random() > 0.5) ? 'magenta' : 'cyan';
+        var waveCount = isDoubleSlit ? 2 : 1;
+
+        for (var i = 0; i < waveCount; i++) {
+          var offsetX = isDoubleSlit ? (i === 0 ? -4 : 4) : 0;
+          var offsetY = isDoubleSlit ? (i === 0 ? -1 : 1) : 0;
+          interferenceWaves.push({
+            x: originX + offsetX,
+            y: originY + offsetY,
+            radius: 0,
+            speed: 26 + Math.random() * 18,
+            life: 0,
+            ttl: isDoubleSlit ? 2.1 : 1.8,
+            tone: tone,
+            frontGlow: Math.random() * 0.7 + 0.6,
+            spread: isDoubleSlit ? 10 : 8,
+            hue: Math.random() > 0.6 ? 1 : 0
+          });
+        }
+      }
+
+      function tickInterferenceFrame(time) {
+        var elapsed = Math.min(0.032, (time - (tickInterferenceFrame.lastTime || time)) / 1000 || 0.016);
+        tickInterferenceFrame.lastTime = time;
+
+        interferenceCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        interferenceCtx.globalCompositeOperation = 'screen';
+
+        for (var i = interferenceWaves.length - 1; i >= 0; i--) {
+          var wave = interferenceWaves[i];
+          wave.life += elapsed;
+          wave.radius += wave.speed * elapsed;
+
+          var progress = wave.life / wave.ttl;
+          if (progress >= 1) {
+            interferenceWaves.splice(i, 1);
+            continue;
+          }
+
+          var alpha = (1 - progress) * 0.75;
+          var lineWidth = 1.2 + (1 - progress) * 2.2;
+          var outerAlpha = (1 - progress) * 0.5;
+
+          interferenceCtx.beginPath();
+          interferenceCtx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+          interferenceCtx.strokeStyle = wave.tone === 'magenta'
+            ? 'rgba(255, 96, 183, ' + alpha + ')'
+            : 'rgba(95, 223, 255, ' + alpha + ')';
+          interferenceCtx.lineWidth = lineWidth;
+          interferenceCtx.shadowBlur = 14 + (1 - progress) * 18;
+          interferenceCtx.shadowColor = wave.tone === 'magenta' ? 'rgba(255, 96, 183, 0.9)' : 'rgba(95, 223, 255, 0.9)';
+          interferenceCtx.stroke();
+
+          interferenceCtx.beginPath();
+          interferenceCtx.arc(wave.x, wave.y, wave.radius + wave.spread * 0.55, 0, Math.PI * 2);
+          interferenceCtx.strokeStyle = wave.hue ? 'rgba(138, 107, 255, ' + (outerAlpha * 0.6) + ')' : 'rgba(255, 194, 225, ' + (outerAlpha * 0.6) + ')';
+          interferenceCtx.lineWidth = Math.max(0.8, lineWidth * 0.5);
+          interferenceCtx.stroke();
+
+          if (wave.life > wave.ttl * 0.2) {
+            var glowAlpha = (1 - progress) * 0.22;
+            var glowRadius = wave.radius + 8;
+            interferenceCtx.beginPath();
+            interferenceCtx.fillStyle = wave.tone === 'magenta'
+              ? 'rgba(255, 122, 210, ' + glowAlpha + ')'
+              : 'rgba(118, 232, 255, ' + glowAlpha + ')';
+            interferenceCtx.arc(wave.x, wave.y, glowRadius, 0, Math.PI * 2);
+            interferenceCtx.fill();
+          }
+        }
+
+        interferenceCtx.shadowBlur = 0;
+        interferenceCtx.globalCompositeOperation = 'source-over';
+        requestAnimationFrame(tickInterferenceFrame);
+      }
+
+      function emitOnPointerMove(event) {
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        var now = performance.now();
+        if (now - lastWaveEmit > 120) {
+          emitInterferenceWave(pointer.x, pointer.y, false);
+          lastWaveEmit = now;
+        }
+      }
+
+      function emitOnClick(event) {
+        emitInterferenceWave(event.clientX - 5, event.clientY, true);
+        emitInterferenceWave(event.clientX + 5, event.clientY, true);
+      }
+
+      document.addEventListener('pointermove', emitOnPointerMove, { passive: true });
+      document.addEventListener('pointerdown', emitOnClick, { passive: true });
+      window.addEventListener('resize', resizeInterferenceCanvas);
+      resizeInterferenceCanvas();
+      requestAnimationFrame(tickInterferenceFrame);
+    }
   }
 
   var particleCanvas = document.getElementById('particle-network-bg');
