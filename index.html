@@ -106,6 +106,233 @@ img{max-width:100%;display:block;}
   display:block;
   background:transparent;
 }
+body.cursor-hidden {
+  cursor:none;
+}
+.quantum-cursor {
+  position:fixed;
+  left:0;
+  top:0;
+  width:28px;
+  height:28px;
+  pointer-events:none;
+  z-index:90;
+  opacity:0;
+  transform:translate3d(-50%, -50%, 0);
+  transition:opacity 0.18s ease;
+}
+.quantum-cursor.is-visible {
+  opacity:1;
+}
+.quantum-cursor .cursor-ring,
+.quantum-cursor .cursor-burst,
+.quantum-cursor .cursor-core {
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+}
+.quantum-cursor .cursor-ring {
+  border:1.5px solid rgba(255,116,184,0.9);
+  box-shadow:0 0 10px rgba(255,116,184,0.4), 0 0 20px rgba(138,107,209,0.24);
+  transform:scale(1);
+  transition:transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+}
+.quantum-cursor .cursor-core {
+  inset:10px;
+  background:radial-gradient(circle at 35% 35%, #fff 0%, #ffd7eb 22%, #ff74b8 54%, #d87dff 100%);
+  box-shadow:0 0 12px rgba(255,116,184,0.75), 0 0 20px rgba(138,107,209,0.25);
+  transition:transform 0.18s ease, opacity 0.18s ease;
+}
+.quantum-cursor .cursor-burst {
+  inset:4px;
+  border:1.5px solid rgba(255,116,184,0.7);
+  opacity:0;
+}
+.quantum-cursor.is-clickable .cursor-ring {
+  transform:scale(1.38);
+  border-color:rgba(255,255,255,0.95);
+  box-shadow:0 0 12px rgba(255,116,184,0.9), 0 0 25px rgba(138,107,209,0.36), 0 0 40px rgba(255,116,184,0.28);
+}
+.quantum-cursor.is-clickable .cursor-core {
+  transform:scale(1.12);
+}
+.quantum-cursor.is-text .cursor-ring {
+  inset:2px 12px 2px 12px;
+  width:2px;
+  height:24px;
+  border-radius:2px;
+  border:1px solid rgba(255,255,255,0.92);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+.quantum-cursor.is-text .cursor-core {
+  opacity:0;
+}
+.quantum-cursor.is-burst .cursor-burst {
+  animation:quantumBurst 360ms ease-out forwards;
+}
+.quantum-cursor.is-burst .cursor-ring {
+  transform:scale(0.38);
+  opacity:0.25;
+}
+@keyframes quantumBurst {
+  0% { opacity:0.8; transform:scale(0.35); }
+  60% { opacity:0.95; }
+  100% { opacity:0; transform:scale(1.8); }
+}
+@media (pointer: coarse) {
+  body.cursor-hidden { cursor:auto; }
+  .quantum-cursor { display:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quantum-cursor,
+  .quantum-cursor .cursor-ring,
+  .quantum-cursor .cursor-core,
+  .quantum-cursor .cursor-burst {
+    transition:none !important;
+    animation:none !important;
+  }
+}
+.quantum-journey{
+  position:fixed;
+  inset:0;
+  z-index:25;
+  pointer-events:none;
+  --journey-x: clamp(18px, 2vw, 38px);
+  --journey-track: rgba(255, 116, 184, 0.4);
+  --journey-core: rgba(255, 116, 184, 0.9);
+  --journey-violet: rgba(138, 107, 209, 0.9);
+}
+.quantum-wire{
+  position:absolute;
+  left:var(--journey-x);
+  top:0;
+  width:2px;
+  height:100vh;
+  transform:translateX(-50%);
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,116,184,0.08), rgba(255,116,184,0.35), rgba(138,107,209,0.55), rgba(255,116,184,0.08));
+  box-shadow:0 0 18px rgba(255,116,184,0.18), 0 0 30px rgba(138,107,209,0.2);
+  opacity:0.18;
+}
+.quantum-qubit{
+  position:absolute;
+  left:var(--journey-x);
+  top:0;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  transform:translate3d(-50%,0,0);
+  background:radial-gradient(circle at 36% 28%, #fff 0%, #ffdcec 16%, #ff74b8 30%, #a78bfa 62%, #6b46c1 100%);
+  box-shadow:0 0 12px rgba(255,116,184,0.8), 0 0 24px rgba(167,139,250,0.7), 0 0 32px rgba(255,116,184,0.45);
+  will-change:transform;
+}
+.quantum-qubit::after{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:50%;
+  background:rgba(255,116,184,0.16);
+  filter:blur(8px);
+  opacity:0.8;
+}
+.quantum-trail {
+  position:absolute;
+  left:var(--journey-x);
+  top:0;
+  width:18px;
+  height:18px;
+  transform:translate(-50%, -50%);
+  pointer-events:none;
+  opacity:0;
+}
+.quantum-trail::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,116,184,0.85) 26%, rgba(167,139,250,0.45) 52%, rgba(255,116,184,0) 72%);
+  filter:blur(7px);
+  animation:trailFade 260ms ease-out forwards;
+}
+@keyframes trailFade {
+  0% { opacity:0.9; transform:scale(0.8); }
+  100% { opacity:0; transform:scale(1.8); }
+}
+.quantum-state{
+  position:absolute;
+  left:calc(var(--journey-x) + 18px);
+  top:0;
+  transform:translateY(-50%);
+  padding:4px 7px;
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:999px;
+  background:rgba(10,16,36,0.58);
+  color:#F3F6FD;
+  font-family:'IBM Plex Mono', ui-monospace, monospace;
+  font-size:10px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  box-shadow:0 0 10px rgba(255,116,184,0.12);
+  opacity:0.88;
+  white-space:nowrap;
+}
+.gate-node{
+  position:absolute;
+  left:var(--journey-x);
+  top:0;
+  width:12px;
+  height:12px;
+  transform:translate(-50%,-50%) rotate(45deg);
+  border-radius:3px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,116,184,0.95), rgba(138,107,209,1));
+  box-shadow:0 0 10px rgba(255,116,184,0.45), 0 0 18px rgba(138,107,209,0.34);
+  opacity:0.42;
+  transition:transform 0.28s ease, opacity 0.28s ease, box-shadow 0.28s ease;
+}
+.gate-node.active{
+  opacity:1;
+  transform:translate(-50%,-50%) rotate(45deg) scale(1.7);
+  box-shadow:0 0 16px rgba(255,116,184,0.8), 0 0 28px rgba(138,107,209,0.5);
+}
+.gate-node::before{
+  content:"";
+  position:absolute;
+  inset:-7px;
+  border-radius:3px;
+  border:1px solid rgba(255,255,255,0.18);
+  opacity:0;
+  transition:opacity 0.28s ease;
+}
+.gate-node.active::before{
+  opacity:1;
+}
+.quantum-hit .sec-head,
+.quantum-hit .hero-copy,
+.quantum-hit .fact,
+.quantum-hit .about,
+.quantum-hit .track,
+.quantum-hit .session,
+.quantum-hit .spk,
+.quantum-hit .faq .q,
+.quantum-hit .map,
+.quantum-hit .closing{
+  animation:quantumSectionRise 560ms cubic-bezier(.22,.7,.25,1) both;
+}
+@keyframes quantumSectionRise{
+  0% { opacity:0; transform:translateY(22px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+@media (max-width:960px){
+  .quantum-journey{--journey-x: 18px;}
+  .quantum-state{display:none;}
+}
+@media (max-width:620px){
+  .quantum-journey{display:none;}
+}
+@media (prefers-reduced-motion: reduce){
+  .quantum-journey{opacity:0.6;}
+  .quantum-wire,.quantum-qubit,.gate-node,.quantum-state{transition:none;animation:none;}
+}
 main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   position:relative;
   z-index:1;
@@ -630,6 +857,16 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 </head>
 <body>
 <canvas id="particle-network-bg" aria-hidden="true"></canvas>
+<div class="quantum-cursor" id="quantum-cursor" aria-hidden="true">
+  <span class="cursor-ring"></span>
+  <span class="cursor-burst"></span>
+  <span class="cursor-core"></span>
+</div>
+<div class="quantum-journey" id="quantum-journey" aria-hidden="true">
+  <div class="quantum-wire"></div>
+  <div class="quantum-state">|ψ⟩</div>
+  <div class="quantum-qubit"></div>
+</div>
 <a class="skip" href="#top">Skip to content</a>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
@@ -1046,6 +1283,91 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 (function(){
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  var pointerFine = window.matchMedia('(pointer: fine)').matches;
+  if (pointerFine) {
+    document.body.classList.add('cursor-hidden');
+  }
+
+  var cursor = document.getElementById('quantum-cursor');
+  if (cursor && pointerFine) {
+    var targetX = window.innerWidth / 2;
+    var targetY = window.innerHeight / 2;
+    var currentX = targetX;
+    var currentY = targetY;
+    var focusState = 'default';
+
+    function setCursorState(state) {
+      cursor.classList.remove('is-clickable', 'is-text', 'is-burst');
+      if (state === 'clickable') cursor.classList.add('is-clickable');
+      if (state === 'text') cursor.classList.add('is-text');
+      if (state === 'burst') cursor.classList.add('is-burst');
+      focusState = state;
+    }
+
+    function updateCursorState(target) {
+      if (!target) {
+        setCursorState('default');
+        return;
+      }
+      var textField = target.closest('input, textarea, select, [contenteditable="true"]');
+      if (textField) {
+        setCursorState('text');
+        return;
+      }
+      var clickable = target.closest('a, button, .btn, .btn-primary, .btn-ghost, .btn-quiet, .menu-btn, summary, input[type="checkbox"], input[type="radio"], .switch button, .code-tabs button, .fab-btn, .faq summary, .day button');
+      if (clickable) {
+        setCursorState('clickable');
+        return;
+      }
+      setCursorState('default');
+    }
+
+    function animateCursor() {
+      var easing = reduced ? 1 : 0.18;
+      currentX += (targetX - currentX) * easing;
+      currentY += (targetY - currentY) * easing;
+      cursor.style.transform = 'translate3d(' + Math.round(currentX - 14) + 'px, ' + Math.round(currentY - 14) + 'px, 0)';
+      requestAnimationFrame(animateCursor);
+    }
+
+    document.addEventListener('pointermove', function (event) {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      cursor.classList.add('is-visible');
+    }, { passive: true });
+
+    document.addEventListener('pointerdown', function (event) {
+      setCursorState('burst');
+      setTimeout(function () {
+        if (focusState === 'burst') {
+          updateCursorState(event.target);
+        }
+      }, 340);
+    });
+
+    document.addEventListener('pointerover', function (event) {
+      updateCursorState(event.target);
+    });
+
+    document.addEventListener('pointerout', function (event) {
+      if (!event.relatedTarget || !event.relatedTarget.closest) {
+        setCursorState('default');
+      }
+    });
+
+    document.addEventListener('pointerleave', function () {
+      cursor.classList.remove('is-visible');
+      setCursorState('default');
+    });
+
+    window.addEventListener('blur', function () {
+      cursor.classList.remove('is-visible');
+      setCursorState('default');
+    });
+
+    animateCursor();
+  }
+
   var particleCanvas = document.getElementById('particle-network-bg');
   if (particleCanvas) {
     var ctx = particleCanvas.getContext('2d');
@@ -1381,6 +1703,105 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     }, { threshold: 0.3 }).observe(histEl);
   }
 
+
+  /* ---- quantum circuit journey overlay ---- */
+  var quantumJourney = document.getElementById('quantum-journey');
+  if (quantumJourney) {
+    var circuitWire = quantumJourney.querySelector('.quantum-wire');
+    var circuitQubit = quantumJourney.querySelector('.quantum-qubit');
+    var circuitState = quantumJourney.querySelector('.quantum-state');
+    var trailTimer = 0;
+    var gateTargets = [
+      { id: 'top', label: '|ψ⟩', threshold: 0.02 },
+      { id: 'about', label: 'H', threshold: 0.16 },
+      { id: 'program', label: 'H', threshold: 0.32 },
+      { id: 'first-circuit', label: 'CX', threshold: 0.48 },
+      { id: 'tracks', label: 'CX', threshold: 0.62 },
+      { id: 'faq', label: '|0⟩', threshold: 0.8 },
+      { id: 'venue', label: '|1⟩', threshold: 0.88 },
+      { id: 'register', label: '⌁', threshold: 0.96 }
+    ];
+    var gateNodes = [];
+
+    gateTargets.forEach(function (gate) {
+      var el = document.getElementById(gate.id);
+      if (!el) return;
+      var node = document.createElement('span');
+      node.className = 'gate-node';
+      node.dataset.gate = gate.id;
+      quantumJourney.appendChild(node);
+      gateNodes.push({
+        id: gate.id,
+        label: gate.label,
+        threshold: gate.threshold,
+        node: node,
+        fired: false,
+        target: el
+      });
+    });
+
+    function updateQuantumJourney() {
+      if (!circuitWire || !circuitQubit || !circuitState) return;
+      var doc = document.documentElement;
+      var maxScroll = Math.max(1, doc.scrollHeight - innerHeight);
+      var progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+      var wireTop = 24;
+      var wireHeight = innerHeight - 48;
+      var qubitY = wireTop + progress * wireHeight;
+      circuitQubit.style.top = qubitY + 'px';
+      circuitState.style.top = qubitY + 'px';
+
+      var trail = document.createElement('span');
+      trail.className = 'quantum-trail';
+      trail.style.top = qubitY + 'px';
+      quantumJourney.appendChild(trail);
+      setTimeout(function () { trail.remove(); }, 260);
+
+      var labelState = '|ψ⟩';
+      if (progress > 0.12) labelState = 'H';
+      if (progress > 0.34) labelState = 'CX';
+      if (progress > 0.58) labelState = '|0⟩';
+      if (progress > 0.78) labelState = '|1⟩';
+      if (progress > 0.92) labelState = '⌁';
+      circuitState.textContent = labelState;
+
+      gateNodes.forEach(function (gate) {
+        var rect = gate.target.getBoundingClientRect();
+        var nodeY = rect.top + rect.height * 0.2;
+        gate.node.style.top = nodeY + 'px';
+        var delta = Math.abs(qubitY - nodeY);
+        if (delta < 26 && !gate.fired) {
+          gate.node.classList.add('active');
+          gate.fired = true;
+          gate.target.classList.add('quantum-hit');
+          setTimeout(function () {
+            gate.node.classList.remove('active');
+          }, 430);
+        }
+        if (delta > 52) gate.fired = false;
+      });
+    }
+
+    var quantumTick = false;
+    function requestQuantumUpdate() {
+      if (quantumTick) return;
+      quantumTick = true;
+      requestAnimationFrame(function () {
+        updateQuantumJourney();
+        quantumTick = false;
+      });
+    }
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      circuitQuibit.style.top = (innerHeight * 0.26) + 'px';
+      circuitState.style.top = (innerHeight * 0.26) + 'px';
+      circuitState.textContent = '|ψ⟩';
+    } else {
+      addEventListener('scroll', requestQuantumUpdate, { passive: true });
+      addEventListener('resize', requestQuantumUpdate, { passive: true });
+      requestQuantumUpdate();
+    }
+  }
 
   /* ---- don't let the browser restore a stale scroll offset ----
      The page grows a lot after the display fonts and images land, so an offset
