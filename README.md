@@ -43,15 +43,6 @@ are both free:
 | `logo-csi.png` | CSI@MPSTME logo |
 | `og-image.png` | Social preview card (1200×630) |
 
-## Still to do
-
-- [ ] Replace the placeholder Qiskit Fall Fest badge in the hero with the official
-      vector mark from IBM's Fall Fest host kit
-- [ ] Swap the bird PNGs for vectors if the host kit provides them
-- [ ] Fill in the Speakers section once the lineup is confirmed
-- [ ] Confirm session times — the schedule is currently marked provisional
-- [ ] Point `og:image` at an absolute URL once the domain is live
-
 ## Credits
 
 Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by CSI at MPSTME.
