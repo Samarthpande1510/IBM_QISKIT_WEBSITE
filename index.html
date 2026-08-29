@@ -165,7 +165,19 @@ img{max-width:100%;display:block;}
 @media (max-width:1100px){.bird-a,.bird-c{display:none;}}
 
 /* ---------- hero ---------- */
-.hero{position:relative;overflow:hidden;padding:172px 0 100px;background:linear-gradient(rgba(10,16,36,.82),rgba(10,16,36,.88)),url("assets/quantum-computers-and-accelerated-discovery.jpg") center/cover no-repeat;color:var(--on);}
+.hero{position:relative;overflow:hidden;padding:172px 0 100px;color:var(--on);background:#070B1A;}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url("assets/hero-cryostat.jpg") right center/cover no-repeat;
+  opacity:.92;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    linear-gradient(100deg,#070B1A 10%,rgba(7,11,26,.97) 36%,rgba(7,11,26,.82) 56%,rgba(7,11,26,.44) 78%,rgba(7,11,26,.66) 100%),
+    radial-gradient(125% 95% at 50% 120%,rgba(7,11,26,.92) 10%,transparent 62%),
+    radial-gradient(105% 80% at 50% -22%,rgba(7,11,26,.80) 8%,transparent 58%);
+}
 .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;}
 .hero h1{font-size:clamp(50px,8.8vw,122px);line-height:.96;margin-bottom:32px;max-width:12ch;}
 .hero h1 .accent{color:#FF70A6;}
@@ -182,7 +194,7 @@ img{max-width:100%;display:block;}
 
 /* ---------- badge ---------- */
 .badge{width:100%;max-width:380px;justify-self:center;align-self:center;animation:float 9s ease-in-out infinite;}
-.badge svg{width:100%;height:auto;display:block;}
+.badge svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 72px rgba(249,69,155,.45));}
 @keyframes float{0%,100%{transform:translateY(-9px);}50%{transform:translateY(9px);}}
 .orbit-a{transform-origin:300px 300px;animation:spin 34s linear infinite;}
 .orbit-b{transform-origin:300px 300px;animation:spin-back 48s linear infinite;}
