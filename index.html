@@ -317,6 +317,70 @@ img{max-width:100%;display:block;}
   .code-body{font-size:12.5px;}
 }
 
+/* ---------- skip link ---------- */
+.skip{
+  position:absolute;left:16px;top:-100px;z-index:200;
+  background:var(--pink);color:#0A1024;font-weight:600;font-size:14.5px;
+  padding:12px 22px;border-radius:var(--pill);transition:top .25s ease;
+}
+.skip:focus{top:16px;}
+
+/* ---------- FAQ ---------- */
+.faq{border-top:1px solid var(--border);position:relative;z-index:2;}
+.faq details{border-bottom:1px solid var(--border);}
+.faq summary{
+  list-style:none;cursor:pointer;padding:26px 46px 26px 0;position:relative;
+  font-family:var(--display);font-weight:700;font-size:clamp(19px,2.1vw,25px);
+  letter-spacing:-.02em;line-height:1.25;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{
+  content:"";position:absolute;right:8px;top:50%;width:14px;height:2px;
+  background:var(--accent);transform:translateY(-50%);
+}
+.faq summary::before{
+  content:"";position:absolute;right:14px;top:50%;width:2px;height:14px;
+  background:var(--accent);transform:translateY(-50%);transition:transform .3s ease,opacity .3s ease;
+}
+.faq details[open] summary::before{transform:translateY(-50%) rotate(90deg);opacity:0;}
+.faq summary:hover{color:var(--accent);}
+.faq .answer{padding:0 46px 26px 0;font-size:16.5px;line-height:1.72;color:var(--muted);max-width:70ch;}
+
+/* ---------- floating actions ---------- */
+.fab{
+  position:fixed;right:22px;bottom:22px;z-index:90;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+  opacity:0;visibility:hidden;transform:translateY(12px);
+  transition:opacity .35s ease,transform .35s ease,visibility .35s;
+}
+.fab.show{opacity:1;visibility:visible;transform:none;}
+.fab-menu{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.fab-menu a{
+  display:flex;align-items:center;gap:9px;background:#121A34;color:#EFF2FA;
+  border:1px solid #2C3760;border-radius:var(--pill);padding:11px 18px;
+  font-size:14px;font-weight:500;white-space:nowrap;
+  opacity:0;transform:translateY(8px) scale(.96);pointer-events:none;
+  transition:opacity .28s ease,transform .28s ease,background .25s,border-color .25s;
+}
+.fab-menu a:hover{background:#1A2447;border-color:var(--pink);}
+.fab.open .fab-menu a{opacity:1;transform:none;pointer-events:auto;}
+.fab.open .fab-menu a:nth-child(1){transition-delay:.02s;}
+.fab.open .fab-menu a:nth-child(2){transition-delay:.06s;}
+.fab.open .fab-menu a:nth-child(3){transition-delay:.10s;}
+.fab-row{display:flex;gap:10px;align-items:center;}
+.fab-btn{
+  width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  background:#121A34;color:#EFF2FA;border:1px solid #2C3760;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.fab-btn:hover{transform:translateY(-2px);border-color:var(--pink);}
+.fab-btn.primary{background:var(--pink);border-color:var(--pink);color:#0A1024;}
+.fab-btn.primary:hover{background:var(--pink-lite);}
+.fab-btn svg{width:21px;height:21px;display:block;transition:transform .3s ease;}
+.fab.open .fab-btn.primary svg{transform:rotate(45deg);}
+@media (max-width:560px){.fab{right:14px;bottom:14px;}}
+
 /* ---------- tracks ---------- */
 .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;}
 .track{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 32px 36px;display:flex;flex-direction:column;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .4s ease,border-color .4s ease,background .4s ease;}
@@ -420,9 +484,29 @@ img{max-width:100%;display:block;}
   .switch{width:100%;}
   .switch button{flex:1;padding:11px 10px;}
 }
+
+/* ---------- print ---------- */
+@media print{
+  *{background:transparent !important;color:#000 !important;box-shadow:none !important;}
+  html,body{background:#fff !important;}
+  .nav,.progress,.fab,.bird,.skip,.menu,.code-foot,.hist{display:none !important;}
+  .hero::before,.hero::after,#tracks::before{display:none !important;}
+  .hero{padding:0 0 24pt !important;}
+  section{page-break-inside:avoid;padding:18pt 0 !important;}
+  .reveal{opacity:1 !important;transform:none !important;}
+  .day[hidden]{display:block !important;}          /* print every day, not just the open tab */
+  .switch{display:none !important;}
+  .faq .answer{display:block !important;}
+  .sec-head h2,.hero h1{font-size:22pt !important;line-height:1.15 !important;}
+  .track,.session,.fact,.card-note,.spk{border:1pt solid #999 !important;}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;word-break:break-all;}
+  .map{height:auto !important;}
+  .map img{max-height:220pt;object-fit:contain !important;}
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#top">Skip to content</a>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="nav" id="nav">
@@ -439,6 +523,7 @@ img{max-width:100%;display:block;}
         <a href="#about">About</a>
         <a href="#program">Program</a>
         <a href="#tracks">Tracks</a>
+        <a href="#faq">FAQ</a>
         <a href="#venue">Location</a>
       </nav>
       <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register</a>
@@ -450,6 +535,7 @@ img{max-width:100%;display:block;}
         <a href="#program">Program</a>
         <a href="#tracks">Tracks</a>
         <a href="#speakers">Speakers</a>
+        <a href="#faq">FAQ</a>
         <a href="#venue">Location</a>
         <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register</a>
       </div>
@@ -457,7 +543,7 @@ img{max-width:100%;display:block;}
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
 <!-- HERO — navy -->
 <section class="hero on-navy">
   <div class="bird bird-a" aria-hidden="true"><img src="assets/bird-pink-clean.png" alt=""></div>
@@ -674,6 +760,47 @@ img{max-width:100%;display:block;}
   </div>
 </section>
 
+<!-- FAQ — white -->
+<section class="sec on-white" id="faq">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">Questions</span>
+      <h2>Everything people <span class="accent">keep asking us.</span></h2>
+    </div>
+
+    <div class="faq reveal" style="--d:.1s">
+      <details open>
+        <summary>Do I need any background in quantum computing?</summary>
+        <p class="answer">No. The beginner tracks start from nothing and are taught by Qiskit Advocates. If you can write a little Python you will keep up comfortably, and if you cannot, the sessions still make sense.</p>
+      </details>
+      <details>
+        <summary>Who is allowed to register?</summary>
+        <p class="answer">Students from any college in India. You do not need to be at MPSTME or NMIMS, and there is no restriction on your branch or year.</p>
+      </details>
+      <details>
+        <summary>Does it cost anything?</summary>
+        <p class="answer">No. Attendance is free for everyone. Registration is required so we can plan seating and hardware access.</p>
+      </details>
+      <details>
+        <summary>Can I take part without coming to campus?</summary>
+        <p class="answer">Yes, for the hackathon, which runs in hybrid mode. You can build remotely from anywhere in India. The keynote addresses and beginner tracks on 24 October are held on campus.</p>
+      </details>
+      <details>
+        <summary>Do I need a team before I register?</summary>
+        <p class="answer">No. Hackathon teams are two to four people, and if you register on your own we will help you find a team when the hackathon opens.</p>
+      </details>
+      <details>
+        <summary>What should I bring?</summary>
+        <p class="answer">A laptop with Python and Qiskit installed, and an IBM Quantum account set up beforehand. We run a setup desk before the hackathon briefing if anything is not working.</p>
+      </details>
+      <details>
+        <summary>When does registration close?</summary>
+        <p class="answer">21 October 2026. We would encourage you to register earlier, since places for the on-campus sessions are limited by the size of the hall.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- VENUE — navy -->
 <section class="sec on-navy" id="venue">
   <div class="shell">
@@ -739,10 +866,27 @@ img{max-width:100%;display:block;}
     </div>
     <div class="legal">
       <span>© 2026 CSI@MPSTME, Department of Information Technology.</span>
+      <span>Last updated <time datetime="2026-08-29">29 August 2026</time></span>
       <span>Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by CSI at MPSTME.</span>
     </div>
   </div>
 </footer>
+
+<div class="fab" id="fab">
+  <div class="fab-menu">
+    <a href="mailto:qiskitfallfest.mpstme@gmail.com">Email us</a>
+    <a href="https://discord.gg/E837uYskmU" target="_blank" rel="noopener">Discord</a>
+    <a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="fab-row">
+    <button class="fab-btn" id="toTop" type="button" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+    <button class="fab-btn primary" id="fabBtn" type="button" aria-expanded="false" aria-label="Contact us">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 6l8 6 8-6"/></svg>
+    </button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -925,6 +1069,60 @@ img{max-width:100%;display:block;}
       if (en[0].isIntersecting) { draw(); obs.disconnect(); }
     }, { threshold: 0.3 }).observe(histEl);
   }
+
+
+  /* ---- don't let the browser restore a stale scroll offset ----
+     The page grows a lot after the display fonts and images land, so an offset
+     captured against the finished height lands somewhere else entirely when it
+     is re-applied against the short, unstyled document. */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  addEventListener('load', function () {
+    if (location.hash) {
+      var target = document.querySelector(location.hash);
+      if (target) { target.scrollIntoView(); return; }
+    }
+    scrollTo(0, 0);
+  });
+
+  /* ---- floating contact + back to top ---- */
+  var fab = document.getElementById('fab');
+  if (fab) {
+    var fabBtn = document.getElementById('fabBtn');
+    fabBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = fab.classList.toggle('open');
+      fabBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (!fab.contains(e.target)) { fab.classList.remove('open'); fabBtn.setAttribute('aria-expanded', 'false'); }
+    });
+    addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { fab.classList.remove('open'); fabBtn.setAttribute('aria-expanded', 'false'); }
+    });
+    fab.querySelectorAll('.fab-menu a').forEach(function (a) {
+      a.addEventListener('click', function () { fab.classList.remove('open'); });
+    });
+    document.getElementById('toTop').addEventListener('click', function () {
+      scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
+    addEventListener('scroll', function () {
+      fab.classList.toggle('show', scrollY > innerHeight * 0.6);
+    }, { passive: true });
+  }
+
+
+  /* ---- expand every FAQ answer while printing ---- */
+  addEventListener('beforeprint', function () {
+    document.querySelectorAll('#faq details').forEach(function (d) {
+      d.dataset.wasOpen = d.open ? '1' : '';
+      d.open = true;
+    });
+  });
+  addEventListener('afterprint', function () {
+    document.querySelectorAll('#faq details').forEach(function (d) {
+      d.open = d.dataset.wasOpen === '1';
+    });
+  });
 
 })();
 </script>
