@@ -43,6 +43,11 @@
   --pink:#F0A0C4;
   --purple:#8A6BD1;
 
+  --brand-orange:#F56600;
+  --brand-purple:#6B46C1;
+  --brand-orange-soft:rgba(245,102,0,0.18);
+  --brand-purple-soft:rgba(107,70,193,0.18);
+
   --display:'Archivo','IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;
 
   --r-xl:34px;
@@ -89,6 +94,90 @@ h3,h4{letter-spacing:-.02em;}
 p{margin:0;}
 ul{margin:0;padding:0;list-style:none;}
 img{max-width:100%;display:block;}
+
+#particle-network-bg{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+  opacity:0.38;
+  display:block;
+  background:transparent;
+}
+main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
+  position:relative;
+  z-index:1;
+}
+.hero-copy{position:relative;z-index:2;}
+.hero-title-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.photon-wave{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:220px;
+  min-width:220px;
+  height:52px;
+  position:relative;
+  filter:drop-shadow(0 0 8px rgba(107,70,193,0.25));
+}
+.photon-wave svg{
+  width:100%;
+  height:100%;
+  display:block;
+  overflow:visible;
+}
+.photon-wave .wave-line{
+  fill:none;
+  stroke:url(#waveGradient);
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:8 10;
+  animation:waveTravel 7s ease-in-out infinite alternate;
+}
+.photon-wave .atom{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #fff, var(--brand-orange) 36%, var(--brand-purple) 100%);
+  border:2px solid rgba(255,255,255,0.8);
+  box-shadow:0 0 18px rgba(245,102,0,0.45), 0 0 22px rgba(107,70,193,0.32);
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  animation:pulseAtom 3.2s ease-in-out infinite;
+}
+.photon-wave .orbit{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:38px;
+  height:38px;
+  border:2px solid rgba(255,255,255,0.38);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:inset 0 0 18px rgba(107,70,193,0.18);
+}
+@keyframes waveTravel{
+  0% { stroke-dashoffset: 0; opacity: 0.55; }
+  50% { stroke-dashoffset: 26; opacity: 1; }
+  100% { stroke-dashoffset: 52; opacity: 0.65; }
+}
+@keyframes pulseAtom{
+  0%,100% { transform:translate(-50%,-50%) scale(0.96); box-shadow:0 0 10px rgba(245,102,0,0.35), 0 0 14px rgba(107,70,193,0.18); }
+  50% { transform:translate(-50%,-50%) scale(1.18); box-shadow:0 0 18px rgba(245,102,0,0.5), 0 0 22px rgba(107,70,193,0.3); }
+}
+@media (max-width:640px){
+  .photon-wave{width:150px; min-width:150px; height:40px;}
+  .hero-title-row{align-items:flex-start;}
+}
+@media (prefers-reduced-motion: reduce){
+  .photon-wave .wave-line{animation:none;}
+  .photon-wave .atom{animation:none;}
+}
 
 .label{
   font-family:'IBM Plex Mono',ui-monospace,monospace;
@@ -178,6 +267,24 @@ img{max-width:100%;display:block;}
     radial-gradient(125% 95% at 50% 120%,rgba(7,11,26,.92) 10%,transparent 62%),
     radial-gradient(105% 80% at 50% -22%,rgba(7,11,26,.80) 8%,transparent 58%);
 }
+.hero .hero-sheen{
+  position:absolute;
+  inset:-10% -5% 0 -5%;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.08) 38%, rgba(102,217,255,0.18) 50%, rgba(255,46,146,0.12) 62%, transparent 100%);
+  transform:translateX(-120%) skewX(-18deg);
+  animation:heroScan 8s ease-in-out infinite;
+  mix-blend-mode:screen;
+  opacity:0.7;
+}
+@keyframes heroScan {
+  0%, 100% { transform:translateX(-120%) skewX(-18deg); opacity:0; }
+  18% { opacity:0.6; }
+  32% { transform:translateX(26%) skewX(-18deg); opacity:0.85; }
+  46% { opacity:0.35; }
+  62% { transform:translateX(120%) skewX(-18deg); opacity:0; }
+}
 .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;}
 .hero h1{font-size:clamp(50px,8.8vw,122px);line-height:.96;margin-bottom:32px;max-width:12ch;}
 .hero h1 .accent{color:#FF70A6;}
@@ -193,9 +300,25 @@ img{max-width:100%;display:block;}
 .fact span{display:block;font-size:15px;color:var(--muted);}
 
 /* ---------- badge ---------- */
-.badge{width:100%;max-width:380px;justify-self:center;align-self:center;animation:float 9s ease-in-out infinite;}
+#bloch-sphere-wrap{
+  position:absolute;
+  right:8%;
+  top:120px;
+  width:min(36vw, 420px);
+  height:min(36vw, 420px);
+  min-width:260px;
+  min-height:260px;
+  z-index:1;
+  pointer-events:none;
+  opacity:1;
+  filter:drop-shadow(0 0 28px rgba(255,46,146,0.32));
+}
+#bloch-sphere-wrap canvas{display:block;width:100%;height:100%;pointer-events:none;}
+.badge{width:100%;max-width:380px;justify-self:center;align-self:center;animation:float 9s ease-in-out infinite, badgeSpin 30s linear infinite;transform-origin:center;position:relative;z-index:2;}
+.badge:hover{ animation-duration: 9s, 12s; }
 .badge svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 72px rgba(249,69,155,.45));}
 @keyframes float{0%,100%{transform:translateY(-9px);}50%{transform:translateY(9px);}}
+@keyframes badgeSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .orbit-a{transform-origin:300px 300px;animation:spin 34s linear infinite;}
 .orbit-b{transform-origin:300px 300px;animation:spin-back 48s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -506,6 +629,7 @@ img{max-width:100%;display:block;}
 </style>
 </head>
 <body>
+<canvas id="particle-network-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#top">Skip to content</a>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
@@ -514,7 +638,7 @@ img{max-width:100%;display:block;}
     <div class="nav-in">
       <div class="identity">
         <a class="brand" href="#top" aria-label="SVKM's NMIMS MPSTME Qiskit Fall Fest">
-          <img src="assets/logo-nmims-real.jpg" alt="SVKM's NMIMS logo" width="42" height="42" style="object-fit:contain;">
+          <img src="assets/nmims-logo-final.jpg" alt="SVKM's NMIMS logo" width="42" height="42" style="object-fit:contain;background:#fff;border-radius:12px;padding:4px;box-shadow:0 8px 20px rgba(0,0,0,.18);">
           <span style="display:flex;flex-direction:column;line-height:1.15;">
             <strong style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#F6D6E7;">SVKM'S NMIMS</strong>
             <span style="font-size:12px;color:#D7DEF0;">MPSTME • Qiskit Fall Fest</span>
@@ -550,19 +674,37 @@ img{max-width:100%;display:block;}
 <!-- HERO — navy -->
 <section class="hero on-navy">
   <div class="bird bird-a" aria-hidden="true"><img src="assets/bird-pink-clean.png" alt=""></div>
+  <div class="hero-sheen" aria-hidden="true"></div>
+  <div id="bloch-sphere-wrap" aria-hidden="true"></div>
 
   <div class="shell">
     <div class="hero-in">
-      <div>
+      <div class="hero-copy">
         <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
-          <img src="assets/logo-nmims-real.jpg" alt="SVKM's NMIMS logo" style="width:96px;height:96px;border-radius:18px;background:#fff;padding:8px;box-shadow:0 16px 30px rgba(0,0,0,.18);object-fit:contain;">
+          <img src="assets/nmims-logo-final.jpg" alt="SVKM's NMIMS logo" style="width:96px;height:96px;border-radius:18px;background:#fff;padding:8px;box-shadow:0 16px 30px rgba(0,0,0,.18);object-fit:contain;">
           <div style="display:flex;flex-direction:column;gap:4px;">
             <span style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FFB9D5;font-family:'IBM Plex Mono',monospace;font-weight:600;">SVKM's</span>
             <span style="font-size:28px;line-height:1;color:#fff;font-family:Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:-0.04em;">NMIMS</span>
             <span style="font-size:15px;color:rgba(255,255,255,.84);font-weight:600;">MPSTME • Qiskit Fall Fest</span>
           </div>
         </div>
-        <h1>Everything is possible <span class="accent">until you measure it.</span></h1>
+        <div class="hero-title-row">
+          <div class="photon-wave" aria-hidden="true">
+            <span class="orbit"></span>
+            <span class="atom"></span>
+            <svg viewBox="0 0 220 52" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#F56600"/>
+                  <stop offset="50%" stop-color="#A78BFA"/>
+                  <stop offset="100%" stop-color="#6B46C1"/>
+                </linearGradient>
+              </defs>
+              <path class="wave-line" d="M 8 26 C 28 12, 46 12, 58 26 S 88 40, 106 26 S 138 12, 158 26 S 190 40, 212 26"/>
+            </svg>
+          </div>
+          <h1>Everything is possible <span class="accent">until you measure it.</span></h1>
+        </div>
         <p class="hero-lede">Qiskit Fall Fest is coming to MPSTME for three days of keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon for beginners and experts. It is hosted by the Department of Information Technology together with CSI.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register now</a>
@@ -899,9 +1041,167 @@ img{max-width:100%;display:block;}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
 <script>
 (function(){
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var particleCanvas = document.getElementById('particle-network-bg');
+  if (particleCanvas) {
+    var ctx = particleCanvas.getContext('2d');
+    var particles = [];
+    var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false, radius: 180 };
+    var lastTime = 0;
+    var pulseMap = [];
+
+    function setupParticles() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var targetCount = reduced ? (w < 560 ? 16 : w < 920 ? 22 : 28) : (w < 560 ? 32 : w < 920 ? 46 : 70);
+      particles = [];
+      for (var i = 0; i < targetCount; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * (reduced ? 0.18 : 0.4),
+          vy: (Math.random() - 0.5) * (reduced ? 0.18 : 0.4),
+          radius: Math.random() * 2.4 + 1.8,
+          color: i % 2 === 0 ? '#FF2E92' : '#7C6CFF',
+          pulse: Math.random() * 1000
+        });
+      }
+      pulseMap = [];
+      for (var p = 0; p < 5; p++) {
+        pulseMap.push({
+          a: Math.floor(Math.random() * particles.length),
+          b: Math.floor(Math.random() * particles.length),
+          age: Math.random() * 1000,
+          ttl: 2600 + Math.random() * 1400
+        });
+      }
+    }
+
+    function resizeParticles() {
+      var ratio = Math.min(window.devicePixelRatio || 1, 1.75);
+      particleCanvas.width = Math.floor(window.innerWidth * ratio);
+      particleCanvas.height = Math.floor(window.innerHeight * ratio);
+      particleCanvas.style.width = window.innerWidth + 'px';
+      particleCanvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      setupParticles();
+    }
+
+    addEventListener('pointermove', function (event) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+      mouse.active = true;
+    }, { passive: true });
+    addEventListener('pointerleave', function () {
+      mouse.active = false;
+    });
+
+    function drawParticles(ts) {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      if (!reduced) {
+        pulseMap.forEach(function (pulse, idx) {
+          pulse.age += 16;
+          if (pulse.age > pulse.ttl) {
+            pulse.age = 0;
+            pulse.a = Math.floor(Math.random() * particles.length);
+            pulse.b = Math.floor(Math.random() * particles.length);
+            pulse.ttl = 2600 + Math.random() * 1400;
+          }
+          if (particles[pulse.a] && particles[pulse.b]) {
+            var p1 = particles[pulse.a];
+            var p2 = particles[pulse.b];
+            var dx = p2.x - p1.x;
+            var dy = p2.y - p1.y;
+            var dist = Math.hypot(dx, dy) || 1;
+            var t = (pulse.age / pulse.ttl);
+            var cx = p1.x + dx * t;
+            var cy = p1.y + dy * t;
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(110,240,255,' + (1 - Math.abs(t - 0.5) * 1.8) + ')';
+            ctx.lineWidth = 1.6;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(cx, cy);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(110,240,255,' + (0.9 - Math.abs(t - 0.5) * 1.2) + ')';
+            ctx.arc(cx, cy, 3.8, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+      }
+
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        if (mouse.active) {
+          var dxm = mouse.x - p.x;
+          var dym = mouse.y - p.y;
+          var distm = Math.hypot(dxm, dym) || 1;
+          if (distm < mouse.radius) {
+            var force = (1 - distm / mouse.radius) * 0.42;
+            p.vx += (dxm / distm) * force * 0.7;
+            p.vy += (dym / distm) * force * 0.7;
+          }
+        }
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -0.9;
+        if (p.y < 0 || p.y > h) p.vy *= -0.9;
+        p.x = Math.min(Math.max(p.x, 0), w);
+        p.y = Math.min(Math.max(p.y, 0), h);
+
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = 0.74;
+        ctx.arc(p.x, p.y, p.radius + Math.sin(ts * 0.002 + p.pulse) * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      for (var a = 0; a < particles.length; a++) {
+        for (var b = a + 1; b < particles.length; b++) {
+          var p1 = particles[a];
+          var p2 = particles[b];
+          var dx = p2.x - p1.x;
+          var dy = p2.y - p1.y;
+          var dist = Math.hypot(dx, dy);
+          if (dist > (reduced ? 110 : 150)) continue;
+          var opacity = 1 - dist / (reduced ? 110 : 150);
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = 'rgba(255, 46, 146, ' + (opacity * 0.18) + ')';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    if (reduced) {
+      resizeParticles();
+      drawParticles(0);
+    } else {
+      resizeParticles();
+      function animateParticles(ts) {
+        if (ts - lastTime > 16) {
+          drawParticles(ts);
+          lastTime = ts;
+        }
+        requestAnimationFrame(animateParticles);
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    addEventListener('resize', resizeParticles, {passive:true});
+  }
+
   var progress = document.getElementById('progress');
   var nav = document.getElementById('nav');
   var ticking = false;
@@ -1134,6 +1434,174 @@ img{max-width:100%;display:block;}
       d.open = d.dataset.wasOpen === '1';
     });
   });
+
+  if (window.THREE && document.getElementById('bloch-sphere-wrap')) {
+    var blochMount = document.getElementById('bloch-sphere-wrap');
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(36, 1, 0.1, 1000);
+    camera.position.set(0, 0.2, 3.75);
+
+    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
+    renderer.setClearColor(0x000000, 0);
+    blochMount.appendChild(renderer.domElement);
+
+    var group = new THREE.Group();
+    scene.add(group);
+
+    var ambient = new THREE.AmbientLight(0x9a7dff, 1.2);
+    scene.add(ambient);
+    var pointA = new THREE.PointLight(0xff2e92, 2.2, 30);
+    pointA.position.set(2.3, 2.1, 3.4);
+    scene.add(pointA);
+    var pointB = new THREE.PointLight(0x66d9ff, 1.6, 30);
+    pointB.position.set(-2.8, -1.5, 2.8);
+    scene.add(pointB);
+
+    var sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(1.1, 48, 48),
+      new THREE.MeshBasicMaterial({ color: 0x8ea2ff, wireframe: true, transparent: true, opacity: 0.5 })
+    );
+    group.add(sphere);
+
+    var eqMaterial = new THREE.LineBasicMaterial({ color: 0x9caeff, transparent: true, opacity: 0.26 });
+    var meridianMaterial = new THREE.LineBasicMaterial({ color: 0xff2e92, transparent: true, opacity: 0.22 });
+
+    var eqX = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.2,0,0), new THREE.Vector3(1.2,0,0)]), eqMaterial);
+    var eqY = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-1.2,0), new THREE.Vector3(0,1.2,0)]), eqMaterial);
+    var eqZ = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,-1.2), new THREE.Vector3(0,0,1.2)]), eqMaterial);
+    group.add(eqX, eqY, eqZ);
+
+    for (var i = 0; i < 12; i++) {
+      var angle = (i / 12) * Math.PI * 2;
+      var points = [];
+      for (var j = 0; j <= 30; j++) {
+        var theta = (j / 30) * Math.PI;
+        points.push(new THREE.Vector3(Math.cos(angle) * Math.sin(theta), Math.cos(theta), Math.sin(angle) * Math.sin(theta)).multiplyScalar(1.12));
+      }
+      var ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), meridianMaterial.clone());
+      ring.material.opacity = 0.22 + (i % 3) * 0.05;
+      group.add(ring);
+    }
+
+    var vectorGroup = new THREE.Group();
+    var shaft = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.025, 0.04, 1.8, 18),
+      new THREE.MeshStandardMaterial({ color: 0xff2e92, emissive: 0xff2e92, emissiveIntensity: 1.1, metalness: 0.3, roughness: 0.2 })
+    );
+    shaft.rotation.z = Math.PI / 2;
+    shaft.position.x = 0.9;
+    vectorGroup.add(shaft);
+
+    var cone = new THREE.Mesh(
+      new THREE.ConeGeometry(0.09, 0.22, 16),
+      new THREE.MeshStandardMaterial({ color: 0xff2e92, emissive: 0xff2e92, emissiveIntensity: 1.3, metalness: 0.25, roughness: 0.2 })
+    );
+    cone.rotation.z = -Math.PI / 2;
+    cone.position.x = 1.82;
+    vectorGroup.add(cone);
+
+    var pulse = new THREE.Mesh(
+      new THREE.TorusGeometry(0.8, 0.012, 10, 60),
+      new THREE.MeshBasicMaterial({ color: 0x66d9ff, transparent: true, opacity: 0.7 })
+    );
+    pulse.rotation.x = Math.PI / 2;
+    pulse.visible = false;
+    scene.add(pulse);
+
+    group.add(vectorGroup);
+
+    var label = document.createElement('div');
+    label.textContent = '|0>';
+    label.style.position = 'absolute';
+    label.style.left = '50%';
+    label.style.top = '50%';
+    label.style.transform = 'translate(-50%, -50%)';
+    label.style.fontFamily = 'IBM Plex Mono, monospace';
+    label.style.fontSize = '12px';
+    label.style.letterSpacing = '0.18em';
+    label.style.opacity = '0';
+    label.style.color = '#fff';
+    label.style.textShadow = '0 0 12px rgba(255,46,146,0.9)';
+    blochMount.appendChild(label);
+
+    var mouse = { x: 0, y: 0, active: false };
+    var theta = 0;
+    var collapseTimer = 0;
+    var collapseState = 0;
+
+    blochMount.addEventListener('pointermove', function (event) {
+      var rect = blochMount.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+      mouse.active = true;
+    });
+    blochMount.addEventListener('pointerleave', function () { mouse.active = false; });
+    blochMount.addEventListener('click', function () {
+      collapseState = 1;
+      collapseTimer = 0;
+      label.style.opacity = '1';
+      label.textContent = Math.random() > 0.5 ? '|1>' : '|0>';
+      pulse.visible = true;
+      pulse.scale.setScalar(0.9);
+    });
+
+    function resizeBloch() {
+      var size = Math.min(blochMount.clientWidth || 300, blochMount.clientHeight || 300);
+      renderer.setSize(size, size);
+      camera.updateProjectionMatrix();
+    }
+    resizeBloch();
+    addEventListener('resize', resizeBloch, { passive: true });
+
+    function animateBloch(now) {
+      if (reduced) {
+        group.rotation.x = 0.6;
+        group.rotation.y = 0.8;
+        vectorGroup.rotation.x = 0.2;
+        vectorGroup.rotation.y = 0.2;
+        pulse.visible = false;
+        label.style.opacity = '0';
+        renderer.render(scene, camera);
+        requestAnimationFrame(animateBloch);
+        return;
+      }
+
+      theta += 0.012;
+      var tiltX = mouse.active ? mouse.y * 0.8 : 0.2;
+      var tiltY = mouse.active ? mouse.x * 1.4 : 0.7;
+      group.rotation.x = 0.9 + tiltX + Math.sin(now * 0.0012) * 0.35;
+      group.rotation.y = theta + tiltY;
+      vectorGroup.rotation.z = theta * 1.45 + Math.sin(now * 0.0016) * 0.8;
+      vectorGroup.rotation.x = 0.5 + mouse.y * 0.6;
+      vectorGroup.rotation.y = 0.2 + mouse.x * 0.8;
+
+      if (collapseState > 0) {
+        collapseTimer += 0.016;
+        var t = Math.min(collapseTimer / 1.4, 1);
+        var ease = 1 - Math.pow(1 - t, 3);
+        vectorGroup.scale.setScalar(1.2 - 0.2 * ease);
+        pulse.visible = true;
+        pulse.scale.setScalar(0.8 + ease * 0.8);
+        pulse.material.opacity = 0.8 - ease * 0.65;
+        label.style.opacity = String(0.35 + (1 - ease) * 0.65);
+        if (t >= 1) {
+          collapseState = 0;
+          collapseTimer = 0;
+          label.style.opacity = '0';
+          pulse.visible = false;
+        }
+      } else {
+        vectorGroup.scale.setScalar(1);
+        pulse.visible = false;
+      }
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(animateBloch);
+    }
+
+    requestAnimationFrame(animateBloch);
+  }
 
 })();
 </script>
