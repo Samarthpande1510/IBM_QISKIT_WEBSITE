@@ -257,6 +257,54 @@ img{max-width:100%;display:block;}
 .session p{font-size:15px;color:var(--muted);line-height:1.6;}
 .tag{font-size:12.5px;font-weight:500;color:var(--chip-fg);white-space:nowrap;background:var(--chip-bg);border-radius:var(--pill);padding:7px 16px;}
 
+/* ---------- first circuit: Qiskit code panel + shot histogram ---------- */
+.circuit{display:grid;grid-template-columns:1.04fr .96fr;gap:20px;align-items:stretch;position:relative;z-index:2;}
+.code-panel{
+  background:#0A1024;border:1px solid #212B4C;border-radius:var(--r-lg);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.code-tabs{display:flex;gap:4px;padding:10px 10px 0;border-bottom:1px solid #212B4C;background:#0C1330;flex-wrap:wrap;}
+.code-tabs button{
+  border:none;background:transparent;cursor:pointer;color:#8B94B2;
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.02em;
+  padding:10px 15px;border-radius:10px 10px 0 0;transition:background .25s,color .25s;
+}
+.code-tabs button:hover{color:#EFF2FA;}
+.code-tabs button[aria-selected="true"]{background:#0A1024;color:#FF8FC4;}
+.code-body{
+  margin:0;padding:22px 24px;flex:1;overflow-x:auto;
+  font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.8;
+  color:#D7DEF0;white-space:pre;tab-size:2;
+}
+.code-body .com{color:#5F6A8E;}
+.code-body .kw{color:#FF8FC4;}
+.code-body .fn{color:#8AABFF;}
+.code-body .num{color:#FFC9E4;}
+.code-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-top:1px solid #212B4C;background:#0C1330;}
+.code-foot .shots{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6D7799;letter-spacing:.08em;text-transform:uppercase;}
+.mini-btn{
+  border:1px solid #2C3760;background:transparent;color:#EFF2FA;cursor:pointer;
+  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:500;
+  padding:9px 17px;border-radius:var(--pill);transition:background .25s,border-color .25s,color .25s;
+}
+.mini-btn:hover{border-color:var(--pink);color:#fff;}
+.mini-btn.go{background:var(--pink);border-color:var(--pink);color:#0A1024;font-weight:600;}
+.mini-btn.go:hover{background:var(--pink-lite);}
+
+.result{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 28px 22px;display:flex;flex-direction:column;}
+.result h4{font-size:16px;font-weight:600;margin-bottom:4px;}
+.result .sub{font-size:14px;color:var(--muted);margin-bottom:22px;}
+.hist{display:flex;align-items:flex-end;gap:16px;flex:1;min-height:210px;}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;}
+.bar .pct{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:var(--on);margin-bottom:8px;}
+.bar .col{width:100%;background:var(--pink);border-radius:10px 10px 0 0;height:0;transition:height .75s cubic-bezier(.2,.8,.25,1);}
+.bar:nth-child(even) .col{background:var(--blue);}
+.bar .ket{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--muted);margin-top:12px;}
+@media (max-width:960px){
+  .circuit{grid-template-columns:1fr;}
+  .code-body{font-size:12.5px;}
+}
+
 /* ---------- tracks ---------- */
 .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;}
 .track{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 32px 36px;display:flex;flex-direction:column;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .4s ease,border-color .4s ease,background .4s ease;}
@@ -532,6 +580,41 @@ img{max-width:100%;display:block;}
   </div>
 </section>
 
+<!-- FIRST CIRCUIT — white -->
+<section class="sec on-white" id="first-circuit">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">A taste of Qiskit</span>
+      <h2>Your first quantum circuit is <span class="accent">five lines long.</span></h2>
+      <p>This is roughly what you will write in the beginner track on 24 October. Pick a circuit, then run it and watch the measurement counts land.</p>
+    </div>
+
+    <div class="circuit reveal" style="--d:.1s">
+      <div class="code-panel">
+        <div class="code-tabs" role="tablist" aria-label="Example circuits">
+          <button role="tab" id="ctab0" aria-controls="cpanel" aria-selected="true" type="button">bell_state.py</button>
+          <button role="tab" id="ctab1" aria-controls="cpanel" aria-selected="false" type="button">coin_flip.py</button>
+          <button role="tab" id="ctab2" aria-controls="cpanel" aria-selected="false" type="button">rotation.py</button>
+        </div>
+        <pre class="code-body" id="cpanel" role="tabpanel" aria-labelledby="ctab0"></pre>
+        <div class="code-foot">
+          <span class="shots">1024 shots</span>
+          <span style="display:flex;gap:8px">
+            <button class="mini-btn" id="copyBtn" type="button">Copy</button>
+            <button class="mini-btn go" id="runBtn" type="button">Run</button>
+          </span>
+        </div>
+      </div>
+
+      <div class="result">
+        <h4 id="resultTitle">Measurement counts</h4>
+        <p class="sub" id="resultSub">Two entangled qubits always agree — you never measure 01 or 10.</p>
+        <div class="hist" id="hist"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TRACKS — blue -->
 <section class="sec on-pink" id="tracks">
   <div class="shell">
@@ -558,6 +641,7 @@ img{max-width:100%;display:block;}
         <p>Teams of two to four build a Qiskit project across Friday and Saturday, on campus or remotely, in separate brackets for beginners and experts.</p>
         <div class="meta"><span>Teams of two to four</span><span>Prizes awarded</span></div>
       </article>
+    </div>
   </div>
 </section>
 
@@ -716,6 +800,120 @@ img{max-width:100%;display:block;}
       });
     });
   });
+
+  /* ---- first circuit: code tabs, copy, and a sampled shot histogram ---- */
+  var CIRCUITS = [
+    {
+      title: 'Measurement counts',
+      sub: 'Two entangled qubits always agree — you never measure 01 or 10.',
+      outcomes: [['00', 0.5], ['11', 0.5]],
+      plain: 'from qiskit import QuantumCircuit\n\nqc = QuantumCircuit(2, 2)\nqc.h(0)\nqc.cx(0, 1)\nqc.measure([0, 1], [0, 1])',
+      html: '<span class="kw">from</span> qiskit <span class="kw">import</span> QuantumCircuit\n\n'
+          + '<span class="com"># two qubits, two classical bits</span>\n'
+          + 'qc = <span class="fn">QuantumCircuit</span>(<span class="num">2</span>, <span class="num">2</span>)\n'
+          + 'qc.<span class="fn">h</span>(<span class="num">0</span>)            <span class="com"># superposition</span>\n'
+          + 'qc.<span class="fn">cx</span>(<span class="num">0</span>, <span class="num">1</span>)         <span class="com"># entangle them</span>\n'
+          + 'qc.<span class="fn">measure</span>([<span class="num">0</span>, <span class="num">1</span>], [<span class="num">0</span>, <span class="num">1</span>])'
+    },
+    {
+      title: 'Measurement counts',
+      sub: 'One qubit in superposition is a fair coin. Roughly half and half, never exactly.',
+      outcomes: [['0', 0.5], ['1', 0.5]],
+      plain: 'from qiskit import QuantumCircuit\n\nqc = QuantumCircuit(1, 1)\nqc.h(0)\nqc.measure(0, 0)',
+      html: '<span class="kw">from</span> qiskit <span class="kw">import</span> QuantumCircuit\n\n'
+          + '<span class="com"># one qubit, one classical bit</span>\n'
+          + 'qc = <span class="fn">QuantumCircuit</span>(<span class="num">1</span>, <span class="num">1</span>)\n'
+          + 'qc.<span class="fn">h</span>(<span class="num">0</span>)            <span class="com"># a fair quantum coin</span>\n'
+          + 'qc.<span class="fn">measure</span>(<span class="num">0</span>, <span class="num">0</span>)'
+    },
+    {
+      title: 'Measurement counts',
+      sub: 'Rotate by π/3 and the odds tilt to 75 / 25. The angle sets the probability.',
+      outcomes: [['0', 0.75], ['1', 0.25]],
+      plain: 'from qiskit import QuantumCircuit\nfrom numpy import pi\n\nqc = QuantumCircuit(1, 1)\nqc.ry(pi / 3, 0)\nqc.measure(0, 0)',
+      html: '<span class="kw">from</span> qiskit <span class="kw">import</span> QuantumCircuit\n'
+          + '<span class="kw">from</span> numpy <span class="kw">import</span> pi\n\n'
+          + 'qc = <span class="fn">QuantumCircuit</span>(<span class="num">1</span>, <span class="num">1</span>)\n'
+          + 'qc.<span class="fn">ry</span>(pi / <span class="num">3</span>, <span class="num">0</span>)     <span class="com"># tilt the qubit</span>\n'
+          + 'qc.<span class="fn">measure</span>(<span class="num">0</span>, <span class="num">0</span>)'
+    }
+  ];
+
+  var SHOTS = 1024;
+  var codeEl = document.getElementById('cpanel');
+
+  if (codeEl) {
+    var histEl = document.getElementById('hist');
+    var titleEl = document.getElementById('resultTitle');
+    var subEl = document.getElementById('resultSub');
+    var ctabs = [].slice.call(document.querySelectorAll('.code-tabs button'));
+    var current = 0;
+
+    function sample(p) {                     // binomial draw, so counts wobble like real shots
+      var hits = 0;
+      for (var i = 0; i < SHOTS; i++) if (Math.random() < p) hits++;
+      return hits;
+    }
+
+    function counts(outcomes) {
+      if (outcomes.length === 2) {
+        var a = sample(outcomes[0][1]);
+        return [a, SHOTS - a];
+      }
+      return outcomes.map(function (o) { return Math.round(o[1] * SHOTS); });
+    }
+
+    function draw(animate) {
+      var c = CIRCUITS[current];
+      var n = counts(c.outcomes);
+      var max = Math.max.apply(null, n);
+      histEl.innerHTML = c.outcomes.map(function (o, i) {
+        var pct = (n[i] / SHOTS * 100).toFixed(1);
+        return '<div class="bar">'
+             + '<span class="pct">' + n[i] + '</span>'
+             + '<span class="col" data-h="' + Math.round(n[i] / max * 100) + '"></span>'
+             + '<span class="ket">|' + o[0] + '⟩ &middot; ' + pct + '%</span>'
+             + '</div>';
+      }).join('');
+      var cols = histEl.querySelectorAll('.col');
+      requestAnimationFrame(function () {
+        [].forEach.call(cols, function (col) { col.style.height = col.dataset.h + '%'; });
+      });
+    }
+
+    function show(i) {
+      current = i;
+      var c = CIRCUITS[i];
+      codeEl.innerHTML = c.html;
+      titleEl.textContent = c.title;
+      subEl.textContent = c.sub;
+      ctabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+      codeEl.setAttribute('aria-labelledby', 'ctab' + i);
+      draw();
+    }
+
+    ctabs.forEach(function (t, i) { t.addEventListener('click', function () { show(i); }); });
+
+    document.getElementById('runBtn').addEventListener('click', function () {
+      this.textContent = 'Running';
+      var btn = this;
+      setTimeout(function () { draw(); btn.textContent = 'Run'; }, 260);
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', function () {
+      var btn = this;
+      navigator.clipboard.writeText(CIRCUITS[current].plain).then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+      }).catch(function () { btn.textContent = 'Press ⌘C'; });
+    });
+
+    show(0);
+    new IntersectionObserver(function (en, obs) {
+      if (en[0].isIntersecting) { draw(); obs.disconnect(); }
+    }, { threshold: 0.3 }).observe(histEl);
+  }
+
 })();
 </script>
 
