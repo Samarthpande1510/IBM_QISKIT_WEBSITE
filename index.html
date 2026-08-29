@@ -122,7 +122,7 @@ img{max-width:100%;display:block;}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0;}
 .identity{display:flex;align-items:center;gap:12px;}
 .brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16.5px;white-space:nowrap;color:#EFF2FA;}
-.brand img{width:34px;height:34px;border-radius:50%;flex:none;display:block;}
+.brand img{width:42px;height:42px;border-radius:12px;flex:none;display:block;background:#fff;padding:4px;box-shadow:0 8px 20px rgba(0,0,0,.18);}
 .brand .sep{color:var(--pink-lite);font-weight:500;}
 .brand .host{display:inline-flex;align-items:center;padding:4px 10px;border:1px solid rgba(255,255,255,.16);border-radius:var(--pill);background:rgba(255,255,255,.1);}
 .ibm-quantum{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid rgba(255,116,184,.55);border-radius:var(--pill);font-size:15px;font-weight:700;letter-spacing:.01em;color:#fff;background:rgba(255,116,184,.14);}
@@ -513,9 +513,12 @@ img{max-width:100%;display:block;}
   <div class="shell">
     <div class="nav-in">
       <div class="identity">
-        <a class="brand" href="#top">
-          <img src="assets/logo-csi.png" alt="CSI MPSTME" width="34" height="34">
-          Qiskit Fall Fest <span class="sep">×</span> <a class="host" href="https://engineering.nmims.edu/" target="_blank" rel="noopener">MPSTME</a>
+        <a class="brand" href="#top" aria-label="SVKM's NMIMS MPSTME Qiskit Fall Fest">
+          <img src="assets/logo-nmims-real.jpg" alt="SVKM's NMIMS logo" width="42" height="42" style="object-fit:contain;">
+          <span style="display:flex;flex-direction:column;line-height:1.15;">
+            <strong style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#F6D6E7;">SVKM'S NMIMS</strong>
+            <span style="font-size:12px;color:#D7DEF0;">MPSTME • Qiskit Fall Fest</span>
+          </span>
         </a>
         <a class="ibm-quantum" href="https://www.ibm.com/quantum" target="_blank" rel="noopener">IBM Quantum</a>
       </div>
@@ -551,6 +554,14 @@ img{max-width:100%;display:block;}
   <div class="shell">
     <div class="hero-in">
       <div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+          <img src="assets/logo-nmims-real.jpg" alt="SVKM's NMIMS logo" style="width:96px;height:96px;border-radius:18px;background:#fff;padding:8px;box-shadow:0 16px 30px rgba(0,0,0,.18);object-fit:contain;">
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <span style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FFB9D5;font-family:'IBM Plex Mono',monospace;font-weight:600;">SVKM's</span>
+            <span style="font-size:28px;line-height:1;color:#fff;font-family:Georgia,'Times New Roman',serif;font-weight:700;letter-spacing:-0.04em;">NMIMS</span>
+            <span style="font-size:15px;color:rgba(255,255,255,.84);font-weight:600;">MPSTME • Qiskit Fall Fest</span>
+          </div>
+        </div>
         <h1>Everything is possible <span class="accent">until you measure it.</span></h1>
         <p class="hero-lede">Qiskit Fall Fest is coming to MPSTME for three days of keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon for beginners and experts. It is hosted by the Department of Information Technology together with CSI.</p>
         <div class="hero-actions">
