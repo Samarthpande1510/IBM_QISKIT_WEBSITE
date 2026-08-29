@@ -486,11 +486,27 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .bird{position:absolute;pointer-events:none;z-index:1;}
 .bird img{width:100%;height:auto;}
 .bird-a img{transform:rotate(30deg);}
-.bird-a{width:290px;top:126px;right:20%;z-index:1;animation:driftA 21s ease-in-out infinite;}
+.bird-a{
+  width:clamp(180px, 11vw, 236px);
+  top:clamp(78px, 6.6vw, 130px);
+  right:clamp(18px, 2.8vw, 54px);
+  z-index:1;
+  opacity:0.96;
+  filter:drop-shadow(0 18px 28px rgba(0,0,0,0.16));
+  animation:driftA 21s ease-in-out infinite;
+}
 .bird-c{width:240px;top:52px;right:3%;animation:driftB 24s ease-in-out infinite;}
-@keyframes driftA{0%,100%{transform:translate(0,0) rotate(-2deg);}50%{transform:translate(22px,-14px) rotate(2deg);}}
+@keyframes driftA{0%,100%{transform:translate(0,0) rotate(-2deg);}50%{transform:translate(18px,-14px) rotate(2deg);}}
 @keyframes driftB{0%,100%{transform:translate(0,0) rotate(2deg);}50%{transform:translate(-18px,16px) rotate(-2deg);}}
-@media (max-width:1100px){.bird-a,.bird-c{display:none;}}
+@media (max-width:1440px){
+  .bird-a{width:200px;right:28px;top:86px;}
+}
+@media (max-width:1280px){
+  .bird-a{width:190px;right:20px;top:86px;}
+}
+@media (max-width:960px){
+  .bird-a,.bird-c{display:none;}
+}
 
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;padding:172px 0 100px;color:var(--on);background:#070B1A;}
@@ -768,6 +784,71 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .fab.open .fab-btn.primary svg{transform:rotate(45deg);}
 @media (max-width:560px){.fab{right:14px;bottom:14px;}}
 
+/* ---------- entanglement playground ---------- */
+.entanglement-section{background:linear-gradient(180deg, rgba(14,19,31,0.96), rgba(10,16,36,1));}
+.entanglement-demo{position:relative;z-index:2;background:rgba(14,19,31,.8);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:28px 24px 20px;box-shadow:0 30px 60px -30px rgba(7,11,26,.75);}
+.entanglement-caption{margin:0 0 18px;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#FFB8D8;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;}
+.entanglement-board{position:relative;padding:18px 18px 10px;}
+.entanglement-board::before{content:"";position:absolute;inset:8% 12% auto 12%;height:54%;pointer-events:none;background:radial-gradient(circle at center, rgba(255,116,184,.12), transparent 60%);opacity:0;transition:opacity .35s ease;}
+.entanglement-board.measure-flash::before{opacity:1;animation:boardFlash 880ms cubic-bezier(.2,.75,.2,1);}
+@keyframes boardFlash{
+  0%{opacity:0;transform:scale(.98);} 15%{opacity:1;transform:scale(1.02);} 55%{opacity:.7;} 100%{opacity:0;transform:scale(1.06);} 
+}
+.measurement-burst{position:absolute;inset:0;pointer-events:none;opacity:0;}
+.entanglement-board.measure-flash .measurement-burst{
+  opacity:1;
+  background:radial-gradient(circle at center, rgba(255,255,255,.42), rgba(255,116,184,.32), rgba(94,223,255,.26), transparent 68%);
+  animation:burstPulse 900ms ease-out forwards;
+}
+@keyframes burstPulse{
+  0%{transform:scale(0.4);opacity:0.85;} 30%{transform:scale(1.05);opacity:1;} 80%{transform:scale(1.25);opacity:.45;} 100%{transform:scale(1.4);opacity:0;} 
+}
+.qubit-pair{display:flex;justify-content:center;align-items:flex-end;gap:clamp(24px, 8vw, 72px);position:relative;padding:16px 0 12px;}
+.qubit-unit{display:flex;flex-direction:column;align-items:center;gap:18px;min-width:150px;}
+.qubit-orb{position:relative;width:120px;height:120px;border-radius:50%;display:grid;place-items:center;transition:transform .7s cubic-bezier(.2,.75,.25,1), box-shadow .45s ease, filter .45s ease, opacity .45s ease; isolation:isolate;}
+.qubit-orb::before{content:"";position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle at 35% 35%, rgba(255,255,255,.8), rgba(255,255,255,.12) 18%, rgba(255,116,184,.2) 58%, rgba(133,110,255,.15) 100%);}
+.qubit-orb .orb-core{position:absolute;inset:18px;border-radius:50%;background:radial-gradient(circle at 35% 32%, rgba(255,255,255,.9), rgba(255,116,184,.82) 18%, rgba(255,116,184,.28) 38%, rgba(61,49,118,.2) 100%);box-shadow:0 0 18px rgba(255,116,184,.22), inset 0 0 18px rgba(255,255,255,.2);transition:all .6s ease;}
+.qubit-orb .orb-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,.18);opacity:0;transition:opacity .45s ease, transform .6s ease;}
+.qubit-orb .orb-ring.ring-a{border-color:rgba(255,116,184,.7);box-shadow:0 0 14px rgba(255,116,184,.25);}
+.qubit-orb .orb-ring.ring-b{border-color:rgba(94,223,255,.8);box-shadow:0 0 14px rgba(94,223,255,.25);}
+.qubit-orb.superposed .orb-core{background:radial-gradient(circle at 35% 32%, rgba(255,255,255,.9), rgba(255,116,184,.9) 16%, rgba(94,223,255,.46) 38%, rgba(120,106,255,.38) 100%);filter:drop-shadow(0 0 12px rgba(255,116,184,.38));}
+.qubit-orb.superposed .orb-ring{opacity:1;transform:scale(1.12);animation:riftOrbit 2.8s linear infinite;}
+.qubit-orb.superposed .orb-ring.ring-b{animation-delay:.7s;}
+.qubit-orb.superposed .orb-sheen{opacity:1;transform:scale(1.07);}
+.qubit-orb .orb-sheen{position:absolute;inset:14px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.8), rgba(255,255,255,0) 55%);opacity:0;transition:opacity .5s ease, transform .5s ease;}
+.qubit-orb.entangled{filter:drop-shadow(0 0 15px rgba(117,209,255,.38));}
+.qubit-orb.entangled .orb-core{box-shadow:0 0 22px rgba(94,223,255,.42), 0 0 26px rgba(255,116,184,.3);}
+.qubit-orb.measured{transform:scale(1.02);}
+.qubit-orb.measured .orb-core{inset:14px;background:radial-gradient(circle at 35% 32%, rgba(255,255,255,.96), rgba(255,255,255,.62) 18%, rgba(255,116,184,.7) 46%, rgba(101,111,255,.7) 100%);}
+.qubit-orb.measured[style*="--result: 11"] .orb-core{background:radial-gradient(circle at 35% 32%, rgba(255,255,255,.96), rgba(255,255,255,.62) 18%, rgba(255,116,184,.9) 46%, rgba(205,110,255,.82) 100%);box-shadow:0 0 32px rgba(255,116,184,.46), 0 0 46px rgba(255,116,184,.2);} 
+.qubit-orb.measured[style*="--result: 00"] .orb-core{background:radial-gradient(circle at 35% 32%, rgba(255,255,255,.9), rgba(255,255,255,.42) 18%, rgba(177,196,255,.5) 52%, rgba(70,88,154,.58) 100%);box-shadow:0 0 24px rgba(126,162,255,.35);} 
+.qubit-orb.measured .orb-ring{opacity:0;animation:none;}
+@keyframes riftOrbit{
+  0%{transform:rotate(0deg) scale(1.15);} 50%{transform:rotate(180deg) scale(1.22);} 100%{transform:rotate(360deg) scale(1.15);} 
+}
+.qubit-connector{position:absolute;left:50%;top:50%;width:34%;height:2px;border-radius:999px;background:linear-gradient(90deg, rgba(255,116,184,0), rgba(132,232,255,.2), rgba(255,116,184,.9), rgba(132,232,255,.2), rgba(255,116,184,0));box-shadow:0 0 10px rgba(255,116,184,.32), 0 0 18px rgba(94,223,255,.2);opacity:0;transform:translateY(-50%) scaleX(.35);transform-origin:center;transition:opacity .35s ease, transform .55s cubic-bezier(.2,.8,.2,1);}
+.qubit-connector.active{opacity:1;transform:translateY(-50%) scaleX(1);animation:connectorPulse 1.2s ease-in-out infinite alternate;}
+@keyframes connectorPulse{0%{box-shadow:0 0 10px rgba(255,116,184,.22), 0 0 18px rgba(94,223,255,.2);} 100%{box-shadow:0 0 18px rgba(255,116,184,.54), 0 0 26px rgba(94,223,255,.26);}}
+.qubit-label{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:none;color:#EEF2FF;min-height:18px;text-shadow:0 0 12px rgba(255,116,184,.2);font-weight:600;}
+.qubit-label.active-state{color:#fff;}
+.entanglement-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:22px;}
+.entanglement-actions .btn{min-width:220px;justify-content:center;}
+.entanglement-actions .btn:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none;border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:rgba(225,231,244,.68);}
+.entanglement-result{margin-top:18px;text-align:center;display:grid;gap:8px;justify-items:center;}
+.entanglement-result strong{display:block;font-size:18px;color:#fff;letter-spacing:-.02em;}
+.entanglement-result span{font-size:14.5px;color:var(--muted);letter-spacing:.01em;}
+@media (max-width:640px){
+  .qubit-pair{flex-direction:column;align-items:center;gap:18px;}
+  .qubit-unit{min-width:0;}
+  .qubit-connector{left:50%;top:50%;width:2px;height:28%;transform:translate(-50%, -50%) scaleY(.2);}
+  .qubit-connector.active{transform:translate(-50%, -50%) scaleY(1);}
+  .entanglement-actions .btn{width:100%;min-width:0;}
+}
+@media (prefers-reduced-motion: reduce){
+  .qubit-orb,.qubit-connector,.measurement-burst,.entanglement-board::before,.qubit-orb .orb-ring,.qubit-orb .orb-core,.qubit-orb .orb-sheen{animation:none !important;transition:none !important;}
+  .entanglement-board.measure-flash::before{animation:none;opacity:0;}
+}
+
 /* ---------- tracks ---------- */
 .tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;}
 .track{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:34px 32px 36px;display:flex;flex-direction:column;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .4s ease,border-color .4s ease,background .4s ease;}
@@ -1042,6 +1123,58 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
       <div class="fact reveal"><b>23 – 25 October 2026</b><span>Friday to Sunday</span></div>
       <div class="fact location-fact reveal" style="--d:.1s"><b><a href="https://engineering.nmims.edu/" target="_blank" rel="noopener">MPSTME, Mumbai</a></b><span>Vile Parle West</span></div>
       <div class="fact reveal" style="--d:.2s"><b>Free to attend</b><span>Hybrid, open to students across India</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTANGLEMENT PLAYGROUND -->
+<section class="sec entanglement-section on-white" id="entanglement-playground">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">Entanglement playground</span>
+      <h2>Watch the state <span class="accent">collapse into correlation.</span></h2>
+    </div>
+
+    <div class="entanglement-demo reveal" style="--d:.1s">
+      <div class="entanglement-caption" id="entanglement-caption">Two qubits, each in a definite state.</div>
+
+      <div class="entanglement-board" id="entanglement-board">
+        <div class="measurement-burst" aria-hidden="true"></div>
+        <div class="qubit-connector" id="qubit-connector" aria-hidden="true"></div>
+
+        <div class="qubit-pair">
+          <div class="qubit-unit">
+            <div class="qubit-orb qubit-a" data-qubit="a" aria-label="Qubit A">
+              <span class="orb-sheen"></span>
+              <span class="orb-ring ring-a"></span>
+              <span class="orb-ring ring-b"></span>
+              <span class="orb-core"></span>
+            </div>
+            <div class="qubit-label qubit-label-a">|0⟩</div>
+          </div>
+
+          <div class="qubit-unit">
+            <div class="qubit-orb qubit-b" data-qubit="b" aria-label="Qubit B">
+              <span class="orb-sheen"></span>
+              <span class="orb-ring ring-a"></span>
+              <span class="orb-ring ring-b"></span>
+              <span class="orb-core"></span>
+            </div>
+            <div class="qubit-label qubit-label-b">|0⟩</div>
+          </div>
+        </div>
+
+        <div class="entanglement-actions">
+          <button class="btn btn-primary" type="button" id="applyHBtn">Apply H (superposition)</button>
+          <button class="btn btn-ghost" type="button" id="entangleBtn" disabled>Entangle (CX)</button>
+          <button class="btn btn-ghost" type="button" id="measureBtn" disabled>Measure</button>
+        </div>
+
+        <div class="entanglement-result">
+          <strong id="entanglement-result">No measurement yet.</strong>
+          <span id="entanglement-tally">Measured 0 times — 00: 0, 11: 0, 01/10: 0</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1967,12 +2100,13 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     var trailTimer = 0;
     var gateTargets = [
       { id: 'top', label: '|ψ⟩', threshold: 0.02 },
-      { id: 'about', label: 'H', threshold: 0.16 },
-      { id: 'program', label: 'H', threshold: 0.32 },
-      { id: 'first-circuit', label: 'CX', threshold: 0.48 },
-      { id: 'tracks', label: 'CX', threshold: 0.62 },
-      { id: 'faq', label: '|0⟩', threshold: 0.8 },
-      { id: 'venue', label: '|1⟩', threshold: 0.88 },
+      { id: 'entanglement-playground', label: 'H', threshold: 0.16 },
+      { id: 'about', label: 'H', threshold: 0.3 },
+      { id: 'program', label: 'CX', threshold: 0.46 },
+      { id: 'first-circuit', label: 'CX', threshold: 0.6 },
+      { id: 'tracks', label: '|0⟩', threshold: 0.72 },
+      { id: 'faq', label: '|1⟩', threshold: 0.82 },
+      { id: 'venue', label: '⌁', threshold: 0.9 },
       { id: 'register', label: '⌁', threshold: 0.96 }
     ];
     var gateNodes = [];
@@ -2276,6 +2410,146 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     }
 
     requestAnimationFrame(animateBloch);
+  }
+
+  var entanglement = document.getElementById('entanglement-playground');
+  if (entanglement) {
+    var entanglementCaption = document.getElementById('entanglement-caption');
+    var entanglementResult = document.getElementById('entanglement-result');
+    var entanglementTally = document.getElementById('entanglement-tally');
+    var entanglementBoard = document.getElementById('entanglement-board');
+    var entangleConnector = document.getElementById('qubit-connector');
+    var applyHBtn = document.getElementById('applyHBtn');
+    var entangleBtn = document.getElementById('entangleBtn');
+    var measureBtn = document.getElementById('measureBtn');
+    var qubitA = document.querySelector('.qubit-a');
+    var qubitB = document.querySelector('.qubit-b');
+    var qubitLabels = document.querySelectorAll('.qubit-label');
+    var reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var entanglementState = {
+      hApplied: false,
+      entangled: false,
+      measured: false,
+      tally: { total: 0, '00': 0, '11': 0, '01/10': 0 }
+    };
+
+    function updateButtonState() {
+      if (!applyHBtn || !entangleBtn || !measureBtn) return;
+      applyHBtn.disabled = false;
+      entangleBtn.disabled = !entanglementState.hApplied || entanglementState.measured;
+      measureBtn.disabled = !entanglementState.entangled || entanglementState.measured;
+    }
+
+    function setLabels(text) {
+      qubitLabels.forEach(function (label) {
+        label.textContent = text;
+        label.classList.add('active-state');
+      });
+    }
+
+    function resetQubits() {
+      if (!qubitA || !qubitB) return;
+      qubitA.classList.remove('superposed', 'entangled', 'measured');
+      qubitB.classList.remove('superposed', 'entangled', 'measured');
+      qubitA.style.removeProperty('--result');
+      qubitB.style.removeProperty('--result');
+      qubitA.setAttribute('aria-label', 'Qubit A');
+      qubitB.setAttribute('aria-label', 'Qubit B');
+      qubitA.classList.remove('default-state');
+      qubitB.classList.remove('default-state');
+      entanglementBoard.classList.remove('measure-flash');
+      entangleConnector.classList.remove('active');
+      qubitLabels.forEach(function (label) {
+        label.textContent = '|0⟩';
+        label.classList.remove('active-state');
+      });
+      entanglementCaption.textContent = 'Two qubits, each in a definite state.';
+      entanglementResult.textContent = 'No measurement yet.';
+      entanglementState.hApplied = false;
+      entanglementState.entangled = false;
+      entanglementState.measured = false;
+      updateButtonState();
+    }
+
+    function applyH() {
+      if (!qubitA || !qubitB) return;
+      if (entanglementState.measured) {
+        entanglementState.hApplied = false;
+        entanglementState.entangled = false;
+        entanglementState.measured = false;
+      }
+      qubitA.classList.remove('measured', 'entangled');
+      qubitB.classList.remove('measured', 'entangled');
+      qubitA.style.removeProperty('--result');
+      qubitB.style.removeProperty('--result');
+      entanglementBoard.classList.remove('measure-flash');
+      entangleConnector.classList.remove('active');
+      qubitA.classList.add('superposed');
+      qubitB.classList.add('superposed');
+      setLabels('α|0⟩ + β|1⟩');
+      entanglementCaption.textContent = 'Qubit A is now in superposition.';
+      entanglementState.hApplied = true;
+      entanglementState.entangled = false;
+      entanglementState.measured = false;
+      if (reducedMotion) {
+        qubitA.classList.remove('superposed');
+        qubitB.classList.remove('superposed');
+        setLabels('α|0⟩ + β|1⟩');
+      }
+      updateButtonState();
+    }
+
+    function entangle() {
+      if (!entanglementState.hApplied || entanglementState.measured) return;
+      qubitA.classList.add('entangled');
+      qubitB.classList.add('entangled');
+      qubitA.classList.add('superposed');
+      qubitB.classList.add('superposed');
+      entanglementBoard.classList.remove('measure-flash');
+      entangleConnector.classList.add('active');
+      entanglementCaption.textContent = 'Both qubits are entangled — they no longer have independent states.';
+      entanglementState.entangled = true;
+      updateButtonState();
+    }
+
+    function updateTally() {
+      var total = entanglementState.tally.total;
+      var zeroCount = entanglementState.tally['00'];
+      var oneCount = entanglementState.tally['11'];
+      var mixedCount = entanglementState.tally['01/10'];
+      entanglementTally.textContent = 'Measured ' + total + ' times — 00: ' + zeroCount + ', 11: ' + oneCount + ', 01/10: ' + mixedCount;
+    }
+
+    function measure() {
+      if (!entanglementState.hApplied || !entanglementState.entangled || entanglementState.measured) return;
+      entanglementState.measured = true;
+      var result = Math.random() < 0.5 ? '00' : '11';
+      entanglementState.tally.total += 1;
+      entanglementState.tally[result] += 1;
+      entanglementBoard.classList.add('measure-flash');
+      qubitA.classList.add('measured');
+      qubitB.classList.add('measured');
+      qubitA.classList.remove('superposed', 'entangled');
+      qubitB.classList.remove('superposed', 'entangled');
+      qubitA.style.setProperty('--result', result);
+      qubitB.style.setProperty('--result', result);
+      qubitA.setAttribute('aria-label', 'Qubit A measured');
+      qubitB.setAttribute('aria-label', 'Qubit B measured');
+      entanglementResult.textContent = 'Result: ' + result;
+      entanglementCaption.textContent = 'Measuring collapses both at once.';
+      entangleConnector.classList.remove('active');
+      if (reducedMotion) {
+        entanglementBoard.classList.remove('measure-flash');
+      }
+      updateTally();
+      updateButtonState();
+    }
+
+    applyHBtn.addEventListener('click', applyH);
+    entangleBtn.addEventListener('click', entangle);
+    measureBtn.addEventListener('click', measure);
+    resetQubits();
   }
 
 })();
