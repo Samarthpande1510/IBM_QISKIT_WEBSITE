@@ -1601,9 +1601,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     if (interferenceCanvas) {
       var interferenceCtx = interferenceCanvas.getContext('2d');
       var interferenceWaves = [];
-      var lastWaveEmit = 0;
-      var pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-      var maxConcurrentWaves = 18;
+      var maxConcurrentWaves = 5;
 
       function resizeInterferenceCanvas() {
         var ratio = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -1614,32 +1612,20 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         interferenceCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
       }
 
-      function emitInterferenceWave(x, y, isDoubleSlit) {
+      function emitRipple(x, y) {
         if (interferenceWaves.length >= maxConcurrentWaves) {
           interferenceWaves.shift();
         }
-
-        var originX = x;
-        var originY = y;
-        var tone = (Math.random() > 0.5) ? 'magenta' : 'cyan';
-        var waveCount = isDoubleSlit ? 2 : 1;
-
-        for (var i = 0; i < waveCount; i++) {
-          var offsetX = isDoubleSlit ? (i === 0 ? -4 : 4) : 0;
-          var offsetY = isDoubleSlit ? (i === 0 ? -1 : 1) : 0;
-          interferenceWaves.push({
-            x: originX + offsetX,
-            y: originY + offsetY,
-            radius: 0,
-            speed: 26 + Math.random() * 18,
-            life: 0,
-            ttl: isDoubleSlit ? 2.1 : 1.8,
-            tone: tone,
-            frontGlow: Math.random() * 0.7 + 0.6,
-            spread: isDoubleSlit ? 10 : 8,
-            hue: Math.random() > 0.6 ? 1 : 0
-          });
-        }
+        
+        interferenceWaves.push({
+          x: x,
+          y: y,
+          radius: 0,
+          speed: 140,
+          life: 0,
+          ttl: 0.55,
+          maxRadius: 180
+        });
       }
 
       function tickInterferenceFrame(time) {
@@ -1652,7 +1638,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         for (var i = interferenceWaves.length - 1; i >= 0; i--) {
           var wave = interferenceWaves[i];
           wave.life += elapsed;
-          wave.radius += wave.speed * elapsed;
+          wave.radius = (wave.life / wave.ttl) * wave.maxRadius;
 
           var progress = wave.life / wave.ttl;
           if (progress >= 1) {
@@ -1660,36 +1646,16 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
             continue;
           }
 
-          var alpha = (1 - progress) * 0.75;
-          var lineWidth = 1.2 + (1 - progress) * 2.2;
-          var outerAlpha = (1 - progress) * 0.5;
+          var alpha = (1 - progress) * 0.35;
+          var lineWidth = 0.8 + (1 - progress) * 0.8;
 
           interferenceCtx.beginPath();
           interferenceCtx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
-          interferenceCtx.strokeStyle = wave.tone === 'magenta'
-            ? 'rgba(255, 96, 183, ' + alpha + ')'
-            : 'rgba(95, 223, 255, ' + alpha + ')';
+          interferenceCtx.strokeStyle = 'rgba(255, 116, 184, ' + alpha + ')';
           interferenceCtx.lineWidth = lineWidth;
-          interferenceCtx.shadowBlur = 14 + (1 - progress) * 18;
-          interferenceCtx.shadowColor = wave.tone === 'magenta' ? 'rgba(255, 96, 183, 0.9)' : 'rgba(95, 223, 255, 0.9)';
+          interferenceCtx.shadowBlur = 6;
+          interferenceCtx.shadowColor = 'rgba(255, 116, 184, 0.4)';
           interferenceCtx.stroke();
-
-          interferenceCtx.beginPath();
-          interferenceCtx.arc(wave.x, wave.y, wave.radius + wave.spread * 0.55, 0, Math.PI * 2);
-          interferenceCtx.strokeStyle = wave.hue ? 'rgba(138, 107, 255, ' + (outerAlpha * 0.6) + ')' : 'rgba(255, 194, 225, ' + (outerAlpha * 0.6) + ')';
-          interferenceCtx.lineWidth = Math.max(0.8, lineWidth * 0.5);
-          interferenceCtx.stroke();
-
-          if (wave.life > wave.ttl * 0.2) {
-            var glowAlpha = (1 - progress) * 0.22;
-            var glowRadius = wave.radius + 8;
-            interferenceCtx.beginPath();
-            interferenceCtx.fillStyle = wave.tone === 'magenta'
-              ? 'rgba(255, 122, 210, ' + glowAlpha + ')'
-              : 'rgba(118, 232, 255, ' + glowAlpha + ')';
-            interferenceCtx.arc(wave.x, wave.y, glowRadius, 0, Math.PI * 2);
-            interferenceCtx.fill();
-          }
         }
 
         interferenceCtx.shadowBlur = 0;
@@ -1697,22 +1663,10 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         requestAnimationFrame(tickInterferenceFrame);
       }
 
-      function emitOnPointerMove(event) {
-        pointer.x = event.clientX;
-        pointer.y = event.clientY;
-        var now = performance.now();
-        if (now - lastWaveEmit > 120) {
-          emitInterferenceWave(pointer.x, pointer.y, false);
-          lastWaveEmit = now;
-        }
-      }
-
       function emitOnClick(event) {
-        emitInterferenceWave(event.clientX - 5, event.clientY, true);
-        emitInterferenceWave(event.clientX + 5, event.clientY, true);
+        emitRipple(event.clientX, event.clientY);
       }
 
-      // document.addEventListener('pointermove', emitOnPointerMove, { passive: true });
       document.addEventListener('pointerdown', emitOnClick, { passive: true });
       window.addEventListener('resize', resizeInterferenceCanvas);
       resizeInterferenceCanvas();
