@@ -1261,41 +1261,6 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   </div>
 </section>
 
-<!-- FIRST CIRCUIT — white -->
-<section class="sec on-white" id="first-circuit">
-  <div class="shell">
-    <div class="sec-head reveal">
-      <span class="label">A taste of Qiskit</span>
-      <h2>Your first quantum circuit is <span class="accent">five lines long.</span></h2>
-      <p>This is roughly what you will write in the beginner track on 24 October. Pick a circuit, then run it and watch the measurement counts land.</p>
-    </div>
-
-    <div class="circuit reveal" style="--d:.1s">
-      <div class="code-panel">
-        <div class="code-tabs" role="tablist" aria-label="Example circuits">
-          <button role="tab" id="ctab0" aria-controls="cpanel" aria-selected="true" type="button">bell_state.py</button>
-          <button role="tab" id="ctab1" aria-controls="cpanel" aria-selected="false" type="button">coin_flip.py</button>
-          <button role="tab" id="ctab2" aria-controls="cpanel" aria-selected="false" type="button">rotation.py</button>
-        </div>
-        <pre class="code-body" id="cpanel" role="tabpanel" aria-labelledby="ctab0"></pre>
-        <div class="code-foot">
-          <span class="shots">1024 shots</span>
-          <span style="display:flex;gap:8px">
-            <button class="mini-btn" id="copyBtn" type="button">Copy</button>
-            <button class="mini-btn go" id="runBtn" type="button">Run</button>
-          </span>
-        </div>
-      </div>
-
-      <div class="result">
-        <h4 id="resultTitle">Measurement counts</h4>
-        <p class="sub" id="resultSub">Two entangled qubits always agree — you never measure 01 or 10.</p>
-        <div class="hist" id="hist"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- TRACKS — blue -->
 <section class="sec on-pink" id="tracks">
   <div class="shell">
@@ -1747,7 +1712,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         emitInterferenceWave(event.clientX + 5, event.clientY, true);
       }
 
-      document.addEventListener('pointermove', emitOnPointerMove, { passive: true });
+      // document.addEventListener('pointermove', emitOnPointerMove, { passive: true });
       document.addEventListener('pointerdown', emitOnClick, { passive: true });
       window.addEventListener('resize', resizeInterferenceCanvas);
       resizeInterferenceCanvas();
