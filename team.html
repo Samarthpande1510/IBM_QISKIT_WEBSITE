@@ -117,21 +117,21 @@ img{max-width:100%;display:block;}
 .member{
   background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);
   padding:30px 24px;text-align:center;
-  display:flex;flex-direction:column;justify-content:center;
+  display:flex;flex-direction:column;justify-content:flex-start;
   transition:transform .4s ease,border-color .4s ease,background .4s ease;
 }
 .member:hover{transform:translateY(-6px);border-color:var(--accent);background:var(--card-hover);}
 .avatar{
   position:relative;
-  width:96px;height:96px;border-radius:50%;margin:0 auto 18px;
+  width:132px;height:132px;border-radius:50%;margin:0 auto 20px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
   background:rgba(249,69,155,.14);border:1px solid var(--border);
-  font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.03em;color:var(--accent);
+  font-family:var(--display);font-weight:700;font-size:40px;letter-spacing:-.03em;color:var(--accent);
 }
 .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .member h3{font-size:18px;font-weight:600;margin-bottom:5px;}
 .member .role{display:block;font-size:14px;color:var(--muted);}
-.member .member-links{margin-top:14px;}
+.member .member-links{margin-top:auto;padding-top:16px;}
 .member-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
 .member-links a{
   font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
@@ -148,7 +148,7 @@ img{max-width:100%;display:block;}
   transition:transform .4s ease,border-color .4s ease;
 }
 .lead-card:hover{transform:translateY(-4px);border-color:var(--accent);}
-.lead-card .avatar{width:156px;height:156px;margin:0;font-size:46px;flex:none;}
+.lead-card .avatar{width:184px;height:184px;margin:0;font-size:54px;flex:none;}
 .lead-card h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.03em;line-height:1;margin-bottom:10px;}
 .lead-card .role{font-size:16.5px;margin-bottom:18px;}
 .lead-card .member-links{justify-content:flex-start;}
@@ -240,7 +240,7 @@ img{max-width:100%;display:block;}
     </div>
 
     <div class="lead-card">
-      <div class="avatar">BB<img src="assets/team-bhavna-bose.jpg" alt="Prof. Bhavna Bose" onerror="this.remove()" width="156" height="156"></div>
+      <div class="avatar">BB<img src="assets/team-bhavna-bose.jpg" alt="Prof. Bhavna Bose" onerror="this.remove()" width="184" height="184"></div>
       <div class="body">
         <h3>Prof. Bhavna Bose</h3>
         <span class="role">Lead Organiser · Department of Information Technology</span>
@@ -252,13 +252,13 @@ img{max-width:100%;display:block;}
 
     <div class="team">
       <article class="member">
-        <div class="avatar">MM<img src="assets/team-masooda-modak.jpg" alt="Dr. Masooda Modak" onerror="this.remove()" width="96" height="96"></div>
+        <div class="avatar">MM<img src="assets/team-masooda-modak.jpg" alt="Dr. Masooda Modak" onerror="this.remove()" width="132" height="132"></div>
         <h3>Dr. Masooda Modak</h3>
         <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="https://engineering.nmims.edu/faculty/prof-masooda-modak/" target="_blank" rel="noopener">Profile</a></div>
       </article>
       <article class="member">
-        <div class="avatar">AR<img src="assets/team-ashwini-rao.jpg" alt="Dr. Ashwini Rao" onerror="this.remove()" width="96" height="96"></div>
+        <div class="avatar">AR<img src="assets/team-ashwini-rao.jpg" alt="Dr. Ashwini Rao" onerror="this.remove()" width="132" height="132"></div>
         <h3>Dr. Ashwini Rao</h3>
         <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="https://engineering.nmims.edu/faculty/dr-ashwini-rao/" target="_blank" rel="noopener">Profile</a></div>
@@ -270,7 +270,7 @@ img{max-width:100%;display:block;}
         <div class="member-links"><a href="https://engineering.nmims.edu/faculty/prof-pallavi-mangrulkar/" target="_blank" rel="noopener">Profile</a></div>
       </article>
       <article class="member">
-        <div class="avatar">SV<img src="assets/team-saurav-verma.jpg" alt="Dr. Saurav Verma" onerror="this.remove()" width="96" height="96"></div>
+        <div class="avatar">SV<img src="assets/team-saurav-verma.jpg" alt="Dr. Saurav Verma" onerror="this.remove()" width="132" height="132"></div>
         <h3>Dr. Saurav Verma</h3>
         <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="https://engineering.nmims.edu/faculty/dr-saurav-verma/" target="_blank" rel="noopener">Profile</a></div>
@@ -288,44 +288,44 @@ img{max-width:100%;display:block;}
     </div>
     <div class="team">
       <article class="member">
-        <div class="avatar">SP<img src="assets/team-samarth-pande.jpg" alt="Samarth Pande" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">SP<img src="assets/team-samarth-pande.jpg" alt="Samarth Pande" width="132" height="132" onerror="this.remove()"></div>
         <h3>Samarth Pande</h3>
         <span class="role">Co-Organiser</span>
       </article>
       <article class="member">
-        <div class="avatar">AM<img src="assets/team-aarush-mishra.jpg" alt="Aarush Mishra" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">AM<img src="assets/team-aarush-mishra.jpg" alt="Aarush Mishra" width="132" height="132" onerror="this.remove()"></div>
         <h3>Aarush Mishra</h3>
         <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="tel:+919321694430">Call</a></div>
       </article>
       <article class="member">
-        <div class="avatar">ZS<img src="assets/team-ziauddin-shaikh.jpg" alt="Ziauddin Shaikh" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">ZS<img src="assets/team-ziauddin-shaikh.jpg" alt="Ziauddin Shaikh" width="132" height="132" onerror="this.remove()"></div>
         <h3>Ziauddin Shaikh</h3>
         <span class="role">Co-Organiser</span>
       </article>
       <article class="member">
-        <div class="avatar">RP<img src="assets/team-ritesh-pandey.jpg" alt="Ritesh Pandey" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">RP<img src="assets/team-ritesh-pandey.jpg" alt="Ritesh Pandey" width="132" height="132" onerror="this.remove()"></div>
         <h3>Ritesh Pandey</h3>
         <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="tel:+919987827154">Call</a></div>
       </article>
       <article class="member">
-        <div class="avatar">PK<img src="assets/team-pratham-kapoor.jpg" alt="Pratham Kapoor" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">PK<img src="assets/team-pratham-kapoor.jpg" alt="Pratham Kapoor" width="132" height="132" onerror="this.remove()"></div>
         <h3>Pratham Kapoor</h3>
         <span class="role">Co-Organiser</span>
       </article>
       <article class="member">
-        <div class="avatar">RG<img src="assets/team-ritwik-goyal.jpg" alt="Ritwik Goyal" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">RG<img src="assets/team-ritwik-goyal.jpg" alt="Ritwik Goyal" width="132" height="132" onerror="this.remove()"></div>
         <h3>Ritwik Goyal</h3>
         <span class="role">Co-Organiser</span>
       </article>
       <article class="member">
-        <div class="avatar">AT<img src="assets/team-aryan-thakkar.jpg" alt="Aryan Thakkar" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">AT<img src="assets/team-aryan-thakkar.jpg" alt="Aryan Thakkar" width="132" height="132" onerror="this.remove()"></div>
         <h3>Aryan Thakkar</h3>
         <span class="role">Co-Organiser</span>
       </article>
       <article class="member">
-        <div class="avatar">PD<img src="assets/team-pratit-dedhia.jpg" alt="Pratit Dedhia" width="96" height="96" onerror="this.remove()"></div>
+        <div class="avatar">PD<img src="assets/team-pratit-dedhia.jpg" alt="Pratit Dedhia" width="132" height="132" onerror="this.remove()"></div>
         <h3>Pratit Dedhia</h3>
         <span class="role">Co-Organiser</span>
       </article>
