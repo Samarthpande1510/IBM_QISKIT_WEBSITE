@@ -120,22 +120,40 @@ img{max-width:100%;display:block;}
   transition:transform .4s ease,border-color .4s ease,background .4s ease;
 }
 .member:hover{transform:translateY(-6px);border-color:var(--accent);background:var(--card-hover);}
-.member .avatar{
+.avatar{
+  position:relative;
   width:96px;height:96px;border-radius:50%;margin:0 auto 18px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
   background:rgba(249,69,155,.14);border:1px solid var(--border);
   font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.03em;color:var(--accent);
 }
-.member .avatar img{width:100%;height:100%;object-fit:cover;}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .member h3{font-size:18px;font-weight:600;margin-bottom:5px;}
 .member .role{display:block;font-size:14px;color:var(--muted);margin-bottom:14px;}
-.member .member-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
-.member .member-links a{
+.member-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
+.member-links a{
   font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--chip-fg);background:var(--chip-bg);border-radius:var(--pill);padding:6px 13px;transition:opacity .25s;
 }
-.member .member-links a:hover{opacity:.75;}
-.member.tba{opacity:.62;border-style:dashed;}
+.member-links a:hover{opacity:.75;}
+.member.tba{opacity:.72;border-style:dashed;}
+
+/* the lead organiser gets a wider, featured card */
+.lead-card{
+  display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);
+  padding:34px 38px;margin-bottom:20px;
+  transition:transform .4s ease,border-color .4s ease;
+}
+.lead-card:hover{transform:translateY(-4px);border-color:var(--accent);}
+.lead-card .avatar{width:156px;height:156px;margin:0;font-size:46px;flex:none;}
+.lead-card h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.03em;line-height:1;margin-bottom:10px;}
+.lead-card .role{font-size:16.5px;margin-bottom:18px;}
+.lead-card .member-links{justify-content:flex-start;}
+@media (max-width:700px){
+  .lead-card{grid-template-columns:1fr;justify-items:center;text-align:center;padding:30px 24px;}
+  .lead-card .member-links{justify-content:center;}
+}
 .member.tba .avatar{color:var(--faint);background:transparent;}
 
 /* ---------- footer ---------- */
@@ -214,15 +232,47 @@ img{max-width:100%;display:block;}
 <section class="sec on-white">
   <div class="shell">
     <div class="sec-head">
-      <span class="label">Faculty</span>
-      <h2>Department of Information Technology</h2>
-      <p>Faculty names and designations to be added.</p>
+      <span class="label">Organising committee</span>
+      <h2>Faculty of the Department of Information Technology</h2>
+      <p>Names, titles and photographs are taken from the MPSTME faculty directory.</p>
     </div>
+
+    <div class="lead-card">
+      <div class="avatar">BB<img src="assets/team-bhavna-bose.jpg" alt="Prof. Bhavna Bose" onerror="this.remove()" width="156" height="156"></div>
+      <div class="body">
+        <h3>Prof. Bhavna Bose</h3>
+        <span class="role">Lead Organiser · Department of Information Technology</span>
+        <div class="member-links">
+          <a href="https://engineering.nmims.edu/faculty/prof-bhavna-bose/" target="_blank" rel="noopener">Faculty profile</a>
+        </div>
+      </div>
+    </div>
+
     <div class="team">
-      <article class="member tba"><div class="avatar">—</div><h3>To be added</h3><span class="role">Faculty in charge</span></article>
-      <article class="member tba"><div class="avatar">—</div><h3>To be added</h3><span class="role">Faculty co-ordinator</span></article>
-      <article class="member tba"><div class="avatar">—</div><h3>To be added</h3><span class="role">Head of Department</span></article>
-      <article class="member tba"><div class="avatar">—</div><h3>To be added</h3><span class="role">Faculty advisor</span></article>
+      <article class="member">
+        <div class="avatar">MM<img src="assets/team-masooda-modak.jpg" alt="Dr. Masooda Modak" onerror="this.remove()" width="96" height="96"></div>
+        <h3>Dr. Masooda Modak</h3>
+        <span class="role">Co-Organiser</span>
+        <div class="member-links"><a href="https://engineering.nmims.edu/faculty/prof-masooda-modak/" target="_blank" rel="noopener">Profile</a></div>
+      </article>
+      <article class="member">
+        <div class="avatar">AR<img src="assets/team-ashwini-rao.jpg" alt="Dr. Ashwini Rao" onerror="this.remove()" width="96" height="96"></div>
+        <h3>Dr. Ashwini Rao</h3>
+        <span class="role">Co-Organiser</span>
+        <div class="member-links"><a href="https://engineering.nmims.edu/faculty/dr-ashwini-rao/" target="_blank" rel="noopener">Profile</a></div>
+      </article>
+      <article class="member">
+        <div class="avatar">PM</div>
+        <h3>Prof. Pallavi Mangrulkar</h3>
+        <span class="role">Co-Organiser</span>
+        <div class="member-links"><a href="https://engineering.nmims.edu/faculty/prof-pallavi-mangrulkar/" target="_blank" rel="noopener">Profile</a></div>
+      </article>
+      <article class="member">
+        <div class="avatar">SV<img src="assets/team-saurav-verma.jpg" alt="Dr. Saurav Verma" onerror="this.remove()" width="96" height="96"></div>
+        <h3>Dr. Saurav Verma</h3>
+        <span class="role">Co-Organiser</span>
+        <div class="member-links"><a href="https://engineering.nmims.edu/faculty/dr-saurav-verma/" target="_blank" rel="noopener">Profile</a></div>
+      </article>
     </div>
   </div>
 </section>
@@ -230,25 +280,53 @@ img{max-width:100%;display:block;}
 <section class="sec on-navy">
   <div class="shell">
     <div class="sec-head">
-      <span class="label">Organising team</span>
-      <h2>CSI@MPSTME</h2>
-      <p>The two names below are the contacts printed on the event poster. Everyone else still needs adding.</p>
+      <span class="label">Student team</span>
+      <h2>Student team, CSI@MPSTME</h2>
+      <p>Students of CSI@MPSTME running the event on the ground.</p>
     </div>
     <div class="team">
       <article class="member">
-        <div class="avatar">AM</div>
+        <div class="avatar">SP<img src="assets/team-samarth-pande.jpg" alt="Samarth Pande" width="96" height="96" onerror="this.remove()"></div>
+        <h3>Samarth Pande</h3>
+        <span class="role">Co-Organiser</span>
+      </article>
+      <article class="member">
+        <div class="avatar">AM<img src="assets/team-aarush-mishra.jpg" alt="Aarush Mishra" width="96" height="96" onerror="this.remove()"></div>
         <h3>Aarush Mishra</h3>
-        <span class="role">Organising team · contact</span>
+        <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="tel:+919321694430">Call</a></div>
       </article>
       <article class="member">
-        <div class="avatar">RP</div>
+        <div class="avatar">ZS<img src="assets/team-ziauddin-shaikh.jpg" alt="Ziauddin Shaikh" width="96" height="96" onerror="this.remove()"></div>
+        <h3>Ziauddin Shaikh</h3>
+        <span class="role">Co-Organiser</span>
+      </article>
+      <article class="member">
+        <div class="avatar">RP<img src="assets/team-ritesh-pandey.jpg" alt="Ritesh Pandey" width="96" height="96" onerror="this.remove()"></div>
         <h3>Ritesh Pandey</h3>
-        <span class="role">Organising team · contact</span>
+        <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="tel:+919987827154">Call</a></div>
       </article>
-      <article class="member tba"><div class="avatar">—</div><h3>To be added</h3><span class="role">Role to be confirmed</span></article>
-      <article class="member tba"><div class="avatar">—</div><h3>To be added</h3><span class="role">Role to be confirmed</span></article>
+      <article class="member">
+        <div class="avatar">PK<img src="assets/team-pratham-kapoor.jpg" alt="Pratham Kapoor" width="96" height="96" onerror="this.remove()"></div>
+        <h3>Pratham Kapoor</h3>
+        <span class="role">Co-Organiser</span>
+      </article>
+      <article class="member">
+        <div class="avatar">RG<img src="assets/team-ritwik-goyal.jpg" alt="Ritwik Goyal" width="96" height="96" onerror="this.remove()"></div>
+        <h3>Ritwik Goyal</h3>
+        <span class="role">Co-Organiser</span>
+      </article>
+      <article class="member">
+        <div class="avatar">AT<img src="assets/team-aryan-thakkar.jpg" alt="Aryan Thakkar" width="96" height="96" onerror="this.remove()"></div>
+        <h3>Aryan Thakkar</h3>
+        <span class="role">Co-Organiser</span>
+      </article>
+      <article class="member">
+        <div class="avatar">PD<img src="assets/team-pratit-dedhia.jpg" alt="Pratit Dedhia" width="96" height="96" onerror="this.remove()"></div>
+        <h3>Pratit Dedhia</h3>
+        <span class="role">Co-Organiser</span>
+      </article>
     </div>
   </div>
 </section>
