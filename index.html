@@ -1956,13 +1956,26 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
      captured against the finished height lands somewhere else entirely when it
      is re-applied against the short, unstyled document. */
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  function goToHash(smooth) {
+    if (!location.hash) return false;
+    var target;
+    try { target = document.querySelector(location.hash); } catch (e) { return false; }
+    if (!target) return false;
+    target.scrollIntoView(smooth ? {behavior: 'smooth'} : undefined);
+    return true;
+  }
+
   addEventListener('load', function () {
-    if (location.hash) {
-      var target = document.querySelector(location.hash);
-      if (target) { target.scrollIntoView(); return; }
-    }
-    scrollTo(0, 0);
+    if (!goToHash()) { scrollTo(0, 0); return; }
+    // The display fonts swap in after load and the headings are enormous, so the
+    // page keeps growing under us. Re-anchor once things have actually settled.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { goToHash(); });
+    setTimeout(goToHash, 300);
+    setTimeout(goToHash, 900);
   });
+
+  addEventListener('hashchange', function () { goToHash(); });
 
   /* ---- floating contact + back to top ---- */
   var fab = document.getElementById('fab');
