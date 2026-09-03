@@ -2,7 +2,7 @@
 
 Event site for **IBM Qiskit Fall Fest 2026** hosted at Mukesh Patel School of
 Technology Management & Engineering (SVKM's NMIMS), Mumbai, by the Department of
-Information Technology in association with CSI@MPSTME.
+Information Technology.
 
 **23 – 25 October 2026** · Free · Hybrid · Open to students across India
 
@@ -40,10 +40,10 @@ are both free:
 |---|---|
 | `bird-*.png` | Bird illustrations taken from the official Qiskit Fall Fest 2026 poster |
 | `venue-map.jpg` | Static map built from OpenStreetMap tiles. **The "© OpenStreetMap contributors" credit on the page is required by the ODbL licence — do not remove it.** |
-| `logo-csi.png` | CSI@MPSTME logo |
+| `favicon.png` | Event mark used as the site icon |
 | `og-image.png` | Social preview card (1200×630) |
 
 ## Credits
 
-Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by CSI at MPSTME.
+Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by the Department of Information Technology at MPSTME.
 # IBM_QISKIT_WEBSITE
