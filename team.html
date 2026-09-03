@@ -118,6 +118,10 @@ img{max-width:100%;display:block;}
 
 /* ---------- team grid ---------- */
 .team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.team.five{grid-template-columns:repeat(5,1fr);gap:16px;}
+.team.five .member{padding:26px 16px;}
+.team.five .avatar{width:112px;height:112px;}
+.team.five h3{font-size:16px;}
 .member{
   background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);
   padding:30px 24px;text-align:center;
@@ -178,8 +182,9 @@ img{max-width:100%;display:block;}
 .built-links a:hover{color:#fff;}
 .legal{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;border-top:1px solid var(--navy-line);padding-top:26px;font-size:13.5px;color:#6D7799;}
 
-@media (max-width:1000px){ .team{grid-template-columns:repeat(2,1fr);} .sec{padding:72px 0;} .page-head{padding:132px 0 64px;} }
-@media (max-width:560px){ .team{grid-template-columns:1fr;} }
+@media (max-width:1180px){ .team.five{grid-template-columns:repeat(3,1fr);} }
+@media (max-width:1000px){ .team,.team.five{grid-template-columns:repeat(2,1fr);} .sec{padding:72px 0;} .page-head{padding:132px 0 64px;} }
+@media (max-width:560px){ .team,.team.five{grid-template-columns:1fr;} }
 
 @media print{
   .nav,.skip{display:none !important;}
@@ -263,7 +268,7 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
       </div>
     </div>
 
-    <div class="team">
+    <div class="team five">
       <article class="member">
         <div class="avatar">BB<img src="assets/team-bhavna-bose.jpg" alt="Prof. Bhavna Bose" width="132" height="132" onerror="this.remove()"></div>
         <h3>Prof. Bhavna Bose</h3>
