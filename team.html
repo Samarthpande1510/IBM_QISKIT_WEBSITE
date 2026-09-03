@@ -153,6 +153,11 @@ img{max-width:100%;display:block;}
 }
 .lead-card:hover{transform:translateY(-4px);border-color:var(--accent);}
 .lead-card .avatar{width:184px;height:184px;margin:0;font-size:54px;flex:none;}
+.dean-card{padding:44px 46px;}
+.dean-card .avatar{width:216px;height:216px;font-size:62px;}
+.dean-card h3{font-size:clamp(30px,4.4vw,52px);}
+.dean-card .role{font-size:17.5px;max-width:38ch;}
+@media (max-width:700px){.dean-card{padding:32px 24px;}.dean-card .avatar{width:170px;height:170px;}}
 .lead-card h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.03em;line-height:1;margin-bottom:10px;}
 .lead-card .role{font-size:16.5px;margin-bottom:18px;}
 .lead-card .member-links{justify-content:flex-start;}
@@ -239,6 +244,26 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
   </div>
 </section>
 
+<section class="sec on-navy">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="label">Patron</span>
+      <h2>Under the leadership of our Dean</h2>
+    </div>
+
+    <div class="lead-card dean-card">
+      <div class="avatar">KA<img src="assets/team-koteswararao-anne.jpg" alt="Prof. (Dr.) Koteswararao Anne" width="184" height="184" onerror="this.remove()"></div>
+      <div class="body">
+        <h3>Prof. (Dr.) Koteswararao Anne</h3>
+        <span class="role">Dean, Mukesh Patel School of Technology Management and Engineering</span>
+        <div class="member-links">
+          <a href="https://engineering.nmims.edu/faculty/dr-koteswararao-anne/" target="_blank" rel="noopener">Faculty profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec on-white">
   <div class="shell">
     <div class="sec-head">
@@ -272,7 +297,7 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
         <div class="member-links"><a href="https://engineering.nmims.edu/faculty/dr-ashwini-rao/" target="_blank" rel="noopener">Profile</a></div>
       </article>
       <article class="member">
-        <div class="avatar">PM</div>
+        <div class="avatar">PM<img src="assets/team-pallavi-mangrulkar.jpg" alt="Prof. Pallavi Mangrulkar" width="132" height="132" onerror="this.remove()"></div>
         <h3>Prof. Pallavi Mangrulkar</h3>
         <span class="role">Co-Organiser</span>
         <div class="member-links"><a href="https://engineering.nmims.edu/faculty/prof-pallavi-mangrulkar/" target="_blank" rel="noopener">Profile</a></div>
