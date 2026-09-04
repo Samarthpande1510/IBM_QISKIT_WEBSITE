@@ -150,6 +150,9 @@ img{max-width:100%;display:block;}
 .student-team .avatar{width:calc(100% + 48px);height:auto;aspect-ratio:4 / 3;margin:0 -24px 20px;border:0;border-radius:var(--r-xl) var(--r-xl) 0 0;font-size:0;}
 .student-team .ritesh-photo{object-position:center 10%;}
 .student-team .pratham-photo{object-position:center 15%;}
+.team.five .member{padding:0 16px 26px;}
+.team.five .avatar{width:calc(100% + 32px);height:auto;aspect-ratio:4 / 3;margin:0 -16px 20px;border:0;border-radius:var(--r-xl) var(--r-xl) 0 0;font-size:0;}
+.team.five .avatar img{display:block;width:100%;height:100%;padding:0;border:0;background:transparent;object-fit:cover;}
 .member h3{font-size:18px;font-weight:600;margin-bottom:5px;}
 .member .role{display:block;font-size:14px;color:var(--muted);}
 .member .member-links{margin-top:auto;padding-top:16px;}
@@ -170,8 +173,9 @@ img{max-width:100%;display:block;}
 }
 .lead-card:hover{transform:translateY(-4px);border-color:var(--accent);}
 .lead-card .avatar{width:184px;height:184px;margin:0;font-size:54px;flex:none;}
-.dean-card{padding:44px 46px;}
-.dean-card .avatar{width:216px;height:216px;font-size:62px;}
+.dean-card{padding:0;height:311.2px;overflow:hidden;}
+.dean-card .avatar{width:216px;height:auto;align-self:stretch;margin:0;border-radius:var(--r-xl) 0 0 var(--r-xl);font-size:62px;}
+.dean-card .body{display:flex;flex-direction:column;justify-content:center;padding:26px 46px;}
 .dean-card h3{font-size:clamp(30px,4.4vw,52px);}
 .dean-card .role{font-size:17.5px;max-width:38ch;}
 @media (max-width:700px){.dean-card{padding:32px 24px;}.dean-card .avatar{width:170px;height:170px;}}
@@ -181,6 +185,11 @@ img{max-width:100%;display:block;}
 @media (max-width:700px){
   .lead-card{grid-template-columns:1fr;justify-items:center;text-align:center;padding:30px 24px;}
   .lead-card .member-links{justify-content:center;}
+}
+@media (max-width:700px){
+  .dean-card{padding:0;height:auto;min-height:0;}
+  .dean-card .avatar{width:100%;height:auto;aspect-ratio:4 / 3;align-self:auto;border-radius:var(--r-xl) var(--r-xl) 0 0;}
+  .dean-card .body{padding:26px 24px;}
 }
 .member.tba .avatar{color:var(--faint);background:transparent;}
 
