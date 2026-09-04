@@ -10,11 +10,15 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Qiskit Fall Fest 2026 at MPSTME, Mumbai">
 <meta property="og:description" content="Qiskit Fall Fest 2026 comes to MPSTME, Mumbai, from 23 to 25 October. Keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon. Free, and open to students across India.">
-<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image" content="https://ibm-qiskit-website.vercel.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://ibm-qiskit-website.vercel.app">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ibm-qiskit-website.vercel.app/assets/og-image.png">
 
-<link rel="icon" href="assets/logo-csi.png">
-<link rel="apple-touch-icon" href="assets/logo-csi.png">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -118,92 +122,45 @@ img{max-width:100%;display:block;}
   mix-blend-mode:screen;
   background:transparent;
 }
-body.cursor-hidden {
-  cursor:none;
+body.cursor-hidden{cursor:none;}
+body.cursor-hidden a,body.cursor-hidden button,
+body.cursor-hidden summary,body.cursor-hidden .btn{cursor:none;}
+
+/* A precise dot that tracks the pointer exactly, and a ring that trails behind it. */
+.qc-dot,.qc-ring{
+  position:fixed;left:0;top:0;pointer-events:none;z-index:95;
+  opacity:0;will-change:transform;transition:opacity .25s ease;
 }
-.quantum-cursor {
-  position:fixed;
-  left:0;
-  top:0;
-  width:28px;
-  height:28px;
-  pointer-events:none;
-  z-index:90;
-  opacity:0;
-  transform:translate3d(-50%, -50%, 0);
-  transition:opacity 0.18s ease;
+.qc-dot.is-visible,.qc-ring.is-visible{opacity:1;}
+.qc-dot{
+  width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:#fff;
+  box-shadow:0 0 10px rgba(255,116,184,.9),0 0 22px rgba(249,69,155,.55);
+  transition:opacity .25s ease,width .22s ease,height .22s ease,margin .22s ease;
 }
-.quantum-cursor.is-visible {
-  opacity:1;
+.qc-ring{
+  width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;
+  border:1.4px solid rgba(255,116,184,.85);
+  box-shadow:0 0 14px rgba(249,69,155,.28),inset 0 0 12px rgba(249,69,155,.14);
+  transition:opacity .25s ease,width .28s cubic-bezier(.2,.8,.25,1),height .28s cubic-bezier(.2,.8,.25,1),
+             margin .28s cubic-bezier(.2,.8,.25,1),border-color .25s ease,background .25s ease,border-radius .28s ease;
 }
-.quantum-cursor .cursor-ring,
-.quantum-cursor .cursor-burst,
-.quantum-cursor .cursor-core {
-  position:absolute;
-  inset:0;
-  border-radius:50%;
+.qc-ring.is-clickable{
+  width:52px;height:52px;margin:-26px 0 0 -26px;
+  border-color:rgba(255,255,255,.95);background:rgba(249,69,155,.14);
+  box-shadow:0 0 22px rgba(249,69,155,.42),inset 0 0 18px rgba(249,69,155,.2);
 }
-.quantum-cursor .cursor-ring {
-  border:1.5px solid rgba(255,116,184,0.9);
-  box-shadow:0 0 10px rgba(255,116,184,0.4), 0 0 20px rgba(138,107,209,0.24);
-  transform:scale(1);
-  transition:transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+.qc-dot.is-clickable{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;}
+.qc-ring.is-text{
+  width:2px;height:26px;margin:-13px 0 0 -1px;border-radius:2px;
+  border-color:rgba(255,255,255,.9);background:rgba(255,255,255,.9);
+  box-shadow:0 0 10px rgba(255,255,255,.35);
 }
-.quantum-cursor .cursor-core {
-  inset:10px;
-  background:radial-gradient(circle at 35% 35%, #fff 0%, #ffd7eb 22%, #ff74b8 54%, #d87dff 100%);
-  box-shadow:0 0 12px rgba(255,116,184,0.75), 0 0 20px rgba(138,107,209,0.25);
-  transition:transform 0.18s ease, opacity 0.18s ease;
-}
-.quantum-cursor .cursor-burst {
-  inset:4px;
-  border:1.5px solid rgba(255,116,184,0.7);
-  opacity:0;
-}
-.quantum-cursor.is-clickable .cursor-ring {
-  transform:scale(1.38);
-  border-color:rgba(255,255,255,0.95);
-  box-shadow:0 0 12px rgba(255,116,184,0.9), 0 0 25px rgba(138,107,209,0.36), 0 0 40px rgba(255,116,184,0.28);
-}
-.quantum-cursor.is-clickable .cursor-core {
-  transform:scale(1.12);
-}
-.quantum-cursor.is-text .cursor-ring {
-  inset:2px 12px 2px 12px;
-  width:2px;
-  height:24px;
-  border-radius:2px;
-  border:1px solid rgba(255,255,255,0.92);
-  box-shadow:0 0 10px rgba(255,255,255,0.2);
-}
-.quantum-cursor.is-text .cursor-core {
-  opacity:0;
-}
-.quantum-cursor.is-burst .cursor-burst {
-  animation:quantumBurst 360ms ease-out forwards;
-}
-.quantum-cursor.is-burst .cursor-ring {
-  transform:scale(0.38);
-  opacity:0.25;
-}
-@keyframes quantumBurst {
-  0% { opacity:0.8; transform:scale(0.35); }
-  60% { opacity:0.95; }
-  100% { opacity:0; transform:scale(1.8); }
-}
-@media (pointer: coarse) {
-  body.cursor-hidden { cursor:auto; }
-  .quantum-cursor { display:none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .quantum-cursor,
-  .quantum-cursor .cursor-ring,
-  .quantum-cursor .cursor-core,
-  .quantum-cursor .cursor-burst {
-    transition:none !important;
-    animation:none !important;
-  }
-}
+.qc-dot.is-text{opacity:0;}
+.qc-burst{position:absolute;inset:-1.4px;border-radius:50%;border:1.4px solid rgba(255,116,184,.8);opacity:0;}
+.qc-ring.is-burst .qc-burst{animation:qcBurst 480ms cubic-bezier(.2,.8,.25,1) forwards;}
+@keyframes qcBurst{0%{opacity:.85;transform:scale(.6);}100%{opacity:0;transform:scale(2.4);}}
+@media (pointer:coarse){body.cursor-hidden{cursor:auto;}.qc-dot,.qc-ring{display:none;}}
+@media (prefers-reduced-motion:reduce){.qc-dot,.qc-ring,.qc-burst{transition:none !important;animation:none !important;}}
 .quantum-journey{
   position:fixed;
   inset:0;
@@ -351,71 +308,8 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 }
 .hero-copy{position:relative;z-index:2;}
 .hero-title-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
-.photon-wave{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:220px;
-  min-width:220px;
-  height:52px;
-  position:relative;
-  filter:drop-shadow(0 0 8px rgba(107,70,193,0.25));
-}
-.photon-wave svg{
-  width:100%;
-  height:100%;
-  display:block;
-  overflow:visible;
-}
-.photon-wave .wave-line{
-  fill:none;
-  stroke:url(#waveGradient);
-  stroke-width:3;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:8 10;
-  animation:waveTravel 7s ease-in-out infinite alternate;
-}
-.photon-wave .atom{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:radial-gradient(circle at 35% 35%, #fff, var(--brand-orange) 36%, var(--brand-purple) 100%);
-  border:2px solid rgba(255,255,255,0.8);
-  box-shadow:0 0 18px rgba(245,102,0,0.45), 0 0 22px rgba(107,70,193,0.32);
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  animation:pulseAtom 3.2s ease-in-out infinite;
-}
-.photon-wave .orbit{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:38px;
-  height:38px;
-  border:2px solid rgba(255,255,255,0.38);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  box-shadow:inset 0 0 18px rgba(107,70,193,0.18);
-}
-@keyframes waveTravel{
-  0% { stroke-dashoffset: 0; opacity: 0.55; }
-  50% { stroke-dashoffset: 26; opacity: 1; }
-  100% { stroke-dashoffset: 52; opacity: 0.65; }
-}
-@keyframes pulseAtom{
-  0%,100% { transform:translate(-50%,-50%) scale(0.96); box-shadow:0 0 10px rgba(245,102,0,0.35), 0 0 14px rgba(107,70,193,0.18); }
-  50% { transform:translate(-50%,-50%) scale(1.18); box-shadow:0 0 18px rgba(245,102,0,0.5), 0 0 22px rgba(107,70,193,0.3); }
-}
 @media (max-width:640px){
-  .photon-wave{width:150px; min-width:150px; height:40px;}
   .hero-title-row{align-items:flex-start;}
-}
-@media (prefers-reduced-motion: reduce){
-  .photon-wave .wave-line{animation:none;}
-  .photon-wave .atom{animation:none;}
 }
 
 .label{
@@ -449,6 +343,8 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .nav.stuck{background:rgba(10,16,36,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--navy-line);}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0;}
 .identity{display:flex;align-items:center;gap:12px;}
+.csi-mark{width:34px;height:34px;border-radius:50%;background:#fff;flex:none;display:block;object-fit:contain;}
+@media (max-width:600px){.csi-mark{width:26px;height:26px;}}
 .brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:16.5px;white-space:nowrap;color:#EFF2FA;}
 .brand img{width:42px;height:42px;border-radius:12px;flex:none;display:block;background:#fff;padding:4px;box-shadow:0 8px 20px rgba(0,0,0,.18);}
 .brand .sep{color:var(--pink-lite);font-weight:500;}
@@ -550,6 +446,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .hero h1{font-size:clamp(50px,8.8vw,122px);line-height:.96;margin-bottom:32px;max-width:12ch;}
 .hero h1 .accent{color:#FF70A6;}
 .hero-lede{font-size:18px;line-height:1.68;color:rgba(255,255,255,.88);max-width:52ch;margin-bottom:36px;}
+.hero-shout{font-size:21px;font-weight:600;color:#fff;margin-bottom:14px;}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .countdown-panel{
   position:relative;z-index:2;margin-top:24px;padding:16px 18px 14px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(10,16,36,.48);box-shadow:0 18px 42px -22px rgba(15,20,36,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:520px;
@@ -600,11 +497,10 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   filter:drop-shadow(0 0 28px rgba(255,46,146,0.32));
 }
 #bloch-sphere-wrap canvas{display:block;width:100%;height:100%;pointer-events:none;}
-.badge{width:100%;max-width:380px;justify-self:center;align-self:center;animation:float 9s ease-in-out infinite, badgeSpin 30s linear infinite;transform-origin:center;position:relative;z-index:2;}
-.badge:hover{ animation-duration: 9s, 12s; }
+.badge{width:100%;max-width:380px;justify-self:center;align-self:center;animation:float 9s ease-in-out infinite;position:relative;z-index:2;cursor:pointer;}
+.badge svg{transform-origin:50% 50%;will-change:transform;}
 .badge svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 72px rgba(249,69,155,.45));}
 @keyframes float{0%,100%{transform:translateY(-9px);}50%{transform:translateY(9px);}}
-@keyframes badgeSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .orbit-a{transform-origin:300px 300px;animation:spin 34s linear infinite;}
 .orbit-b{transform-origin:300px 300px;animation:spin-back 48s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -830,7 +726,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .map img{width:100%;height:100%;object-fit:cover;display:block;}
 .map-card{
   position:absolute;left:18px;top:18px;max-width:min(330px,64%);
-  background:#fff;color:#0A1024;border-radius:var(--r-md);padding:16px 18px;
+  background:#fff;border:1px solid #E2E8F6;color:#0A1024;border-radius:var(--r-md);padding:16px 18px;
   box-shadow:0 14px 34px -16px rgba(0,0,0,.55);
 }
 .map-card b{display:block;font-size:14.5px;font-weight:600;line-height:1.3;margin-bottom:6px;}
@@ -915,16 +811,17 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   .map{height:auto !important;}
   .map img{max-height:220pt;object-fit:contain !important;}
 }
+
+/* ---------- social icons ---------- */
+.social-ico{width:17px;height:17px;flex:none;display:block;fill:currentColor;}
+a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
 </style>
 </head>
 <body>
 <canvas id="particle-network-bg" aria-hidden="true"></canvas>
 <canvas id="quantum-interference" class="quantum-interference" aria-hidden="true"></canvas>
-<div class="quantum-cursor" id="quantum-cursor" aria-hidden="true">
-  <span class="cursor-ring"></span>
-  <span class="cursor-burst"></span>
-  <span class="cursor-core"></span>
-</div>
+<div class="qc-ring" id="qc-ring" aria-hidden="true"><span class="qc-burst"></span></div>
+<div class="qc-dot" id="qc-dot" aria-hidden="true"></div>
 <div class="quantum-journey" id="quantum-journey" aria-hidden="true">
   <div class="quantum-wire"></div>
   <div class="quantum-state">|ψ⟩</div>
@@ -944,6 +841,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
             <span style="font-size:12px;color:#D7DEF0;">MPSTME • Qiskit Fall Fest</span>
           </span>
         </a>
+        <img class="csi-mark" src="assets/logo-csi.png" alt="CSI MPSTME" width="34" height="34">
         <a class="ibm-quantum" href="https://www.ibm.com/quantum" target="_blank" rel="noopener">IBM Quantum</a>
         <div class="association-logos" aria-label="In association with CSI MPSTME and Computer Society of India">
           <img src="assets/csi-mpstme-logo.png" alt="CSI MPSTME" width="72" height="36">
@@ -954,8 +852,9 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         <a href="#about">About</a>
         <a href="#program">Program</a>
         <a href="#tracks">Tracks</a>
-        <a href="#faq">FAQ</a>
         <a href="#venue">Location</a>
+        <a href="#faq">FAQ</a>
+        <a href="team.html">Our team</a>
       </nav>
       <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
@@ -966,8 +865,9 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         <a href="#program">Program</a>
         <a href="#tracks">Tracks</a>
         <a href="#speakers">Speakers</a>
-        <a href="#faq">FAQ</a>
         <a href="#venue">Location</a>
+        <a href="#faq">FAQ</a>
+        <a href="team.html">Our team</a>
         <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register</a>
       </div>
     </div>
@@ -986,23 +886,10 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
       <div class="hero-copy">
         <img class="hero-brand-lockup" src="assets/nmims-brand-lockup.png" alt="SVKM'S NMIMS — MPSTME, Qiskit Fall Fest" width="700" height="123">
         <div class="hero-title-row">
-          <div class="photon-wave" aria-hidden="true">
-            <span class="orbit"></span>
-            <span class="atom"></span>
-            <svg viewBox="0 0 220 52" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#F56600"/>
-                  <stop offset="50%" stop-color="#A78BFA"/>
-                  <stop offset="100%" stop-color="#6B46C1"/>
-                </linearGradient>
-              </defs>
-              <path class="wave-line" d="M 8 26 C 28 12, 46 12, 58 26 S 88 40, 106 26 S 138 12, 158 26 S 190 40, 212 26"/>
-            </svg>
-          </div>
           <h1>Everything is possible <span class="accent">until you measure it.</span></h1>
         </div>
-        <p class="hero-lede">Qiskit Fall Fest is coming to MPSTME for three days of keynote addresses, beginner tracks led by Qiskit Advocates, and a hybrid hackathon for beginners and experts. It is hosted by the Department of Information Technology together with CSI.</p>
+        <p class="hero-lede hero-shout">Qiskit Fall Fest 2026 is coming to MPSTME!</p>
+        <p class="hero-lede">Organized by the Department of Information Technology, MPSTME, in collaboration with CSI @ MPSTME, the three-day event will feature keynote addresses, beginner tracks led by Qiskit Advocates, hands-on quantum computing sessions, and a hybrid hackathon designed for both beginners and experienced quantum enthusiasts.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=SEPx0bXxCUqsmX6_ITy8gUTjGoNv6r5Mg-uGk0FUzYRUQldSRUdJNUZYMjQzQ0g0N0JBTDYxWVNPTS4u" target="_blank" rel="noopener">Register now</a>
           <a class="btn-quiet" href="#program">Explore the program <span aria-hidden="true">↓</span></a>
@@ -1203,7 +1090,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
         <span class="pill">24 October</span>
         <h3>Beginner tracks</h3>
         <p>Learn quantum and Qiskit fundamentals from a blank file, taught by Qiskit Advocates, ending with a circuit you have run on real IBM hardware.</p>
-        <div class="meta"><span>Bring a laptop</span><span>No experience needed</span></div>
+        <div class="meta"><span>Optional to a laptop</span><span>No experience needed</span></div>
       </article>
       <article class="track reveal" style="--d:.2s">
         <span class="pill">23 – 24 October</span>
@@ -1232,8 +1119,34 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   </div>
 </section>
 
-<!-- FAQ — white -->
-<section class="sec on-white" id="faq">
+<!-- LOCATION — white -->
+<section class="sec on-white" id="venue">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="label">Location</span>
+      <h2>Find us at MPSTME, <span class="accent">Vile Parle West.</span></h2>
+    </div>
+
+    <div class="venue-top reveal">
+      <p>The Mukesh Patel School of Technology Management and Engineering sits on Bhakti Vedant Marg, opposite Cooper Hospital in Vile Parle West, a short walk from Vile Parle station. We will send the exact hall numbers and entry instructions to everyone who has registered, during the week before the event.</p>
+      <a class="btn btn-ghost" href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Open in maps</a>
+    </div>
+
+    <a class="map reveal" style="--d:.16s" href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener"
+       aria-label="Open MPSTME in Google Maps">
+      <img src="assets/venue-map.jpg" alt="Map of Vile Parle West, Mumbai, with MPSTME marked">
+      <span class="map-card">
+        <b>Mukesh Patel School of Technology Management and Engineering</b>
+        <span>Bhakti Vedant Marg, opposite Cooper Hospital, Vile Parle West, Mumbai 400056</span>
+      </span>
+      <span class="map-open">Open in Google Maps</span>
+      <span class="map-credit">© OpenStreetMap contributors</span>
+    </a>
+  </div>
+</section>
+
+<!-- QUESTIONS — navy -->
+<section class="sec on-navy" id="faq">
   <div class="shell">
     <div class="sec-head reveal">
       <span class="label">Questions</span>
@@ -1273,32 +1186,6 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   </div>
 </section>
 
-<!-- VENUE — navy -->
-<section class="sec on-navy" id="venue">
-  <div class="shell">
-    <div class="sec-head reveal">
-      <span class="label">Location</span>
-      <h2>Find us at MPSTME, <span class="accent">Vile Parle West.</span></h2>
-    </div>
-
-    <div class="venue-top reveal">
-      <p>The Mukesh Patel School of Technology Management and Engineering sits on Bhakti Vedant Marg, opposite Cooper Hospital in Vile Parle West, a short walk from Vile Parle station. We will send the exact hall numbers and entry instructions to everyone who has registered, during the week before the event.</p>
-      <a class="btn btn-ghost" href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Open in maps</a>
-    </div>
-
-    <a class="map reveal" style="--d:.16s" href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener"
-       aria-label="Open MPSTME in Google Maps">
-      <img src="assets/venue-map.jpg" alt="Map of Vile Parle West, Mumbai, with MPSTME marked">
-      <span class="map-card">
-        <b>Mukesh Patel School of Technology Management and Engineering</b>
-        <span>Bhakti Vedant Marg, opposite Cooper Hospital, Vile Parle West, Mumbai 400056</span>
-      </span>
-      <span class="map-open">Open in Google Maps</span>
-      <span class="map-credit">© OpenStreetMap contributors</span>
-    </a>
-  </div>
-</section>
-
 <!-- CLOSING — blue -->
 <section class="closing on-pink" id="register">
   <img class="closing-bird" src="assets/bird-falcon.png" alt="" aria-hidden="true">
@@ -1317,12 +1204,12 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   <div class="shell">
     <div class="built">
       <div>
-        <h3>Built by <span class="accent">CSI at MPSTME</span></h3>
+        <h3>Built by the <span class="accent">Department of IT</span></h3>
         <span class="place">Mumbai, India · 2026</span>
       </div>
       <div class="built-links">
         <a href="#top">Back to top</a>
-        <a href="https://discord.gg/E837uYskmU" target="_blank" rel="noopener">Join our Discord</a>
+        <a href="https://wa.me/919321694430" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a>
         <a href="mailto:qiskitfallfest.mpstme@gmail.com">Contact Us</a>
         <a href="https://www.ibm.com/quantum/blog/qiskit-fall-fest-2026">Official Fall Fest page</a>
       </div>
@@ -1330,16 +1217,16 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     <div class="foot-cols">
       <div>
         <h4>Qiskit Fall Fest 2026 at MPSTME</h4>
-        <p>Organised by the Department of Information Technology in association with CSI@MPSTME, at SVKM's NMIMS Mukesh Patel School of Technology Management and Engineering.</p>
+        <p>Organised by the Department of Information Technology at SVKM's NMIMS Mukesh Patel School of Technology Management and Engineering.</p>
       </div>
       <div class="col"><span>Event</span><a href="#about">About</a><a href="#program">Program</a><a href="#tracks">Tracks</a><a href="#speakers">Speakers</a></div>
-      <div class="col"><span>Visit</span><a href="#venue">Location</a><a href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Directions</a><a href="#top">Code of conduct</a><a href="#top">Questions</a></div>
-      <div class="col"><span>Contact</span><a href="mailto:qiskitfallfest.mpstme@gmail.com">qiskitfallfest.mpstme@gmail.com</a><a href="tel:+919321694430">Aarush Mishra · +91 93216 94430</a><a href="tel:+919987827154">Ritesh Pandey · +91 99878 27154</a><a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener">Instagram</a><a href="https://discord.gg/E837uYskmU" target="_blank" rel="noopener">Discord</a></div>
+      <div class="col"><span>Visit</span><a href="#venue">Location</a><a href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Directions</a><a href="team.html">Our team</a><a href="#faq">Questions</a></div>
+      <div class="col"><span>Contact</span><a href="mailto:qiskitfallfest.mpstme@gmail.com">qiskitfallfest.mpstme@gmail.com</a><a href="tel:+919321694430">Aarush Mishra · +91 93216 94430</a><a href="tel:+919987827154">Ritesh Pandey · +91 99878 27154</a><a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>Instagram</a><a href="https://wa.me/919321694430" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a></div>
     </div>
     <div class="legal">
-      <span>© 2026 CSI@MPSTME, Department of Information Technology.</span>
+      <span>© 2026 Department of Information Technology, MPSTME.</span>
       <span>Last updated <time datetime="2026-08-29">29 August 2026</time></span>
-      <span>Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by CSI at MPSTME.</span>
+      <span>Qiskit and Qiskit Fall Fest are IBM marks. This event is organised by the Department of Information Technology at MPSTME.</span>
     </div>
   </div>
 </footer>
@@ -1347,8 +1234,8 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 <div class="fab" id="fab">
   <div class="fab-menu">
     <a href="mailto:qiskitfallfest.mpstme@gmail.com">Email us</a>
-    <a href="https://discord.gg/E837uYskmU" target="_blank" rel="noopener">Discord</a>
-    <a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/919321694430" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a>
+    <a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>Instagram</a>
   </div>
   <div class="fab-row">
     <button class="fab-btn" id="toTop" type="button" aria-label="Back to top">
@@ -1428,96 +1315,59 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     document.body.classList.add('cursor-hidden');
   }
 
-  var cursor = document.getElementById('quantum-cursor');
-  if (cursor && pointerFine) {
-    var targetX = window.innerWidth / 2;
-    var targetY = window.innerHeight / 2;
-    var currentX = targetX;
-    var currentY = targetY;
-    var focusState = 'default';
+  var qcRing = document.getElementById('qc-ring');
+  var qcDot  = document.getElementById('qc-dot');
+  if (qcRing && qcDot && pointerFine) {
+    var px = innerWidth / 2, py = innerHeight / 2;   // true pointer
+    var rx = px, ry = py;                             // ring, lagging
+    var state = 'default';
 
-    function setCursorState(state) {
-      cursor.classList.remove('is-clickable', 'is-text', 'is-burst');
-      if (state === 'clickable') cursor.classList.add('is-clickable');
-      if (state === 'text') cursor.classList.add('is-text');
-      if (state === 'burst') cursor.classList.add('is-burst');
-      focusState = state;
+    function setState(next) {
+      if (next === state) return;
+      state = next;
+      ['is-clickable', 'is-text'].forEach(function (c) {
+        qcRing.classList.toggle(c, c === 'is-' + next);
+        qcDot.classList.toggle(c, c === 'is-' + next);
+      });
     }
 
-    function closestElement(node, selector) {
-      var current = node;
-      while (current && current !== document) {
-        if (current.matches && current.matches(selector)) {
-          return current;
-        }
-        current = current.parentElement || null;
-      }
-      return null;
+    function classify(target) {
+      var el = target && target.nodeType === 1 ? target : null;
+      if (!el) return setState('default');
+      if (el.closest('input, textarea, select, [contenteditable="true"]')) return setState('text');
+      if (el.closest('a, button, summary, .btn, .btn-quiet, .menu-btn, .switch button, .code-tabs button, .fab-btn, .map')) return setState('clickable');
+      setState('default');
     }
 
-    function updateCursorState(target) {
-      var element = target && target.nodeType === 1 ? target : (target && target.parentElement) || null;
-      if (!element) {
-        setCursorState('default');
-        return;
-      }
-      var textField = closestElement(element, 'input, textarea, select, [contenteditable="true"]');
-      if (textField) {
-        setCursorState('text');
-        return;
-      }
-      var clickable = closestElement(element, 'a, button, .btn, .btn-primary, .btn-ghost, .btn-quiet, .menu-btn, summary, input[type="checkbox"], input[type="radio"], .switch button, .code-tabs button, .fab-btn, .faq summary, .day button');
-      if (clickable) {
-        setCursorState('clickable');
-        return;
-      }
-      setCursorState('default');
-    }
-
-    function animateCursor() {
-      var easing = reduced ? 1 : 0.18;
-      currentX += (targetX - currentX) * easing;
-      currentY += (targetY - currentY) * easing;
-      cursor.style.transform = 'translate3d(' + Math.round(currentX - 14) + 'px, ' + Math.round(currentY - 14) + 'px, 0)';
-      requestAnimationFrame(animateCursor);
-    }
-
-    document.addEventListener('pointermove', function (event) {
-      targetX = event.clientX;
-      targetY = event.clientY;
-      cursor.classList.add('is-visible');
+    addEventListener('pointermove', function (e) {
+      px = e.clientX; py = e.clientY;
+      qcRing.classList.add('is-visible');
+      qcDot.classList.add('is-visible');
+      classify(e.target);
     }, { passive: true });
 
-    document.addEventListener('pointerdown', function (event) {
-      setCursorState('burst');
-      setTimeout(function () {
-        if (focusState === 'burst') {
-          updateCursorState(event.target || null);
-        }
-      }, 340);
+    addEventListener('pointerdown', function () {
+      qcRing.classList.remove('is-burst');
+      void qcRing.offsetWidth;
+      qcRing.classList.add('is-burst');
     });
 
-    document.addEventListener('pointerover', function (event) {
-      updateCursorState(event.target);
+    ['pointerleave', 'blur'].forEach(function (ev) {
+      addEventListener(ev, function () {
+        qcRing.classList.remove('is-visible');
+        qcDot.classList.remove('is-visible');
+      });
     });
 
-    document.addEventListener('pointerout', function (event) {
-      if (!event.relatedTarget) {
-        setCursorState('default');
-      }
-    });
-
-    document.addEventListener('pointerleave', function () {
-      cursor.classList.remove('is-visible');
-      setCursorState('default');
-    });
-
-    window.addEventListener('blur', function () {
-      cursor.classList.remove('is-visible');
-      setCursorState('default');
-    });
-
-    animateCursor();
+    (function frame() {
+      // the dot is exact, so the cursor feels responsive; the ring eases behind it
+      var ease = reduced ? 1 : 0.19;
+      rx += (px - rx) * ease;
+      ry += (py - ry) * ease;
+      qcDot.style.transform  = 'translate3d(' + px + 'px,' + py + 'px,0)';
+      qcRing.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)';
+      requestAnimationFrame(frame);
+    })();
   }
 
   if (!reduced && pointerFine) {
@@ -2066,13 +1916,26 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
      captured against the finished height lands somewhere else entirely when it
      is re-applied against the short, unstyled document. */
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  function goToHash(smooth) {
+    if (!location.hash) return false;
+    var target;
+    try { target = document.querySelector(location.hash); } catch (e) { return false; }
+    if (!target) return false;
+    target.scrollIntoView(smooth ? {behavior: 'smooth'} : undefined);
+    return true;
+  }
+
   addEventListener('load', function () {
-    if (location.hash) {
-      var target = document.querySelector(location.hash);
-      if (target) { target.scrollIntoView(); return; }
-    }
-    scrollTo(0, 0);
+    if (!goToHash()) { scrollTo(0, 0); return; }
+    // The display fonts swap in after load and the headings are enormous, so the
+    // page keeps growing under us. Re-anchor once things have actually settled.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { goToHash(); });
+    setTimeout(goToHash, 300);
+    setTimeout(goToHash, 900);
   });
+
+  addEventListener('hashchange', function () { goToHash(); });
 
   /* ---- floating contact + back to top ---- */
   var fab = document.getElementById('fab');
@@ -2280,6 +2143,25 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
     }
 
     requestAnimationFrame(animateBloch);
+  }
+
+  /* ---- the badge spins up like a turntable while the pointer is over it ---- */
+  var badge = document.querySelector('.badge');
+  var disc  = badge && badge.querySelector('svg');
+  if (disc && !reduced) {
+    var IDLE = 5, SPUN = 210;              // degrees per second
+    var angle = 0, speed = IDLE, want = IDLE, last = performance.now();
+    badge.addEventListener('pointerenter', function () { want = SPUN; });
+    badge.addEventListener('pointerleave', function () { want = IDLE; });
+    (function turn(now) {
+      var dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      // exponential approach, so it winds up and coasts down instead of snapping
+      speed += (want - speed) * (1 - Math.exp(-dt * 2.6));
+      angle = (angle + speed * dt) % 360;
+      disc.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+      requestAnimationFrame(turn);
+    })(last);
   }
 
 })();
