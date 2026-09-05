@@ -662,6 +662,20 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .spk h4{font-size:17px;font-weight:600;margin-bottom:6px;color:var(--on);}
 .spk span{font-size:14px;color:var(--faint);}
 .spk p{margin-top:16px;font-size:14px;line-height:1.55;color:var(--muted);}
+.spk .profile-link{display:inline-block;margin-top:14px;font-size:13px;color:var(--on);text-decoration:underline;text-underline-offset:3px;}
+.spk.speaker-profile{padding:0;overflow:hidden;display:flex;flex-direction:column;}
+.spk.speaker-profile .avatar{width:100%;height:auto;aspect-ratio:4 / 3;border:0;border-radius:var(--r-xl) var(--r-xl) 0 0;margin:0;background:var(--surface);}
+.spk.speaker-profile .avatar img{width:100%;height:100%;object-fit:cover;}
+.spk.speaker-profile .speaker-body{display:flex;flex:1;flex-direction:column;padding:26px 24px 18px;}
+.spk.speaker-profile h4{font-size:18px;margin-bottom:5px;}
+.spk.speaker-profile span{display:block;}
+.spk.speaker-profile p{margin-top:10px;}
+.spk.speaker-profile .profile-link{align-self:center;margin-top:auto;padding:6px 13px;border-radius:var(--pill);background:rgba(249,69,155,.18);color:var(--pink-lite);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-decoration:none;text-transform:uppercase;}
+.spk.speaker-profile .profile-link{margin-top:12px;}
+.spk.speaker-emmanuel .speaker-photo{object-fit:cover;object-position:50% 28%;}
+.spk.speaker-emmanuel .speaker-title{line-height:1.45;}
+.spk.speaker-emmanuel .speaker-affiliation{margin-top:16px;line-height:1.5;}
+.spk.speaker-emmanuel .speaker-bio{margin-top:10px;color:var(--faint);font-size:13px;line-height:1.6;}
 #speakers{--surface:#0A0E1A;--on:#F3F6FD;--muted:#C7D0E2;--faint:#D3DBEC;--card:rgba(255,255,255,.06);--card-hover:rgba(255,255,255,.1);--border:rgba(255,255,255,.14);--accent:#FF70A6;}
 #speakers .sec-head .label{font-weight:600;letter-spacing:.1em;color:#FF70A6;opacity:.85;}
 #speakers .sec-head p{max-width:600px;color:rgba(255,255,255,.84);}
@@ -669,6 +683,17 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 #speakers .spk .avatar{background:#F3F6FD;border:1px solid rgba(255,255,255,.5);box-shadow:0 0 0 5px rgba(255,255,255,.06);}
 #speakers .spk.placeholder{opacity:.6;border-style:dashed;border-color:rgba(255,255,255,.25);}
 #speakers .spk.placeholder:hover{opacity:.78;}
+.speaker-group{position:relative;z-index:2;margin-top:44px;}
+.speaker-group:first-of-type{margin-top:0;}
+.speaker-group-heading{font-family:var(--display);font-size:clamp(26px,3.2vw,40px);font-weight:700;line-height:1;letter-spacing:-.03em;margin:0 0 20px;color:var(--on);}
+.speaker-group-heading .accent{color:var(--accent);}
+.speaker-group-subhead{margin:-6px 0 18px;color:var(--faint);font-size:14px;}
+.speaker-group-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.speaker-group.workshop-group .speaker-group-grid{grid-template-columns:repeat(4,1fr);max-width:none;}
+.speaker-group .speaker-profile{height:100%;}
+.speaker-group .speaker-profile .speaker-body{min-height:0;}
+.speaker-group .workshop-card .speaker-body{padding-bottom:22px;}
+.speaker-group .workshop-card .speaker-body span{margin-top:0;}
 
 /* ---------- venue ---------- */
 .venue-top{margin-bottom:38px;position:relative;z-index:2;}
@@ -736,6 +761,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   .card-note{margin-top:0;}
   .stats{grid-template-columns:repeat(2,1fr);}
   .tracks,.speakers{grid-template-columns:1fr;}
+  .speaker-group-grid,.speaker-group.workshop-group .speaker-group-grid{grid-template-columns:repeat(2,1fr);max-width:none;}
   .foot-cols{grid-template-columns:1fr 1fr;}
   .session{grid-template-columns:1fr;gap:10px;padding:22px 24px;}
   .session:hover{transform:none;}
@@ -745,6 +771,7 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
   .stats,.foot-cols{grid-template-columns:1fr;}
   .switch{width:100%;}
   .switch button{flex:1;padding:11px 10px;}
+  .speaker-group-grid,.speaker-group.workshop-group .speaker-group-grid{grid-template-columns:1fr;}
 }
 
 /* ---------- print ---------- */
@@ -1065,11 +1092,36 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
       <h2>Learn from people <span class="accent">shaping quantum.</span></h2>
       <p>Senior scientists and industry experts bring practical experience across algorithms, hardware and enterprise quantum computing.</p>
     </div>
-    <div class="speakers">
-      <div class="spk reveal"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Keynote</span></div>
-      <div class="spk placeholder reveal" style="--d:.08s"><div class="avatar"><img src="assets/bird-blue.png" alt=""></div><h4>To be announced</h4><span>Expert talk</span></div>
-      <div class="spk reveal" style="--d:.16s"><div class="avatar"><img src="assets/bird-falcon.png" alt=""></div><h4>Qiskit Advocates</h4><span>Workshop lead</span></div>
-      <div class="spk placeholder reveal" style="--d:.24s"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Judging panel</span></div>
+    <div class="speaker-groups">
+      <div class="speaker-group keynote-group">
+        <h3 class="speaker-group-heading">Keynote</h3>
+        <div class="speaker-group-grid">
+          <article class="spk speaker-profile reveal" style="--d:.08s"><div class="avatar"><img src="assets/speakers/ananda-raman.jpg" alt="A. Ananda Raman"></div><div class="speaker-body"><h4>A. Ananda Raman</h4><span>Scientific Officer - E</span><span>Keynote</span><p>Computer Centre, National Institute of Science Education and Research (NISER)</p><p>High-Performance Computing</p><a class="profile-link" href="https://niser.ac.in/profile/anandaraman" target="_blank" rel="noopener noreferrer">Profile</a></div></article>
+          <article class="spk speaker-profile speaker-emmanuel reveal" style="--d:.16s"><div class="avatar"><img class="speaker-photo" src="assets/speakers/emmanuel-pilli.jpg" alt="Dr. Emmanuel Shubhakar Pilli"></div><div class="speaker-body"><h4>Dr. Emmanuel Shubhakar Pilli</h4><span class="speaker-title">Associate Professor, Department of Computer Science and Engineering</span><span>Keynote</span><p class="speaker-affiliation">Malaviya National Institute of Technology (MNIT), Jaipur</p><p class="speaker-bio">PhD, IIT Roorkee - cybersecurity &amp; quantum computing.</p><a class="profile-link" href="https://www.linkedin.com/in/emmanuelpilli/" target="_blank" rel="noopener">LinkedIn</a></div></article>
+        </div>
+      </div>
+      <div class="speaker-group expert-group">
+        <h3 class="speaker-group-heading">Expert talk</h3>
+        <div class="speaker-group-grid">
+          <div class="spk placeholder reveal" style="--d:.08s"><div class="avatar"><img src="assets/bird-blue.png" alt=""></div><h4>To be announced</h4><span>Expert talk</span></div>
+        </div>
+      </div>
+      <div class="speaker-group workshop-group">
+        <h3 class="speaker-group-heading">Workshop lead</h3>
+        <p class="speaker-group-subhead">Qiskit Advocates</p>
+        <div class="speaker-group-grid">
+          <article class="spk speaker-profile workshop-card reveal" style="--d:.08s"><div class="avatar"><img src="assets/team-bhavna-bose.jpg" alt="Prof. Bhavna Bose"></div><div class="speaker-body"><h4>Prof. Bhavna Bose</h4><span>Workshop Lead</span><a class="profile-link" href="https://engineering.nmims.edu/faculty/prof-bhavna-bose/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></article>
+          <article class="spk speaker-profile workshop-card reveal" style="--d:.16s"><div class="avatar"><img src="assets/aarush-mishra.png" alt="Aarush Mishra"></div><div class="speaker-body"><h4>Aarush Mishra</h4><span>Workshop Lead</span><a class="profile-link" href="tel:+919321694430">Call</a><a class="profile-link" href="https://www.linkedin.com/in/aarushmishra16/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></article>
+          <article class="spk speaker-profile workshop-card reveal" style="--d:.24s"><div class="avatar"><img src="assets/pratham-kapoor.png" alt="Pratham Kapoor"></div><div class="speaker-body"><h4>Pratham Kapoor</h4><span>Workshop Lead</span><a class="profile-link" href="https://www.linkedin.com/in/pratham-kapoor-9a79812a3/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></article>
+          <article class="spk speaker-profile workshop-card reveal" style="--d:.32s"><div class="avatar"><img src="assets/ritesh-pandey.jpg" alt="Ritesh Pandey"></div><div class="speaker-body"><h4>Ritesh Pandey</h4><span>Workshop Lead</span><a class="profile-link" href="https://www.linkedin.com/in/ritesh-p-63b357327/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></article>
+        </div>
+      </div>
+      <div class="speaker-group judging-group">
+        <h3 class="speaker-group-heading">Judging panel</h3>
+        <div class="speaker-group-grid">
+          <div class="spk placeholder reveal" style="--d:.08s"><div class="avatar"><img src="assets/bird-pink.png" alt=""></div><h4>To be announced</h4><span>Judging panel</span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1176,7 +1228,7 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
       </div>
       <div class="built-links">
         <a href="#top">Back to top</a>
-        <a href="https://wa.me/919321694430" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a>
+        <a href="https://chat.whatsapp.com/JJDzp7J0XCeKD4kSAtVxeU" target="_blank" rel="noopener noreferrer"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a>
         <a href="https://unstop.com/p/qiskit-fall-fest-at-mpstme-mukesh-patel-school-of-technology-management-and-engineering-nmims-mumbai-1748182#tab-discussion" target="_blank" rel="noopener">Unstop</a>
         <a href="mailto:qiskitfallfest.mpstme@gmail.com">Contact Us</a>
         <a href="https://www.ibm.com/quantum/blog/qiskit-fall-fest-2026">Official Fall Fest page</a>
@@ -1189,7 +1241,7 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
       </div>
       <div class="col"><span>Event</span><a href="#about">About</a><a href="#program">Program</a><a href="#tracks">Tracks</a><a href="#speakers">Speakers</a></div>
       <div class="col"><span>Visit</span><a href="#venue">Location</a><a href="https://maps.app.goo.gl/D4NpmVSsmpVNUte7A" target="_blank" rel="noopener">Directions</a><a href="team.html">Our team</a><a href="#faq">Questions</a></div>
-      <div class="col"><span>Contact</span><a href="mailto:qiskitfallfest.mpstme@gmail.com">qiskitfallfest.mpstme@gmail.com</a><a href="tel:+919321694430">Aarush Mishra · +91 93216 94430</a><a href="tel:+919987827154">Ritesh Pandey · +91 99878 27154</a><a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>Instagram</a><a href="https://wa.me/919321694430" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a></div>
+      <div class="col"><span>Contact</span><a href="mailto:qiskitfallfest.mpstme@gmail.com">qiskitfallfest.mpstme@gmail.com</a><a href="tel:+919321694430">Aarush Mishra · +91 93216 94430</a><a href="tel:+919987827154">Ritesh Pandey · +91 99878 27154</a><a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>Instagram</a><a href="https://chat.whatsapp.com/JJDzp7J0XCeKD4kSAtVxeU" target="_blank" rel="noopener noreferrer"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a></div>
     </div>
     <div class="legal">
       <span>© 2026 Department of Information Technology, MPSTME.</span>
@@ -1203,7 +1255,7 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
   <div class="fab-menu">
     <a href="https://unstop.com/p/qiskit-fall-fest-at-mpstme-mukesh-patel-school-of-technology-management-and-engineering-nmims-mumbai-1748182#tab-discussion" target="_blank" rel="noopener">Unstop</a>
     <a href="mailto:qiskitfallfest.mpstme@gmail.com">Email us</a>
-    <a href="https://wa.me/919321694430" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a>
+    <a href="https://chat.whatsapp.com/JJDzp7J0XCeKD4kSAtVxeU" target="_blank" rel="noopener noreferrer"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 018.23 8.24c0 4.54-3.69 8.21-8.23 8.21zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42l-.47-.01c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.73 2.65 4.19 3.71.58.26 1.04.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>WhatsApp</a>
     <a href="https://www.instagram.com/qiskitff.mpstme" target="_blank" rel="noopener"><svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 5.68a4.16 4.16 0 100 8.32 4.16 4.16 0 000-8.32zm0 6.86a2.7 2.7 0 110-5.4 2.7 2.7 0 010 5.4zm5.3-7.02a.97.97 0 11-1.94 0 .97.97 0 011.94 0z"/></svg>Instagram</a>
   </div>
   <div class="fab-row">
