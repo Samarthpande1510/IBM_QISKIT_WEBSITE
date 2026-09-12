@@ -670,12 +670,27 @@ main, header, footer, section, .nav, .hero, .shell, .sec, .foot {
 .spk.speaker-profile h4{font-size:18px;margin-bottom:5px;}
 .spk.speaker-profile span{display:block;}
 .spk.speaker-profile p{margin-top:10px;}
-.spk.speaker-profile .profile-link{align-self:center;margin-top:auto;padding:6px 13px;border-radius:var(--pill);background:rgba(249,69,155,.18);color:var(--pink-lite);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-decoration:none;text-transform:uppercase;}
-.spk.speaker-profile .profile-link{margin-top:12px;}
-.spk.speaker-emmanuel .speaker-photo{object-fit:cover;object-position:50% 28%;}
-.spk.speaker-emmanuel .speaker-title{line-height:1.45;}
-.spk.speaker-emmanuel .speaker-affiliation{margin-top:16px;line-height:1.5;}
-.spk.speaker-emmanuel .speaker-bio{margin-top:10px;color:var(--faint);font-size:13px;line-height:1.6;}
+.spk.speaker-profile .profile-link{align-self:center;margin-top:12px;padding:6px 13px;border-radius:var(--pill);background:rgba(249,69,155,.18);color:var(--pink-lite);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-decoration:none;text-transform:uppercase;}
+
+/* Expert talk: one consistent card recipe for every speaker regardless of
+   source-photo shape or how much bio copy we actually have on file. Square
+   frames crop far more forgivingly than the shared 4:3 box across headshots
+   ranging from a 512px studio shot to a 105px scholar-page thumbnail, and the
+   flex-wrap grid centers a 3-over-2 layout instead of stranding a lone 5th
+   card under a 4-column grid. Every override below is qualified with
+   `.expert-group .spk.speaker-profile` to clear the specificity of the base
+   `.spk.speaker-profile` rules it needs to beat. */
+.speaker-group-grid.expert-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;}
+.expert-grid .spk{flex:1 1 240px;max-width:264px;text-align:left;}
+.expert-group .spk.speaker-profile .avatar{aspect-ratio:1/1;filter:grayscale(.4) contrast(1.05) saturate(.85);transition:filter .5s ease;}
+.expert-group .spk.speaker-profile:hover .avatar{filter:grayscale(0) saturate(1.05);}
+.expert-group .spk.speaker-profile .speaker-body{padding:22px 22px 20px;}
+.expert-group .spk.speaker-profile h4{font-size:17px;}
+.expert-group .spk.speaker-profile .speaker-role{font-size:13px;color:var(--on);opacity:.95;line-height:1.4;}
+.expert-group .spk.speaker-profile .speaker-org{margin-top:3px;font-size:12.5px;color:var(--faint);line-height:1.4;}
+.expert-group .spk.speaker-profile p.speaker-tag{align-self:flex-start;margin-top:14px;padding:5px 11px;border:1px solid var(--border);border-radius:var(--pill);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+.expert-group .spk.speaker-profile .profile-link{align-self:flex-start;margin-top:auto;}
+@media (max-width:640px){.expert-grid .spk{flex-basis:100%;max-width:340px;}}
 #speakers{--surface:#0A0E1A;--on:#F3F6FD;--muted:#C7D0E2;--faint:#D3DBEC;--card:rgba(255,255,255,.06);--card-hover:rgba(255,255,255,.1);--border:rgba(255,255,255,.14);--accent:#FF70A6;}
 #speakers .sec-head .label{font-weight:600;letter-spacing:.1em;color:#FF70A6;opacity:.85;}
 #speakers .sec-head p{max-width:600px;color:rgba(255,255,255,.84);}
@@ -1105,11 +1120,56 @@ a:has(> .social-ico){display:inline-flex;align-items:center;gap:9px;}
       </div>
       <div class="speaker-group expert-group">
         <h3 class="speaker-group-heading">Expert talk</h3>
-        <div class="speaker-group-grid">
-          <article class="spk speaker-profile reveal" style="--d:.08s"><div class="avatar"><img src="assets/speakers/ananda-raman.jpg" alt="A. Ananda Raman"></div><div class="speaker-body"><h4>A. Ananda Raman</h4><span>Scientific Officer - E</span><span>Expert talk</span><p>Computer Centre, National Institute of Science Education and Research (NISER)</p><p>High-Performance Computing</p><a class="profile-link" href="https://niser.ac.in/profile/anandaraman" target="_blank" rel="noopener noreferrer">Profile</a></div></article>
-          <article class="spk speaker-profile speaker-emmanuel reveal" style="--d:.16s"><div class="avatar"><img class="speaker-photo" src="assets/speakers/emmanuel-pilli.jpg" alt="Dr. Emmanuel Shubhakar Pilli"></div><div class="speaker-body"><h4>Dr. Emmanuel Shubhakar Pilli</h4><span class="speaker-title">Associate Dean, Department of Computer Science and Engineering</span><span>Expert talk</span><p class="speaker-affiliation">Malaviya National Institute of Technology (MNIT), Jaipur</p><p class="speaker-bio">PhD, IIT Roorkee - cybersecurity &amp; quantum computing.</p><a class="profile-link" href="https://www.linkedin.com/in/emmanuelpilli/" target="_blank" rel="noopener">LinkedIn</a></div></article>
-          <article class="spk speaker-profile reveal" style="--d:.24s"><div class="avatar"><img src="assets/speakers/sathyaprakash-palaniyappan.webp" alt="Dr. Sathyaprakash Palaniyappan"></div><div class="speaker-body"><h4>Dr. Sathyaprakash Palaniyappan</h4><span>Co-Founder / COO, Anuthantra</span><span>Expert talk</span><p>IBM Quantum Educator</p><a class="profile-link" href="https://scholar.google.com/citations?user=zZfdQi8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Profile</a></div></article>
-          <article class="spk speaker-profile reveal" style="--d:.32s"><div class="avatar"><img src="assets/speakers/mukta-nivelkar.jpg" alt="Dr. Mukta Nivelkar"></div><div class="speaker-body"><h4>Dr. Mukta Nivelkar</h4><span>Assistant Professor</span><span>Expert talk</span><p>FCRIT</p><a class="profile-link" href="https://vjti.ac.in/mukta-nivelkar/" target="_blank" rel="noopener noreferrer">Profile</a></div></article>
+        <div class="speaker-group-grid expert-grid">
+          <article class="spk speaker-profile reveal" style="--d:.08s">
+            <div class="avatar"><img src="assets/speakers/emmanuel-pilli.jpg" alt="Dr. Emmanuel Shubhakar Pilli" style="object-position:50% 38%"></div>
+            <div class="speaker-body">
+              <h4>Dr. Emmanuel Shubhakar Pilli</h4>
+              <span class="speaker-role">Associate Dean, Dept. of Computer Science and Engineering</span>
+              <span class="speaker-org">Malaviya National Institute of Technology (MNIT), Jaipur</span>
+              <p class="speaker-tag">Cybersecurity &amp; Quantum Computing</p>
+              <a class="profile-link" href="https://www.linkedin.com/in/emmanuelpilli/" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+          </article>
+          <article class="spk speaker-profile reveal" style="--d:.16s">
+            <div class="avatar"><img src="assets/speakers/sathyaprakash-palaniyappan.webp" alt="Dr. Sathyaprakash Palaniyappan"></div>
+            <div class="speaker-body">
+              <h4>Dr. Sathyaprakash Palaniyappan</h4>
+              <span class="speaker-role">Co-Founder / COO</span>
+              <span class="speaker-org">Anuthantra</span>
+              <p class="speaker-tag">IBM Quantum Educator</p>
+              <a class="profile-link" href="https://scholar.google.com/citations?user=zZfdQi8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Profile</a>
+            </div>
+          </article>
+          <article class="spk speaker-profile reveal" style="--d:.24s">
+            <div class="avatar"><img src="assets/speakers/mukta-nivelkar.jpg" alt="Dr. Mukta Nivelkar"></div>
+            <div class="speaker-body">
+              <h4>Dr. Mukta Nivelkar</h4>
+              <span class="speaker-role">Assistant Professor</span>
+              <span class="speaker-org">FCRIT</span>
+              <a class="profile-link" href="https://vjti.ac.in/mukta-nivelkar/" target="_blank" rel="noopener noreferrer">Profile</a>
+            </div>
+          </article>
+          <article class="spk speaker-profile reveal" style="--d:.32s">
+            <div class="avatar"><img src="assets/speakers/aswath-babu.jpg" alt="Aswath Babu H"></div>
+            <div class="speaker-body">
+              <h4>Aswath Babu H</h4>
+              <span class="speaker-role">Assistant Professor</span>
+              <span class="speaker-org">IIIT Dharwad</span>
+              <p class="speaker-tag">Quantum Optics &amp; Quantum Information Theory</p>
+              <a class="profile-link" href="https://scholar.google.com/citations?hl=en&amp;user=JabJyiQAAAAJ" target="_blank" rel="noopener noreferrer">Profile</a>
+            </div>
+          </article>
+          <article class="spk speaker-profile reveal" style="--d:.40s">
+            <div class="avatar"><img src="assets/speakers/jay-shah.jpg" alt="Jay Shah"></div>
+            <div class="speaker-body">
+              <h4>Jay Shah</h4>
+              <span class="speaker-role">Senior Quantum Machine Learning Engineer</span>
+              <span class="speaker-org">BosonQ Psi (BQP)</span>
+              <p class="speaker-tag">Quantum Machine Learning</p>
+              <a class="profile-link" href="https://www.linkedin.com/in/jay-shah-qml/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+          </article>
         </div>
       </div>
       <div class="speaker-group workshop-group">
